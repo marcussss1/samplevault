@@ -19,6 +19,17 @@ jobs:
       - name: Push docker-compose images to registry
         run: docker push marcussss/simplevault:$(echo ${{ github.sha }} | cut -c -7)
 
+      - name: Copy configs
+        uses: easingthemes/ssh-deploy@v4.1.8
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.KEY }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          REMOTE_HOST: ${{ secrets.HOST }}
+          SOURCE: |
+            deployment.yml
+            service.yml
+          TARGET: /home/ubuntu/
+
   stop-old-start-new:
     needs: build-n-push
     runs-on: ubuntu-latest
