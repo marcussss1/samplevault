@@ -25,10 +25,17 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.KEY }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           REMOTE_HOST: ${{ secrets.HOST }}
-          SOURCE: |
-            deployment.yml
-            service.yml
-          TARGET: /home/ubuntu/
+          SOURCE: deployment.yml
+          TARGET: /home/ubuntu/.deployment.yml
+
+      - name: Copy configs
+        uses: easingthemes/ssh-deploy@v4.1.8
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.KEY }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          REMOTE_HOST: ${{ secrets.HOST }}
+          SOURCE: service.yml
+          TARGET: /home/ubuntu/.service.yml
 
   stop-old-start-new:
     needs: build-n-push
