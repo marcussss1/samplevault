@@ -12,7 +12,7 @@ func main() {
 		AllowCredentials: false,
 	}))
 
-	e.GET("/", func(ctx echo.Context) error {
+	e.GET("/api", func(ctx echo.Context) error {
 		return ctx.JSON(http.StatusOK, struct {
 			Message string `json:"message"`
 		}{
