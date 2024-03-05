@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-app
-          image: marcussss/simplevault:latest
+          image: marcussss/simplevault:3c9bbb5
           ports:
             - containerPort: 8000
   strategy:

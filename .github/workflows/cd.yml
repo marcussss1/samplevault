@@ -48,6 +48,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
-            eval $(minikube docker-env)
             kubectl apply -f deployment.yml
             kubectl apply -f service.yml
