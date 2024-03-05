@@ -6,14 +6,14 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: my-app
+      app: samplevault
   template:
     metadata:
       labels:
-        app: my-app
+        app: samplevault
     spec:
       containers:
-        - name: my-app
+        - name: samplevault
           image: marcussss/simplevault:3c9bbb5
           ports:
             - containerPort: 8000
