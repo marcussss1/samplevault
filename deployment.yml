@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: samplevault
-          image: marcussss/simplevault:3c9bbb5
+          image: marcussss/simplevault:f589725
           ports:
             - containerPort: 8000
   strategy:

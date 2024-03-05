@@ -37,15 +37,6 @@ jobs:
           SOURCE: service.yml
           TARGET: /home/ubuntu/service.yml
 
-      - name: Copy configs
-        uses: easingthemes/ssh-deploy@v4.1.8
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.KEY }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          REMOTE_HOST: ${{ secrets.HOST }}
-          SOURCE: ingress.yml
-          TARGET: /home/ubuntu/ingress.yml
-
   stop-old-start-new:
     needs: build-n-push
     runs-on: ubuntu-latest
