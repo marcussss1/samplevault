@@ -1,60 +1,11 @@
-##apiVersion: v1
-##kind: Service
-##metadata:
-##  name: my-service
-##spec:
-##  type: LoadBalancer
-##  ports:
-##    - port: 8000
-##      targetPort: 8000
-##  selector:
-##    app: my-app
-#
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: samplevault
-#spec:
-#  selector:
-#    app: samplevault
-#  ports:
-#    - protocol: TCP
-#      port: 80
-#      targetPort: 80
-#
-#
-##apiVersion: v1
-##kind: Service
-##metadata:
-##  name: samplevault
-##  labels:
-##    app.kubernetes.io/name: samplevault
-##    app.kubernetes.io/component: web
-##spec:
-##  type: ClusterIP
-##  ports:
-##    - port: 80
-##      targetPort: http
-##      protocol: TCP
-##      name: http
-##  selector:
-##    app.kubernetes.io/name: samplevault
-##    app.kubernetes.io/component: web
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: ktswebinar
-  labels:
-    app.kubernetes.io/name: ktswebinar
-    app.kubernetes.io/component: web
+  name: samplevault
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
-    - port: 80
-      targetPort: http
-      protocol: TCP
-      name: http
+    - port: 8000
+      targetPort: 8000
   selector:
-    app.kubernetes.io/name: ktswebinar
-    app.kubernetes.io/component: web
+    app: samplevault
