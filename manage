@@ -2,5 +2,5 @@
 
 build() {
 	version="$1"
-	docker build -t "marcussss/simplevault:$version" -f "Dockerfile" .
+	docker build -t "marcussss/simplevault:latest" -f "Dockerfile" .
 }

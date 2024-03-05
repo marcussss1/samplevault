@@ -11,18 +11,18 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build app
-        run: . manage && build $(echo ${{ github.sha }} | cut -c -7)
+        run: . manage && build
 
       - name: Log in dockerhub
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-      - name: Update deployment image version
-        run: bash update_deployment.sh
-        env:
-          GITHUB_SHA: ${{ github.sha }}
+#      - name: Update deployment image version
+#        run: bash update_deployment.sh
+#        env:
+#          GITHUB_SHA: ${{ github.sha }}
 
       - name: Push docker-compose images to registry
-        run: docker push marcussss/simplevault:$(echo ${{ github.sha }} | cut -c -7)
+        run: docker push marcussss/simplevault:latest
 
   stop-old-start-new:
     needs: build-n-push
