@@ -1,24 +1,51 @@
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: samplevault
+#spec:
+#  replicas: 3
+#  selector:
+#    matchLabels:
+#      app: samplevault
+#  template:
+#    metadata:
+#      labels:
+#        app: samplevault
+#    spec:
+#      containers:
+#        - name: samplevault
+#          image: marcussss/simplevault:3c9bbb5
+#          ports:
+#            - containerPort: 8000
+#  strategy:
+#    type: RollingUpdate
+#    rollingUpdate:
+#      maxUnavailable: 0
+#      maxSurge: 1
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
+  name: ktswebinar
+  labels:
+    app.kubernetes.io/name: ktswebinar
+    app.kubernetes.io/component: web
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: samplevault
+      app.kubernetes.io/name: ktswebinar
+      app.kubernetes.io/component: web
   template:
     metadata:
       labels:
-        app: samplevault
+        app.kubernetes.io/name: ktswebinar
+        app.kubernetes.io/component: web
     spec:
       containers:
-        - name: samplevault
+        - name: ktswebinar
           image: marcussss/simplevault:3c9bbb5
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1
+              name: http

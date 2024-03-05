@@ -1,11 +1,53 @@
+##apiVersion: networking.k8s.io/v1
+##kind: Ingress
+##metadata:
+##  name: samplevault
+##  labels:
+##    app.kubernetes.io/name: samplevault
+##    app.kubernetes.io/component: web
+##spec:
+##  rules:
+##    - host: samplevault.ru
+##      http:
+##        paths:
+##          - path: /
+##            pathType: Prefix
+##            backend:
+##              service:
+##                name: samplevault
+##                port:
+##                  name: http
+#
+##apiVersion: networking.k8s.io/v1
+##kind: Ingress
+##metadata:
+##  name: samplevault
+##  annotations:
+##    nginx.ingress.kubernetes.io/rewrite-target: /
+##spec:
+##  rules:
+##    - host: samplevault.ru
+##      http:
+##        paths:
+##          - path: /
+##            pathType: Prefix
+##            backend:
+##              service:
+##                name: samplevault
+##                port:
+##                  number: 80
+#
 #apiVersion: networking.k8s.io/v1
 #kind: Ingress
 #metadata:
 #  name: samplevault
-#  labels:
-#    app.kubernetes.io/name: samplevault
-#    app.kubernetes.io/component: web
+#  annotations:
+#    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 #spec:
+#  tls:
+#    - hosts:
+#        - samplevault.ru
+#      secretName: tls-secret
 #  rules:
 #    - host: samplevault.ru
 #      http:
@@ -16,15 +58,20 @@
 #              service:
 #                name: samplevault
 #                port:
-#                  name: http
+#                  number: 80
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: samplevault
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: ktswebinar
+  labels:
+    app.kubernetes.io/name: ktswebinar
+    app.kubernetes.io/component: web
 spec:
+  tls:
+    - hosts:
+        - samplevault.ru
+      secretName: tls-secret
   rules:
     - host: samplevault.ru
       http:
@@ -33,6 +80,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: samplevault
+                name: ktswebinar
                 port:
-                  number: 80
+                  name: http
