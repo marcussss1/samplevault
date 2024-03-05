@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: my-service
 spec:
-  type: NodePort   # Изменяем тип сервиса на NodePort
+  type: LoadBalancer
   ports:
     - port: 8000
       targetPort: 8000
-      nodePort: 30000   # Выбираем порт на уровне узла (NodePort)
   selector:
     app: my-app
