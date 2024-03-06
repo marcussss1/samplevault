@@ -37,3 +37,4 @@ jobs:
             kubectl delete service --all
             kubectl apply -f deployment.yml
             kubectl apply -f service.yml
+#
