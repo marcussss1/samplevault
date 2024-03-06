@@ -32,7 +32,7 @@ jobs:
           script: |
             cd samplevault
             eval $(minikube docker-env)
-            docker build -t "marcussss/samplevault:latest" -f "Dockerfile" .
+            docker build -t "samplevault:latest" -f "Dockerfile" .
             kubectl delete deploy --all
             kubectl delete service --all
             kubectl apply -f deployment.yml
