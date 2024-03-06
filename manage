@@ -1,6 +1,0 @@
-#!/bin/bash
-
-build() {
-	version="$1"
-	docker build -t "marcussss/simplevault:latest" -f "Dockerfile" .
-}

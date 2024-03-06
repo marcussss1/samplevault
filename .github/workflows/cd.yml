@@ -30,6 +30,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
+            docker build -t "samplevault:latest" -f "Dockerfile" .
+            minikube image load samplevault:latest
             kubectl delete deploy --all
             kubectl delete service --all
             kubectl apply -f deployment.yml
