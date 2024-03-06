@@ -15,6 +15,7 @@ spec:
       containers:
         - name: samplevault
           image: samplevault:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 8000
   strategy:

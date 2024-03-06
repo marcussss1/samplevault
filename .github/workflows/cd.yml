@@ -31,9 +31,10 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd samplevault
-            docker build -t "samplevault:latest" -f "Dockerfile" .
-            minikube image load samplevault:latest
+            eval $(minikube docker-env)
+            docker build -t "marcussss/samplevault:latest" -f "Dockerfile" .
             kubectl delete deploy --all
             kubectl delete service --all
             kubectl apply -f deployment.yml
             kubectl apply -f service.yml
+            eval $(minikube docker-env -u)
