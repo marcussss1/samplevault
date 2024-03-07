@@ -39,9 +39,8 @@ jobs:
             kubectl apply -f service.yml
             eval $(minikube docker-env -u)
             export BACKEND_URL=$(minikube service samplevault --url)
-            echo "BACKEND_URL=$BACKEND_URL" > env_vars
+            echo "BACKEND_URL=$BACKEND_URL" > env_pars
             source env_vars
-            sed -i 's/\${BACKEND_URL}/\\${BACKEND_URL}/g' /etc/nginx/template/default
             envsubst < /etc/nginx/template/default > /tmp/nginx_updated.conf
             sudo cp /tmp/nginx_updated.conf /etc/nginx/sites-enabled/default
             sudo systemctl restart nginx
