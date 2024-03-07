@@ -37,6 +37,7 @@ jobs:
             kubectl delete service --all
             kubectl apply -f deployment.yml
             kubectl apply -f service.yml
+            sleep 10 
             eval $(minikube docker-env -u)
             export BACKEND_URL=$(minikube service samplevault --url)
             echo "BACKEND_URL=$BACKEND_URL" > env_pars
