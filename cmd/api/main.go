@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"net/http"
@@ -15,6 +16,7 @@ func main() {
 	}))
 
 	e.GET("/api/v1", func(ctx echo.Context) error {
+		fmt.Println("VERSION 1 REQUEST")
 		return ctx.JSON(http.StatusOK, struct {
 			Message string `json:"message"`
 		}{
@@ -23,6 +25,7 @@ func main() {
 	})
 
 	e.GET("/api/v2", func(ctx echo.Context) error {
+		fmt.Println("VERSION 2 REQUEST")
 		return ctx.JSON(http.StatusOK, struct {
 			Message string `json:"message"`
 		}{
