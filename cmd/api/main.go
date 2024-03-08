@@ -14,19 +14,19 @@ func main() {
 		AllowCredentials: false,
 	}))
 
-	e.GET("/", func(ctx echo.Context) error {
+	e.GET("/api/v1", func(ctx echo.Context) error {
 		return ctx.JSON(http.StatusOK, struct {
 			Message string `json:"message"`
 		}{
-			Message: "/ HANDLE",
+			Message: "VERSION 1 HANDLE",
 		})
 	})
 
-	e.GET("/api", func(ctx echo.Context) error {
+	e.GET("/api/v2", func(ctx echo.Context) error {
 		return ctx.JSON(http.StatusOK, struct {
 			Message string `json:"message"`
 		}{
-			Message: "API HANDLE",
+			Message: "VERSION 2 HANDLE",
 		})
 	})
 
