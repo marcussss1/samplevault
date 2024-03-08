@@ -1,16 +1,35 @@
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: samplevault-ingress
+#spec:
+#  rules:
+#    - host: samplevault.ru
+#      http:
+#        paths:
+#          - path: /
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: samplevault
+#                port:
+#                  number: 8000
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: samplevault-ingress
+  name: example-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-    - host: samplevault.ru
+    - host: samplevault-service.info
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: samplevault
+                name: web
                 port:
                   number: 8000
