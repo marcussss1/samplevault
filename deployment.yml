@@ -1,25 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: samplevault
+  name: my-app-deployment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: samplevault
+      app: my-app
   template:
     metadata:
       labels:
-        app: samplevault
+        app: my-app
     spec:
       containers:
-        - name: samplevault
-          image: samplevault:latest
-          imagePullPolicy: Never
+        - name: my-app-container
+          image: my-app-image:v2
           ports:
-            - containerPort: 8000
+            - containerPort: 8080
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 0
-      maxSurge: 1
