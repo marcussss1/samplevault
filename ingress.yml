@@ -9,13 +9,6 @@ spec:
     - host: backend-service
       http:
         paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: samplevault
-                port:
-                  number: 8000
           - path: /api
             pathType: Prefix
             backend:
