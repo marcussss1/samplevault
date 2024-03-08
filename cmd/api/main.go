@@ -18,7 +18,7 @@ func main() {
 		return ctx.JSON(http.StatusOK, struct {
 			Message string `json:"message"`
 		}{
-			Message: "SIMPLE VAULT VERSION 228",
+			Message: "SIMPLE VAULT VERSION 230",
 		})
 	})
 
