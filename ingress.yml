@@ -30,6 +30,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: web
+                name: samplevault
                 port:
                   number: 8000
