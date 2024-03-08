@@ -35,6 +35,7 @@ jobs:
             docker build -t "samplevault:latest" -f "Dockerfile" .
             kubectl apply -f deployment.yml
             kubectl apply -f service.yml
+            kubectl apply -f ingress.yml
             eval $(minikube docker-env -u)
             export BACKEND_URL=$(minikube service samplevault --url)
             echo "BACKEND_URL=$BACKEND_URL" > env_vars
