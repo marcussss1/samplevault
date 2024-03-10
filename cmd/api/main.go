@@ -27,12 +27,13 @@ func main() {
 	defer conn.Close()
 
 	e.GET("/api/v1", func(ctx echo.Context) error {
-		resp, err := conn.Select("tarantool", "primary", 0, 1, tarantool.IterEq, []interface{}{3})
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		fmt.Println(resp.Data)
+		//resp, err := conn.Select("tarantool", "primary", 0, 1, tarantool.IterEq, []interface{}{3})
+		//if err != nil {
+		//	log.Fatal(err)
+		//}
+		//
+		//fmt.Println(resp.Data)
+		log.Fatal(1)
 
 		fmt.Println("VERSION 1 REQUEST")
 		return ctx.JSON(http.StatusOK, struct {
