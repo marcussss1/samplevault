@@ -1,19 +1,20 @@
 box.cfg {
     listen = 3301,
-    vinyl_dir = '/var/lib/tarantool/data',
+    vinyl_dir = '/var/lib/tarantool',
     wal_mode = 'none',
+    vinyl = true,
 }
 
-vinyl.storage.engine = "vinyl"
-
-box.once('vinyl_checkpoint_config', function()
-    vinyl.checkpoints_path = '/var/lib/tarantool/checkpoints'
-    vinyl.checkpoint_count = 3
-end)
-
-box.cfg {
-    wal_dir = '/var/lib/tarantool/wal'
-}
+--vinyl.storage.engine = "vinyl"
+--
+--box.once('vinyl_checkpoint_config', function()
+--    vinyl.checkpoints_path = '/var/lib/tarantool/checkpoints'
+--    vinyl.checkpoint_count = 3
+--end)
+--
+--box.cfg {
+--    wal_dir = '/var/lib/tarantool/wal'
+--}
 
 
 

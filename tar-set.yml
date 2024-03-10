@@ -74,11 +74,7 @@ spec:
               name: bin
           volumeMounts:
             - name: data
-              mountPath: /var/lib/tarantool/data
-            - name: checkpoints
-              mountPath: /var/lib/tarantool/checkpoints
-            - name: wal
-              mountPath: /var/lib/tarantool/wal
+              mountPath: /var/lib/tarantool
             - name: app
               mountPath: /opt/tarantool/app.lua
               subPath: app.lua
@@ -89,20 +85,6 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: data
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 10Mi
-    - metadata:
-        name: checkpoints
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 10Mi
-    - metadata:
-        name: wal
       spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
