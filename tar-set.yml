@@ -1,23 +1,92 @@
+#apiVersion: apps/v1
+#kind: StatefulSet
+#metadata:
+#  name: tarantool-statefulset
+#spec:
+#  serviceName: tarantool
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: tarantool
+#  template:
+#    metadata:
+#      labels:
+#        app: tarantool
+#    spec:
+#      containers:
+#        - name: samplevault-tarantool
+#          image: samplevault-tarantool:latest
+#          imagePullPolicy: Never
+#          volumeMounts:
+#            - name: data
+#              mountPath: /tmp/tarantool
+#          args: ["tarantool", "/home/ubuntu/samplevault/app.lua"]
+#  volumeClaimTemplates:
+#    - metadata:
+#        name: data
+#      spec:
+#        accessModes: [ "ReadWriteOnce" ]
+#        resources:
+#          requests:
+#            storage: 10Mi
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: tarantool
+  labels:
+    app: tarantool
+spec:
+  ports:
+    - port: 3301
+      name: bin
+  clusterIP: None
+  selector:
+    app: tarantool
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: tarantool-statefulset
+  name: tarantool
 spec:
-  serviceName: tarantool
-  replicas: 1
   selector:
     matchLabels:
       app: tarantool
+  serviceName: "tarantool"
+  replicas: 1
   template:
     metadata:
       labels:
         app: tarantool
     spec:
+      terminationGracePeriodSeconds: 10
       containers:
-        - name: samplevault-tarantool
-          image: samplevault-tarantool:latest
-          imagePullPolicy: Never
+        - name: tarantool
+          image: tarantool/tarantool:2.10.8
+          env:
+            - name: "TARANTOOL_INSTANCE_NAME"
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          args: ["tarantool", "/opt/tarantool/app.lua"]
+          ports:
+            - containerPort: 3301
+              name: bin
           volumeMounts:
-            - name: tarantool-pv
-              mountPath: /tmp/tarantool
-          args: [ "tarantool", "/home/ubuntu/samplevault/app.lua" ]
+            - name: data
+              mountPath: /var/lib/tarantool
+            - name: app
+              mountPath: /opt/tarantool/app.lua
+              subPath: app.lua
+      volumes:
+        - name: app
+          configMap:
+            name: app
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Mi
