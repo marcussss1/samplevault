@@ -16,6 +16,6 @@ go build -tags go_tarantool_ssl_disable,go_tarantool_call_17 -o /bin/server ./cm
 EXPOSE 8000
 
 FROM scratch AS server
-RUN apk --no-cache add bash
+RUN apk update && apk add bash
 COPY --from=build-server /bin/server /bin/
 ENTRYPOINT [ "/bin/server" ]
