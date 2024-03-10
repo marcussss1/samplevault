@@ -20,7 +20,7 @@ jobs:
           TARGET: /home/ubuntu/samplevault
 
   start-new-service:
-    needs: build-n-push
+    needs: copy-repository
     runs-on: ubuntu-latest
     steps:
       - name: Connect to server via SSH
