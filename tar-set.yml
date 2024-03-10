@@ -18,14 +18,6 @@ spec:
           image: samplevault-tarantool:latest
           imagePullPolicy: Never
           volumeMounts:
-            - name: data
+            - name: tarantool-pv
               mountPath: /tmp/tarantool
-          args: ["tarantool", "/home/ubuntu/samplevault/app.lua"]
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 10Mi
+          args: [ "tarantool", "/home/ubuntu/samplevault/app.lua" ]

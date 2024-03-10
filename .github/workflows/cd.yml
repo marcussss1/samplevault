@@ -41,5 +41,6 @@ jobs:
             kubectl apply -f deployment.yml
             kubectl apply -f service.yml
             kubectl apply -f ingress.yml
+            kubectl apply -f volume.yml
             kubectl apply -f tar-set.yml
             eval $(minikube docker-env -u)
