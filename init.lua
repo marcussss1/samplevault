@@ -42,3 +42,9 @@ print('Database initialized')
 --print('Ready 5')
 --
 --box.space.bands:select { 3 }
+
+--kubectl delete statefulset --all
+--kubectl delete cm --all
+
+--kubectl create cm --from-file app.lua app
+--kubectl apply -f tar-set.yml

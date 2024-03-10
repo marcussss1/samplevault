@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tarantool
+spec:
+  rules:
+    - host: backend-tarantool
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tarantool
+                port:
+                  number: 3301

@@ -24,7 +24,7 @@ spec:
               value: "tarantool"
             - name: "TARANTOOL_DATABASE"
               value: "tarantool"
-          args: ["tarantool", "/opt/tarantool/app.lua"]
+          args: ["tarantool", "/opt/tarantool/init.lua"]
           ports:
             - containerPort: 3301
               name: bin
@@ -32,8 +32,8 @@ spec:
             - name: data
               mountPath: /var/lib/tarantool
             - name: app
-              mountPath: /opt/tarantool/app.lua
-              subPath: app.lua
+              mountPath: /opt/tarantool/init.lua
+              subPath: init.lua
       volumes:
         - name: app
           configMap:

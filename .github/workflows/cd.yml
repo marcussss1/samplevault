@@ -36,12 +36,8 @@ jobs:
             kubectl delete deploy --all
             kubectl delete service --all
             kubectl delete ingress --all
-            kubectl delete statefulset --all
-            kubectl delete cm --all
             minikube addons enable ingress
             kubectl apply -f deployment.yml
             kubectl apply -f service.yml
             kubectl apply -f ingress.yml
-            kubectl create cm --from-file app.lua app
-            kubectl apply -f tar-set.yml
             eval $(minikube docker-env -u)
