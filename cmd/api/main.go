@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/tarantool/go-tarantool"
 	"net/http"
 )
 
@@ -15,34 +16,34 @@ func main() {
 		AllowCredentials: false,
 	}))
 
-	//conn, err := tarantool.Connect("tarantool-0.tarantool.default.svc.cluster.local:3301", tarantool.Opts{
-	//	User: "tarantool",
-	//	Pass: "tarantool",
-	//})
-	//if err != nil {
-	//	fmt.Println("connect ", err)
-	//	return
-	//}
-	//defer conn.Close()
+	conn, err := tarantool.Connect("tarantool://tarantool:3301", tarantool.Opts{
+		User: "tarantool",
+		Pass: "tarantool",
+	})
+	if err != nil {
+		fmt.Println("connect ", err)
+		return
+	}
+	defer conn.Close()
 
 	fmt.Println("CONNECT SUCCESS")
 
-	//_, err = conn.Ping()
-	//if err != nil {
-	//	fmt.Println("ping  ", err)
-	//	return
-	//}
+	_, err = conn.Ping()
+	if err != nil {
+		fmt.Println("ping  ", err)
+		return
+	}
 
 	fmt.Println("PING SUCCESS")
 
 	e.GET("/api/v1", func(ctx echo.Context) error {
-		//resp, err := conn.Select("tarantool", "primary", 0, 1, tarantool.IterEq, []interface{}{3})
-		//if err != nil {
-		//	fmt.Println(err)
-		//	return err
-		//}
-		//
-		//fmt.Println(resp)
+		resp, err := conn.Select("tarantool", "primary", 0, 1, tarantool.IterEq, []interface{}{3})
+		if err != nil {
+			fmt.Println(err)
+			return err
+		}
+
+		fmt.Println(resp)
 		fmt.Println("VERSION 2 REQUEST")
 
 		return ctx.JSON(http.StatusOK, struct {
