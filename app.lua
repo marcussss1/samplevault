@@ -1,3 +1,8 @@
+box.cfg {
+    listen = 3301,
+    vinyl_dir = '/var/lib/tarantool',
+}
+
 local instance_name = os.environ()["TARANTOOL_INSTANCE_NAME"]
 local instances = {
     ["tarantool-0"] = {
@@ -14,3 +19,17 @@ assert(instance_name)
 assert(instances[instance_name])
 
 box.cfg(instances[instance_name])
+
+box.schema.space.create('bands')
+
+box.space.bands:format({
+    { name = 'id', type = 'unsigned' },
+    { name = 'band_name', type = 'string' },
+    { name = 'year', type = 'unsigned' }
+})
+
+box.space.bands:create_index('primary', { type = "tree", parts = { 'id' } })
+
+box.space.bands:insert { 1, 'Roxette', 1986 }
+box.space.bands:insert { 2, 'Scorpions', 1965 }
+box.space.bands:insert { 3, 'Ace of Base', 1987 }
