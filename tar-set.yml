@@ -20,6 +20,8 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/lib/tarantool
+          ports:
+            - containerPort: 3301
           command: ["tarantool", "/home/ubuntu/samplevault/tar.lua"]
   volumeClaimTemplates:
     - metadata:
