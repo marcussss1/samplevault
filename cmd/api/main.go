@@ -61,5 +61,7 @@ func main() {
 		return ctx.NoContent(http.StatusOK)
 	})
 
+	// TODO COPY [/bin/bash] DOCKERFILE
+
 	e.Logger.Fatal(e.Start(":8000"))
 }
