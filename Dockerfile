@@ -2,8 +2,6 @@
 FROM golang:1.21.4-alpine AS base
 WORKDIR /src
 COPY . .
-RUN go get -u all
-RUN go mod tidy
 RUN --mount=type=cache,target=/go/pkg/mod/ \
 --mount=type=bind,source=go.sum,target=go.sum \
 --mount=type=bind,source=go.mod,target=go.mod \
@@ -18,5 +16,6 @@ go build -tags go_tarantool_ssl_disable,go_tarantool_call_17 -o /bin/server ./cm
 EXPOSE 8000
 
 FROM scratch AS server
+RUN apk --no-cache add bash
 COPY --from=build-server /bin/server /bin/
 ENTRYPOINT [ "/bin/server" ]

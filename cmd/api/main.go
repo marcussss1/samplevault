@@ -16,27 +16,27 @@ func main() {
 		AllowCredentials: false,
 	}))
 
+	conn, err := tarantool.Connect("tarantool-0.tarantool.default.svc.cluster.local:3301", tarantool.Opts{
+		User: "tarantool",
+		Pass: "tarantool",
+	})
+	if err != nil {
+		fmt.Println("connect ", err)
+		return
+	}
+	defer conn.Close()
+
+	fmt.Println("CONNECT SUCCESS")
+
+	_, err = conn.Ping()
+	if err != nil {
+		fmt.Println("ping  ", err)
+		return
+	}
+
+	fmt.Println("PING SUCCESS")
+
 	e.GET("/api/v1", func(ctx echo.Context) error {
-		conn, err := tarantool.Connect("tarantool-0.tarantool.default.svc.cluster.local:3301", tarantool.Opts{
-			User: "tarantool",
-			Pass: "tarantool",
-		})
-		if err != nil {
-			fmt.Println("connect ", err)
-			return err
-		}
-		defer conn.Close()
-
-		fmt.Println("CONNECT SUCCESS")
-
-		_, err = conn.Ping()
-		if err != nil {
-			fmt.Println("ping  ", err)
-			return err
-		}
-
-		fmt.Println("PING SUCCESS")
-
 		resp, err := conn.Select("tarantool", "primary", 0, 1, tarantool.IterEq, []interface{}{3})
 		if err != nil {
 			fmt.Println(err)
