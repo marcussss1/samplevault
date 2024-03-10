@@ -17,15 +17,6 @@ func main() {
 		AllowCredentials: false,
 	}))
 
-	e.GET("/api/v1", func(ctx echo.Context) error {
-		fmt.Println("VERSION 1 REQUEST")
-		return ctx.JSON(http.StatusOK, struct {
-			Message string `json:"message"`
-		}{
-			Message: "VERSION 1 HANDLE",
-		})
-	})
-
 	conn, err := tarantool.Connect("tarantool-0.tarantool.default.svc.cluster.local:3301", tarantool.Opts{
 		User: "tarantool",
 		Pass: "tarantool",
@@ -34,6 +25,22 @@ func main() {
 		log.Fatal("Connection refused")
 	}
 	defer conn.Close()
+
+	e.GET("/api/v1", func(ctx echo.Context) error {
+		resp, err := conn.Select("tarantool", "primary", 0, 1, tarantool.IterEq, []interface{}{3})
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Println(resp.Data)
+
+		fmt.Println("VERSION 1 REQUEST")
+		return ctx.JSON(http.StatusOK, struct {
+			Message string `json:"message"`
+		}{
+			Message: "VERSION 1 HANDLE",
+		})
+	})
 
 	e.Logger.Fatal(e.Start(":8000"))
 }
