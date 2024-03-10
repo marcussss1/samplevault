@@ -77,9 +77,9 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /tmp/tarantool
-#            - name: app
-#              mountPath: /opt/tarantool/app.lua
-#              subPath: app.lua
+            - name: app
+              mountPath: /opt/tarantool/app.lua
+              subPath: app.lua
 #      volumes:
 #        - name: app
 #          configMap:
