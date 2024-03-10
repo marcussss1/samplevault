@@ -16,7 +16,7 @@ func main() {
 		AllowCredentials: false,
 	}))
 
-	conn, err := tarantool.Connect("tarantool://tarantool:3301", tarantool.Opts{
+	conn, err := tarantool.Connect("tarantool:3301", tarantool.Opts{
 		User: "tarantool",
 		Pass: "tarantool",
 	})

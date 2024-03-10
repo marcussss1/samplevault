@@ -7,8 +7,6 @@ RUN --mount=type=cache,target=/go/pkg/mod/ \
 --mount=type=bind,source=go.mod,target=go.mod \
 go mod download -x
 
-RUN apk add --no-cache bash
-
 FROM base AS build-server
 RUN --mount=type=cache,target=/go/pkg/mod/ \
 --mount=type=bind,target=. \
@@ -18,4 +16,5 @@ EXPOSE 8000
 
 FROM scratch AS server
 COPY --from=build-server /bin/server /bin/
+# TODO COPY /BIN/SH
 ENTRYPOINT [ "/bin/server" ]
