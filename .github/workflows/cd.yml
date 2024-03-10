@@ -36,6 +36,8 @@ jobs:
             kubectl delete deploy --all
             kubectl delete service --all
             kubectl delete ingress --all
+            kubectl delete cm --all
+            kubectl delete statefulset --all
             minikube addons enable ingress
             kubectl apply -f deployment.yml
             kubectl apply -f service.yml
