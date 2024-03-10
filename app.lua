@@ -10,14 +10,9 @@ box.cfg {
     checkpoint_interval = 60,
 }
 
--- Create a user with the provided credentials
 box.schema.user.create(user, { password = password, if_not_exists = true })
-
--- Create the specified database
 box.schema.create_space(database, { if_not_exists = true })
-
--- Grant privileges for the user on the database
-box.schema.user.grant(user, 'read,write,execute', 'universe', nil, { if_not_exists = true })
+box.schema.user.grant(user,'read,write,execute,create,drop','universe',{ if_not_exists = true })
 
 -- Print confirmation message
 print('Database initialized')
