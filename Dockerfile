@@ -13,10 +13,10 @@ go mod download -x
 FROM base AS build-server
 RUN --mount=type=cache,target=/go/pkg/mod/ \
 --mount=type=bind,target=. \
-go build -o /bin/server ./cmd/api
+go build -tags go_tarantool_ssl_disable,go_tarantool_call_17 -o /bin/server ./cmd/api
 
 EXPOSE 8000
 
 FROM scratch AS server
 COPY --from=build-server /bin/server /bin/
-ENTRYPOINT [ "/bin/server", "-tags", "go_tarantool_ssl_disable" ]
+ENTRYPOINT [ "/bin/server" ]

@@ -16,7 +16,9 @@ require (
 	github.com/mattn/go-pointer v0.0.1 // indirect
 	github.com/spacemonkeygo/spacelog v0.0.0-20180420211403-2296661a0572 // indirect
 	github.com/stretchr/testify v1.9.0 // indirect
+	github.com/tarantool/go-iproto v1.0.0 // indirect
 	github.com/tarantool/go-openssl v1.0.0 // indirect
+	github.com/tarantool/go-tarantool/v2 v2.1.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
