@@ -74,7 +74,11 @@ spec:
               name: bin
           volumeMounts:
             - name: data
-              mountPath: /var/lib/tarantool
+              mountPath: /var/lib/tarantool/data
+            - name: checkpoints
+              mountPath: /var/lib/tarantool/checkpoints
+            - name: wal
+              mountPath: /var/lib/tarantool/wal
             - name: app
               mountPath: /opt/tarantool/app.lua
               subPath: app.lua
