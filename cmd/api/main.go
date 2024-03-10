@@ -53,5 +53,13 @@ func main() {
 		})
 	})
 
+	e.GET("/api/v1/health", func(ctx echo.Context) error {
+		return ctx.NoContent(http.StatusOK)
+	})
+
+	e.GET("/api/v1/read", func(ctx echo.Context) error {
+		return ctx.NoContent(http.StatusOK)
+	})
+
 	e.Logger.Fatal(e.Start(":8000"))
 }

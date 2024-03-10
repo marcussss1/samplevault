@@ -18,6 +18,18 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /api/v1/read
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
   strategy:
     type: RollingUpdate
     rollingUpdate:
