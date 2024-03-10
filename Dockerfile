@@ -7,6 +7,8 @@ RUN --mount=type=cache,target=/go/pkg/mod/ \
 --mount=type=bind,source=go.mod,target=go.mod \
 go mod download -x
 
+#RUN #apk add --no-cache bash
+
 FROM base AS build-server
 RUN --mount=type=cache,target=/go/pkg/mod/ \
 --mount=type=bind,target=. \

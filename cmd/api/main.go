@@ -37,7 +37,7 @@ func main() {
 	fmt.Println("PING SUCCESS")
 
 	e.GET("/api/v1", func(ctx echo.Context) error {
-		resp, err := conn.Select("tarantool", "primary", 0, 1, tarantool.IterEq, []interface{}{3})
+		resp, err := conn.Select("bands", "primary", 0, 1, tarantool.IterEq, []interface{}{3})
 		if err != nil {
 			fmt.Println(err)
 			return err
