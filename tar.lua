@@ -1,5 +1,6 @@
 box.cfg {
-    vinyl_dir = '/var/lib/tarantool',
+    listen = 3301,
+    vinyl_dir = '/tmp/tarantool',
 }
 
 box.schema.space.create('my_space', {if_not_exists = true})

@@ -19,7 +19,7 @@ spec:
           imagePullPolicy: Never
           volumeMounts:
             - name: data
-              mountPath: /var/lib/tarantool
+              mountPath: /tmp/tarantool
           ports:
             - containerPort: 3301
           command: ["tarantool", "/home/ubuntu/samplevault/tar.lua"]
