@@ -35,7 +35,7 @@ func main() {
 		//fmt.Println(resp.Data)
 		log.Fatal(1)
 
-		fmt.Println("VERSION 1 REQUEST")
+		fmt.Println("VERSION 2 REQUEST")
 		return ctx.JSON(http.StatusOK, struct {
 			Message string `json:"message"`
 		}{
