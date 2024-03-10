@@ -5,9 +5,9 @@ local database = os.getenv("TARANTOOL_DATABASE")
 box.cfg {
     listen = 3301,
     vinyl_dir = '/var/lib/tarantool',
-    wal_mode = 'write',
-    checkpoint_count = 5,
-    checkpoint_interval = 60,
+    --wal_mode = 'write',
+    --checkpoint_count = 5,
+    --checkpoint_interval = 60,
 }
 
 box.schema.user.create(user, { password = password, if_not_exists = true })
