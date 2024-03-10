@@ -14,12 +14,15 @@ spec:
         app: tarantool
     spec:
       containers:
-        - name: tarantool-container
-          image: tarantool/tarantool:2.10.8
+        - name: samplevault-tarantool
+          image: samplevault-tarantool:latest
+          imagePullPolicy: Never
           volumeMounts:
             - name: data
               mountPath: /var/lib/tarantool
-          command: ["tarantool", "/home/ubuntu/samplevault/tar.lua"]
+          ports:
+            - containerPort: 3301
+          command: ["tarantool", "tar.lua"]
   volumeClaimTemplates:
     - metadata:
         name: data

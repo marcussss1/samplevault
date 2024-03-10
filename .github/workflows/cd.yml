@@ -33,6 +33,7 @@ jobs:
             cd samplevault
             eval $(minikube docker-env)
             docker build -t "samplevault:latest" -f "Dockerfile" .
+            docker build -t "samplevault-tarantool:latest" -f "tarantool.Dockerfile" .
             kubectl delete deploy --all
             kubectl delete service --all
             kubectl delete ingress --all
