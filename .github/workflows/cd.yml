@@ -42,6 +42,6 @@ jobs:
             kubectl apply -f deployment.yml
             kubectl apply -f service.yml
             kubectl apply -f ingress.yml
-            kubectl create cm --from-file app.lua app
+#            kubectl create cm --from-file app.lua app
             kubectl apply -f tar-set.yml
             eval $(minikube docker-env -u)

@@ -16,3 +16,5 @@ box.cfg {
 --box.space.bands:insert { 1, 'Roxette', 1986 }
 --box.space.bands:insert { 2, 'Scorpions', 1965 }
 --box.space.bands:insert { 3, 'Ace of Base', 1987 }
+
+--box.space.bands:select { 3 }
