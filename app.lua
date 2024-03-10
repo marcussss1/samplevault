@@ -3,7 +3,7 @@ box.cfg {
     vinyl_dir = '/var/lib/tarantool',
 }
 
-box.schema.space.create('bands')
+box.schema.space.create('bands', {if_not_exists = true})
 
 box.space.bands:format({
     { name = 'id', type = 'unsigned' },
