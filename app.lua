@@ -4,7 +4,6 @@ box.cfg {
     wal_mode = 'none',
 }
 
-vinyl.storage.conf()
 vinyl.storage.engine = "vinyl"
 
 box.once('vinyl_checkpoint_config', function()
