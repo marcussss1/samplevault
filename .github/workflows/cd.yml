@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  build-n-push:
+  copy-repository:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,7 +19,7 @@ jobs:
           SOURCE: .
           TARGET: /home/ubuntu/samplevault
 
-  stop-old-start-new:
+  start-new-service:
     needs: build-n-push
     runs-on: ubuntu-latest
     steps:
@@ -30,4 +30,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
+            cd samplevault
             make start

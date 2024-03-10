@@ -1,5 +1,4 @@
 start: |
-	cd samplevault
 	eval $(minikube docker-env)
 	docker build -t "samplevault:latest" -f "Dockerfile" .
 	kubectl delete deploy samplevault
