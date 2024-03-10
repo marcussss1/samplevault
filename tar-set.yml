@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tarantool-statefulset
+spec:
+  serviceName: tarantool
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tarantool
+  template:
+    metadata:
+      labels:
+        app: tarantool
+    spec:
+      containers:
+        - name: tarantool-container
+          image: tarantool/tarantool:2.10.8
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/tarantool
+          command: ["tarantool", "/home/ubuntu/samplevault/tar.lua"]
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Mi
