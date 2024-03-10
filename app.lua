@@ -1,11 +1,27 @@
---box.cfg {
---    listen = 3301,
---    vinyl_dir = '/var/lib/tarantool',
---    wal_mode = 'write',
---    checkpoint_count = 5,
---    checkpoint_interval = 60,
---}
---
+local user = os.getenv("TARANTOOL_USER")
+local password = os.getenv("TARANTOOL_PASSWORD")
+local database = os.getenv("TARANTOOL_DATABASE")
+
+box.cfg {
+    listen = 3301,
+    vinyl_dir = '/var/lib/tarantool',
+    wal_mode = 'write',
+    checkpoint_count = 5,
+    checkpoint_interval = 60,
+}
+
+-- Create a user with the provided credentials
+box.schema.user.create(user, { password = password, if_not_exists = true })
+
+-- Create the specified database
+box.schema.create_space(database, { if_not_exists = true })
+
+-- Grant privileges for the user on the database
+box.schema.user.grant(user, 'read,write,execute', 'universe', nil, { if_not_exists = true })
+
+-- Print confirmation message
+print('Database initialized')
+
 --print('Ready 1')
 --
 --box.schema.space.create('bands', { engine = 'vinyl' })
@@ -29,3 +45,5 @@
 --box.space.bands:insert { 3, 'Ace of Base', 1987 }
 --
 --print('Ready 5')
+--
+--box.space.bands:select { 3 }
