@@ -94,3 +94,17 @@ spec:
         resources:
           requests:
             storage: 10Mi
+    - metadata:
+        name: checkpoints
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Mi
+    - metadata:
+        name: wal
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Mi
