@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM golang:1.21-alpine AS base
+FROM golang:1.21.4-alpine AS base
 WORKDIR /src
 COPY . .
 RUN go get -u all
