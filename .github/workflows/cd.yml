@@ -33,9 +33,9 @@ jobs:
             cd samplevault
             eval $(minikube docker-env)
             docker build -t "samplevault:latest" -f "Dockerfile" .
-            kubectl delete deploy --all
-            kubectl delete service --all
-            kubectl delete ingress --all
+            kubectl delete deploy samplevault
+            kubectl delete service samplevault
+            kubectl delete ingress samplevault
             minikube addons enable ingress
             kubectl apply -f deployment.yml
             kubectl apply -f service.yml
