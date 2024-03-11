@@ -10,7 +10,7 @@ import (
 
 func main() {
 	fmt.Println()
-	fmt.Println("VERSION 4 APP")
+	fmt.Println("VERSION 5 APP")
 	fmt.Println()
 
 	e := echo.New()
