@@ -19,7 +19,7 @@ jobs:
           SOURCE: .
           TARGET: /home/ubuntu/samplevault
 
-  start-new-service:
+  update-app-version:
     needs: copy-repository
     runs-on: ubuntu-latest
     steps:

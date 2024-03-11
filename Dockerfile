@@ -17,3 +17,5 @@ EXPOSE 8000
 FROM scratch AS server
 COPY --from=build-server /bin/server /bin/
 ENTRYPOINT [ "/bin/server" ]
+
+RUN rm -rf /src
