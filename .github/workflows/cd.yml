@@ -31,4 +31,5 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd samplevault
+            make generate_image_version
             make start

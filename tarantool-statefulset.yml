@@ -28,6 +28,13 @@ spec:
           ports:
             - containerPort: 3301
               name: bin
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
           volumeMounts:
             - name: data
               mountPath: /var/lib/tarantool

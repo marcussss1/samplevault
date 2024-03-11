@@ -9,6 +9,10 @@ import (
 )
 
 func main() {
+	fmt.Println()
+	fmt.Println("VERSION 3 APP")
+	fmt.Println()
+
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins:     []string{"*"},
@@ -44,7 +48,7 @@ func main() {
 		}
 
 		fmt.Println(resp)
-		fmt.Println("VERSION 2 REQUEST")
+		fmt.Println("VERSION 3 REQUEST")
 
 		return ctx.JSON(http.StatusOK, struct {
 			Message string `json:"message"`
