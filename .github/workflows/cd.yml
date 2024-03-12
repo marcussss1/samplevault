@@ -31,4 +31,8 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd samplevault
+            kubectl create secret generic tarantool-secrets \
+            --from-literal=TARANTOOL_USER=${{ secrets.TARANTOOL_USER }} \
+            --from-literal=TARANTOOL_PASSWORD=${{ secrets.TARANTOOL_PASSWORD }} \
+            --from-literal=TARANTOOL_DATABASE=${{ secrets.TARANTOOL_DATABASE }}
             bash update_pods.sh

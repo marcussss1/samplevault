@@ -19,11 +19,20 @@ spec:
           image: tarantool/tarantool:2.10.8
           env:
             - name: "TARANTOOL_USER"
-              value: "tarantool"
+              valueFrom:
+                secretKeyRef:
+                  name: tarantool-secrets
+                  key: TARANTOOL_USER
             - name: "TARANTOOL_PASSWORD"
-              value: "tarantool"
+              valueFrom:
+                secretKeyRef:
+                  name: tarantool-secrets
+                  key: TARANTOOL_PASSWORD
             - name: "TARANTOOL_DATABASE"
-              value: "tarantool"
+              valueFrom:
+                secretKeyRef:
+                  name: tarantool-secrets
+                  key: TARANTOOL_DATABASE
           args: ["tarantool", "/opt/tarantool/init.lua"]
           ports:
             - containerPort: 3301
