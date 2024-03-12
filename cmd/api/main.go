@@ -2,16 +2,29 @@ package main
 
 import (
 	"fmt"
+	"github.com/caarlos0/env/v6"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/tarantool/go-tarantool"
 	"net/http"
 )
 
+type config struct {
+	TarantoolDSN      string `env:"TARANTOOL_DSN,required"`
+	TarantoolUser     string `env:"TARANTOOL_USER,required"`
+	TarantoolPassword string `env:"TARANTOOL_PASSWORD,required"`
+}
+
 func main() {
 	fmt.Println()
 	fmt.Println("VERSION 5 APP")
 	fmt.Println()
+
+	var cfg config
+	if err := env.Parse(&cfg); err != nil {
+		fmt.Println("parse ", err)
+		return
+	}
 
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
@@ -20,9 +33,9 @@ func main() {
 		AllowCredentials: false,
 	}))
 
-	conn, err := tarantool.Connect("tarantool:3301", tarantool.Opts{
-		User: "tarantool",
-		Pass: "tarantool",
+	conn, err := tarantool.Connect(cfg.TarantoolDSN, tarantool.Opts{
+		User: cfg.TarantoolUser,
+		Pass: cfg.TarantoolPassword,
 	})
 	if err != nil {
 		fmt.Println("connect ", err)

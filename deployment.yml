@@ -12,8 +12,25 @@ spec:
       labels:
         app: samplevault
     spec:
+      terminationGracePeriodSeconds: 10
       containers:
         - name: samplevault
+          env:
+            - name: "TARANTOOL_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: tarantool-secrets
+                  key: TARANTOOL_USER
+            - name: "TARANTOOL_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: tarantool-secrets
+                  key: TARANTOOL_PASSWORD
+            - name: "TARANTOOL_DSN"
+              valueFrom:
+                secretKeyRef:
+                  name: tarantool-secrets
+                  key: TARANTOOL_DSN
           image: samplevault:latest
           imagePullPolicy: Never
           ports:
