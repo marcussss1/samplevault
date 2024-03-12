@@ -9,10 +9,11 @@ import (
 	"net/http"
 )
 
+// TODO без дефолта
 type config struct {
-	TarantoolDSN      string `env:"TARANTOOL_DSN,required"`
-	TarantoolUser     string `env:"TARANTOOL_USER,required"`
-	TarantoolPassword string `env:"TARANTOOL_PASSWORD,required"`
+	TarantoolDSN      string `env:"TARANTOOL_DSN,required" envDefault:"tarantool:3301"`
+	TarantoolUser     string `env:"TARANTOOL_USER,required" envDefault:"tarantool"`
+	TarantoolPassword string `env:"TARANTOOL_PASSWORD,required" envDefault:"tarantool"`
 }
 
 func main() {
