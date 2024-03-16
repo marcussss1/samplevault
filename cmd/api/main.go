@@ -106,7 +106,7 @@ func main() {
 	//	log.Fatal(err)
 	//}
 
-	e.POST("/api/v1/samples/generate", func(ctx echo.Context) error {
+	e.GET("/api/v1/samples/generate", func(ctx echo.Context) error {
 		//var samples []Sample
 		//
 		//err := conn.SelectTyped(
@@ -146,7 +146,7 @@ func main() {
 		return ctx.Stream(http.StatusOK, "audio/mpeg", objectReader)
 	})
 
-	e.POST("/api/v1/samples/download", func(ctx echo.Context) error {
+	e.GET("/api/v1/samples/download", func(ctx echo.Context) error {
 		objectReader, err := minioClient.GetObject(context.Background(), "samples", "sample.mp3", minio.GetObjectOptions{})
 		if err != nil {
 			return err
