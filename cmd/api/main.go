@@ -100,7 +100,7 @@ func main() {
 		})
 	})
 
-	e.POST("/api/v1/generate", func(ctx echo.Context) error {
+	e.POST("/api/v1/samples/generate", func(ctx echo.Context) error {
 		file, err := os.Open("/home/ubuntu/samplevault/sample.mp3")
 		if err != nil {
 			return err
