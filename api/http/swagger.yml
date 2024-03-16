@@ -1,0 +1,193 @@
+openapi: 3.0.0
+info:
+  title: samplevault
+  description: |
+    ### Samplevault
+  version: 0.0.1
+servers:
+  - url: https://samplevault.ru
+    description: prod
+tags:
+  - name: samples
+    description: Операции с сэмплами
+paths:
+  /api/v1/samples:
+    get:
+      description: Получение всех сэмплов пользователя
+      tags:
+        - samples
+      summary: Получение всех сэмплов пользователя
+      operationId: GetAllSamples
+
+      responses:
+        200:
+          $ref: "#/components/responses/GetAllSamples"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/samples/download:
+    get:
+      description: Скачать сэмпл с сервиса
+      tags:
+        - samples
+      operationId: DownloadSample
+
+      responses:
+        200:
+          $ref: "#/components/responses/DownloadSample"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/samples/generate:
+    get:
+      description: Сгенерировать сэмпл
+      tags:
+        - samples
+      operationId: GenerateSample
+
+      responses:
+        200:
+          $ref: "#/components/responses/DownloadSample"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/samples/upload:
+    post:
+      description: Загрузить сэмпл на сервис
+      tags:
+        - samples
+      operationId: UploadSample
+      requestBody:
+        required: true
+        content:
+          audio/mpeg:
+            schema:
+              type: string
+              format: binary
+              description: Бинарник
+
+      responses:
+        200:
+          $ref: "#/components/responses/DownloadSample"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+security:
+  - session: [ ] # везде необходима сессионная кука
+
+components:
+
+  securitySchemes:
+    session:
+      type: apiKey
+      in: cookie
+      name: session_id
+      description: Идентификатор сессии
+
+  parameters:
+
+    SampleID:
+      name: sample_id
+      in: path
+      description: Идентификатор сэмпла
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: "a2802d62-b006-4949-8fa0-07328bd26719"
+
+  responses:
+
+    GetAllSamples:
+      description: Все сэмплы пользователя
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Sample"
+
+    UploadSample:
+      description: Бинарник сэмпла
+      content:
+        audio/mpeg:
+          schema:
+            type: string
+            format: binary
+            description: Бинарник
+
+    GenerateSample:
+      description: Бинарник сэмпла
+      content:
+        audio/mpeg:
+          schema:
+            type: string
+            format: binary
+            description: Бинарник
+
+    DownloadSample:
+      description: Бинарник сэмпла
+      content:
+        audio/mpeg:
+          schema:
+            type: string
+            format: binary
+            description: Бинарник
+
+    InternalServerError:
+      description: Внутренняя ошибка сервера
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                enum: [ "internal error" ]
+
+  schemas:
+
+    Sample:
+      description: Сэмпл
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор сэмпла
+          example: "a2802d62-b006-4949-8fa0-07328bd26719"
+        author_id:
+          type: string
+          format: uuid
+          description: Идентификатор владельца сэмпла
+          example: "2af278fb-72b3-4ff2-bce6-d078cac6e89b"
+        audio_url:
+          type: string
+          format: url
+          description: Ссылка на аудиозапись сэмпла
+          example: "https://samples/sample.mp3"
+        icon_url:
+          type: string
+          format: url
+          description: Ссылка на иконку сэмпла
+          example: "https://icons/sample.jpg"
+        title:
+          type: string
+          description: Название сэмпла
+          example: "Electronic"
+        duration:
+          # TODO мэйби time
+          type: string
+          description: Длительность сэмпла
+          example: "0:03"
+        musical_instrument:
+          type: string
+          description: Музыкальный инструмент сэмпла
+          example: "Kick"
+        genre:
+          type: string
+          description: Жанр сэмпла
+          example: "Hip Hop"
+        is_favourite:
+          type: boolean
+          description: Является ли сэмпл избранным
+        # TODO в базе хранить created_at для недавно сгенерированных
