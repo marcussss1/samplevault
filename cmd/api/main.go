@@ -1,14 +1,17 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"github.com/caarlos0/env/v6"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/minio/minio-go/v7"
+	"github.com/minio/minio-go/v7/pkg/credentials"
 	"github.com/tarantool/go-tarantool"
 	"io"
+	"log"
 	"net/http"
-	"os"
 )
 
 // TODO без дефолта
@@ -87,40 +90,106 @@ func main() {
 		return ctx.JSON(http.StatusOK, samples)
 	})
 
-	e.POST("/api/v1/samples/generate", func(ctx echo.Context) error {
-		var samples []Sample
+	endpoint := "minio:9000"
+	accessKey := "your_access_key"
+	secretKey := "your_secret_key"
 
-		err := conn.SelectTyped(
-			"samples",
-			"primary",
-			0, 2,
-			tarantool.IterEq,
-			tarantool.StringKey{"a2802d62-b006-4949-8fa0-07328bd26719"},
-			&samples,
-		)
+	minioClient, err := minio.New(endpoint, &minio.Options{
+		Creds:  credentials.NewStaticV4(accessKey, secretKey, ""),
+		Secure: false,
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	// Create bucket
+	err = minioClient.MakeBucket(context.Background(), "samples", minio.MakeBucketOptions{})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	e.POST("/api/v1/samples/generate", func(ctx echo.Context) error {
+		//var samples []Sample
+		//
+		//err := conn.SelectTyped(
+		//	"samples",
+		//	"primary",
+		//	0, 2,
+		//	tarantool.IterEq,
+		//	tarantool.StringKey{"a2802d62-b006-4949-8fa0-07328bd26719"},
+		//	&samples,
+		//)
+		//if err != nil {
+		//	return err
+		//}
+		//
+		//return ctx.JSON(http.StatusOK, samples)
+		objectReader, err := minioClient.GetObject(context.Background(), "samples", "sample.mp3", minio.GetObjectOptions{})
 		if err != nil {
 			return err
 		}
+		defer objectReader.Close()
 
-		return ctx.JSON(http.StatusOK, samples)
+		// Отправляем содержимое файла по HTTP клиенту
+		ctx.Response().Header().Set(echo.HeaderContentType, "application/octet-stream")
+		ctx.Response().Header().Set(echo.HeaderContentDisposition, fmt.Sprintf("attachment; filename=%s", "sample.mp3"))
+
+		if _, err := io.Copy(ctx.Response().Writer, objectReader); err != nil {
+			return err
+		}
+
+		return ctx.JSON(http.StatusOK, "ok")
+	})
+
+	e.POST("/api/v1/samples/download", func(ctx echo.Context) error {
+		objectReader, err := minioClient.GetObject(context.Background(), "samples", "sample.mp3", minio.GetObjectOptions{})
+		if err != nil {
+			return err
+		}
+		defer objectReader.Close()
+
+		// Отправляем содержимое файла по HTTP клиенту
+		ctx.Response().Header().Set(echo.HeaderContentType, "application/octet-stream")
+		ctx.Response().Header().Set(echo.HeaderContentDisposition, fmt.Sprintf("attachment; filename=%s", "sample.mp3"))
+
+		if _, err := io.Copy(ctx.Response().Writer, objectReader); err != nil {
+			return err
+		}
+
+		return ctx.JSON(http.StatusOK, "ok")
+		//return ctx.(http.StatusOK)
+		//file, err := ctx.FormFile("file")
+		//if err != nil {
+		//	return err
+		//}
+		//
+		//src, err := file.Open()
+		//if err != nil {
+		//	return err
+		//}
+		//defer src.Close()
+		//
+		//_, err = minioClient.PutObject(context.Background(), "samples", file.Filename, src, file.Size, minio.PutObjectOptions{})
+		//if err != nil {
+		//	return err
+		//}
+		//
+		//return ctx.NoContent(http.StatusOK)
 	})
 
 	e.POST("/api/v1/samples/upload", func(ctx echo.Context) error {
-		file, _, err := ctx.Request().FormFile("file")
+		file, err := ctx.FormFile("file")
 		if err != nil {
 			return err
 		}
-		defer file.Close()
 
-		// Создаем новый файл на диске
-		out, err := os.Create("a.mp3")
+		src, err := file.Open()
 		if err != nil {
 			return err
 		}
-		defer out.Close()
+		defer src.Close()
 
-		// Копируем содержимое файла в созданный файл на диске
-		_, err = io.Copy(out, file)
+		_, err = minioClient.PutObject(context.Background(), "samples", "sample.mp3", src, file.Size, minio.PutObjectOptions{})
 		if err != nil {
 			return err
 		}
