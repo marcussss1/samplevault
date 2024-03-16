@@ -9,7 +9,6 @@ import (
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 	"github.com/tarantool/go-tarantool"
-	"io"
 	"net/http"
 )
 
@@ -123,21 +122,28 @@ func main() {
 		//}
 		//
 		//return ctx.JSON(http.StatusOK, samples)
+		//objectReader, err := minioClient.GetObject(context.Background(), "samples", "sample.mp3", minio.GetObjectOptions{})
+		//if err != nil {
+		//	return err
+		//}
+		//defer objectReader.Close()
+		//
+		//// Отправляем содержимое файла по HTTP клиенту
+		//ctx.Response().Header().Set(echo.HeaderContentType, "application/octet-stream")
+		//ctx.Response().Header().Set(echo.HeaderContentDisposition, fmt.Sprintf("attachment; filename=%s", "sample.mp3"))
+		//
+		//if _, err := io.Copy(ctx.Response().Writer, objectReader); err != nil {
+		//	return err
+		//}
+		//
+		//return ctx.JSON(http.StatusOK, "ok")
 		objectReader, err := minioClient.GetObject(context.Background(), "samples", "sample.mp3", minio.GetObjectOptions{})
 		if err != nil {
 			return err
 		}
 		defer objectReader.Close()
 
-		// Отправляем содержимое файла по HTTP клиенту
-		ctx.Response().Header().Set(echo.HeaderContentType, "application/octet-stream")
-		ctx.Response().Header().Set(echo.HeaderContentDisposition, fmt.Sprintf("attachment; filename=%s", "sample.mp3"))
-
-		if _, err := io.Copy(ctx.Response().Writer, objectReader); err != nil {
-			return err
-		}
-
-		return ctx.JSON(http.StatusOK, "ok")
+		return ctx.Stream(http.StatusOK, "audio/mp3", objectReader)
 	})
 
 	e.POST("/api/v1/samples/download", func(ctx echo.Context) error {
@@ -147,15 +153,16 @@ func main() {
 		}
 		defer objectReader.Close()
 
-		// Отправляем содержимое файла по HTTP клиенту
-		ctx.Response().Header().Set(echo.HeaderContentType, "application/octet-stream")
-		ctx.Response().Header().Set(echo.HeaderContentDisposition, fmt.Sprintf("attachment; filename=%s", "sample.mp3"))
-
-		if _, err := io.Copy(ctx.Response().Writer, objectReader); err != nil {
-			return err
-		}
-
-		return ctx.JSON(http.StatusOK, "ok")
+		return ctx.Stream(http.StatusOK, "audio/mp3", objectReader)
+		//// Отправляем содержимое файла по HTTP клиенту
+		//ctx.Response().Header().Set(echo.HeaderContentType, "application/octet-stream")
+		//ctx.Response().Header().Set(echo.HeaderContentDisposition, fmt.Sprintf("attachment; filename=%s", "sample.mp3"))
+		//
+		//if _, err := io.Copy(ctx.Response().Writer, objectReader); err != nil {
+		//	return err
+		//}
+		//
+		//return ctx.JSON(http.StatusOK, "ok")
 		//return ctx.(http.StatusOK)
 		//file, err := ctx.FormFile("file")
 		//if err != nil {
