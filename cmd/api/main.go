@@ -10,7 +10,6 @@ import (
 	"github.com/minio/minio-go/v7/pkg/credentials"
 	"github.com/tarantool/go-tarantool"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 )
@@ -156,32 +155,45 @@ func main() {
 		}
 		defer objectReader.Close()
 
-		// Создаем временный файл на диске
-		tempFile, err := ioutil.TempFile("", "sample.mp3")
-		if err != nil {
-			return err
-		}
-		defer tempFile.Close()
-
-		// Копируем содержимое объекта из Minio во временный файл на диске
-		_, err = io.Copy(tempFile, objectReader)
-		if err != nil {
-			return err
-		}
-
-		// Открываем временный файл для чтения
-		file, err := os.Open(tempFile.Name())
+		file, err := os.Create("sample.mp3")
 		if err != nil {
 			return err
 		}
 		defer file.Close()
 
-		// Устанавливаем заголовки для отправки файла
-		ctx.Response().Header().Set(echo.HeaderContentDisposition, "attachment; filename=sample.mp3")
-		ctx.Response().Header().Set(echo.HeaderContentType, "audio/mpeg")
+		_, err = io.Copy(file, objectReader)
+		if err != nil {
+			return err
+		}
 
-		// Отправляем файл в ответ
-		return ctx.Stream(http.StatusOK, "audio/mpeg", file)
+		return ctx.File("sample.mp3")
+
+		//// Создаем временный файл на диске
+		//tempFile, err := ioutil.TempFile("", "sample.mp3")
+		//if err != nil {
+		//	return err
+		//}
+		//defer tempFile.Close()
+		//
+		//// Копируем содержимое объекта из Minio во временный файл на диске
+		//_, err = io.Copy(tempFile, objectReader)
+		//if err != nil {
+		//	return err
+		//}
+		//
+		//// Открываем временный файл для чтения
+		//file, err := os.Open(tempFile.Name())
+		//if err != nil {
+		//	return err
+		//}
+		//defer file.Close()
+		//
+		//// Устанавливаем заголовки для отправки файла
+		//ctx.Response().Header().Set(echo.HeaderContentDisposition, "attachment; filename=sample.mp3")
+		//ctx.Response().Header().Set(echo.HeaderContentType, "audio/mpeg")
+		//
+		//// Отправляем файл в ответ
+		//return ctx.Stream(http.StatusOK, "audio/mpeg", file)
 
 		//return ctx.Stream(http.StatusOK, "audio/mpeg", objectReader)
 	})
