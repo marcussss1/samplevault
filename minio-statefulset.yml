@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minio
+spec:
+  serviceName: minio
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: minio
+          image: minio/minio:latest
+          env:
+            - name: MINIO_ACCESS_KEY
+              value: "your_access_key"
+            - name: MINIO_SECRET_KEY
+              value: "your_secret_key"
+#            - name: MINIO_REGION
+#              value: "ru-central1"
+#            - name: MINIO_BROWSER
+#              value: "on"
+          args:
+            - server
+            - /data
+            - --address=:9000
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - name: minio-data
+              mountPath: /data
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+  volumeClaimTemplates:
+    - metadata:
+        name: minio-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "standard"
+        resources:
+          requests:
+            storage: 10Mi
