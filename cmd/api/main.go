@@ -7,7 +7,9 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/tarantool/go-tarantool"
+	"io"
 	"net/http"
+	"os"
 )
 
 // TODO без дефолта
@@ -69,21 +71,79 @@ func main() {
 	fmt.Println("PING SUCCESS")
 
 	e.GET("/api/v1/samples", func(ctx echo.Context) error {
-		var samples []Sample
+		//var samples []Sample
+		//
+		//err := conn.SelectTyped(
+		//	"samples",
+		//	"primary",
+		//	0, 2,
+		//	tarantool.IterEq,
+		//	tarantool.StringKey{"a2802d62-b006-4949-8fa0-07328bd26719"},
+		//	&samples,
+		//)
+		//if err != nil {
+		//	return err
+		//}
 
-		err := conn.SelectTyped(
-			"samples",
-			"primary",
-			0, 2,
-			tarantool.IterEq,
-			tarantool.StringKey{"a2802d62-b006-4949-8fa0-07328bd26719"},
-			&samples,
-		)
+		return ctx.JSON(http.StatusOK, []Sample{
+			{
+				ID:                uuid.MustParse("a2802d62-b006-4949-8fa0-07328bd26719"),
+				AuthorID:          uuid.MustParse("a2802d62-b006-4949-8fa0-07328bd26719"),
+				AudioURL:          "Ссылка на аудио",
+				IconURL:           "Ссылка на иконку",
+				Title:             "Название сэмпла",
+				Duration:          "Длительность",
+				MusicalInstrument: "Kick",
+				Genre:             "Hip Hop",
+				IsFavourite:       false,
+			},
+		})
+	})
+
+	e.POST("/api/v1/generate", func(ctx echo.Context) error {
+		file, err := os.Open("/home/ubuntu/samplevault/sample.mp3")
+		if err != nil {
+			return err
+		}
+		defer file.Close()
+
+		ctx.Response().Header().Set(echo.HeaderContentType, "audio/mpeg")
+
+		// Отправляем файл клиенту
+		_, err = io.Copy(ctx.Response().Writer, file)
 		if err != nil {
 			return err
 		}
 
-		return ctx.JSON(http.StatusOK, samples)
+		return ctx.NoContent(http.StatusOK)
+
+		//var samples []Sample
+		//
+		//err := conn.SelectTyped(
+		//	"samples",
+		//	"primary",
+		//	0, 2,
+		//	tarantool.IterEq,
+		//	tarantool.StringKey{"a2802d62-b006-4949-8fa0-07328bd26719"},
+		//	&samples,
+		//)
+		//if err != nil {
+		//	return err
+		//}
+
+		//return ctx.JSON(http.StatusOK, []Sample{
+		//	{
+		//		ID:                uuid.MustParse("a2802d62-b006-4949-8fa0-07328bd26719"),
+		//		AuthorID:          uuid.MustParse("a2802d62-b006-4949-8fa0-07328bd26719"),
+		//		AudioURL:          "Ссылка на аудио",
+		//		IconURL:           "Ссылка на иконку",
+		//		Title:             "Название сэмпла",
+		//		Duration:          "Длительность",
+		//		MusicalInstrument: "Kick",
+		//		Genre:             "Hip Hop",
+		//		IsFavourite:       false,
+		//	},
+		//})
 	})
 	//return samples, nil
 
