@@ -2,7 +2,6 @@
 FROM golang:1.21.4-alpine AS base
 WORKDIR /src
 COPY . .
-COPY sample.mp3 /tmp/sample.mp3
 RUN --mount=type=cache,target=/go/pkg/mod/ \
 --mount=type=bind,source=go.sum,target=go.sum \
 --mount=type=bind,source=go.mod,target=go.mod \
