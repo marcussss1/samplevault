@@ -6,8 +6,7 @@ import (
 )
 
 func (c Controller) UploadSample(ctx echo.Context) error {
-	maxSize := int64(64 << 20)
-	err := ctx.Request().ParseMultipartForm(maxSize)
+	err := ctx.Request().ParseMultipartForm(5 * 1024 * 1024)
 	if err != nil {
 		return err
 	}
