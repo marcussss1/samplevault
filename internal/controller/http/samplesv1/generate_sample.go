@@ -2,8 +2,7 @@ package samplesv1
 
 import (
 	"github.com/labstack/echo/v4"
-	"io"
-	"os"
+	"net/http"
 )
 
 func (c Controller) GenerateSample(ctx echo.Context) error {
@@ -13,16 +12,5 @@ func (c Controller) GenerateSample(ctx echo.Context) error {
 	}
 	defer objectReader.Close()
 
-	file, err := os.Create("sample.mp3")
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	_, err = io.Copy(file, objectReader)
-	if err != nil {
-		return err
-	}
-
-	return ctx.File("sample.mp3")
+	return ctx.Stream(http.StatusOK, "audio/mpeg", objectReader)
 }
