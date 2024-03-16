@@ -143,7 +143,7 @@ func main() {
 		}
 		defer objectReader.Close()
 
-		return ctx.Stream(http.StatusOK, "audio/mp3", objectReader)
+		return ctx.Stream(http.StatusOK, "audio/mpeg", objectReader)
 	})
 
 	e.POST("/api/v1/samples/download", func(ctx echo.Context) error {
@@ -153,7 +153,7 @@ func main() {
 		}
 		defer objectReader.Close()
 
-		return ctx.Stream(http.StatusOK, "audio/mp3", objectReader)
+		return ctx.Stream(http.StatusOK, "audio/mpeg", objectReader)
 		//// Отправляем содержимое файла по HTTP клиенту
 		//ctx.Response().Header().Set(echo.HeaderContentType, "application/octet-stream")
 		//ctx.Response().Header().Set(echo.HeaderContentDisposition, fmt.Sprintf("attachment; filename=%s", "sample.mp3"))
