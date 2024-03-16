@@ -46,6 +46,7 @@ func main() {
 		AllowMethods:     []string{"GET"},
 		AllowCredentials: false,
 	}))
+	e.Use(middleware.Logger())
 
 	conn, err := tarantool.Connect(cfg.TarantoolDSN, tarantool.Opts{
 		User: cfg.TarantoolUser,
