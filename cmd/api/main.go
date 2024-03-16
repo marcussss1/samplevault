@@ -10,7 +10,6 @@ import (
 	"github.com/minio/minio-go/v7/pkg/credentials"
 	"github.com/tarantool/go-tarantool"
 	"io"
-	"log"
 	"net/http"
 )
 
@@ -103,10 +102,10 @@ func main() {
 	}
 
 	// Create bucket
-	err = minioClient.MakeBucket(context.Background(), "samples", minio.MakeBucketOptions{})
-	if err != nil {
-		log.Fatal(err)
-	}
+	//err = minioClient.MakeBucket(context.Background(), "samples", minio.MakeBucketOptions{})
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
 
 	e.POST("/api/v1/samples/generate", func(ctx echo.Context) error {
 		//var samples []Sample
@@ -178,18 +177,28 @@ func main() {
 	})
 
 	e.POST("/api/v1/samples/upload", func(ctx echo.Context) error {
-		file, err := ctx.FormFile("file")
+		//file, err := ctx.FormFile("file")
+		//if err != nil {
+		//	return err
+		//}
+		//
+		//src, err := file.Open()
+		//if err != nil {
+		//	return err
+		//}
+		//defer src.Close()
+		maxSize := int64(64 << 20)
+		err := ctx.Request().ParseMultipartForm(maxSize)
 		if err != nil {
 			return err
 		}
 
-		src, err := file.Open()
+		file, header, err := ctx.Request().FormFile("audio")
 		if err != nil {
 			return err
 		}
-		defer src.Close()
 
-		_, err = minioClient.PutObject(context.Background(), "samples", "sample.mp3", src, file.Size, minio.PutObjectOptions{})
+		_, err = minioClient.PutObject(context.Background(), "samples", "sample.mp3", file, header.Size, minio.PutObjectOptions{})
 		if err != nil {
 			return err
 		}
