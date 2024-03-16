@@ -88,50 +88,91 @@ func main() {
 	})
 
 	e.POST("/api/v1/samples/generate", func(ctx echo.Context) error {
-		file, err := os.Open("/tmp/sample.mp3")
+		var samples []Sample
+
+		err := conn.SelectTyped(
+			"samples",
+			"primary",
+			0, 2,
+			tarantool.IterEq,
+			tarantool.StringKey{"a2802d62-b006-4949-8fa0-07328bd26719"},
+			&samples,
+		)
+		if err != nil {
+			return err
+		}
+
+		return ctx.JSON(http.StatusOK, samples)
+	})
+
+	e.POST("/api/v1/samples/upload", func(ctx echo.Context) error {
+		file, _, err := ctx.Request().FormFile("file")
 		if err != nil {
 			return err
 		}
 		defer file.Close()
 
-		ctx.Response().Header().Set(echo.HeaderContentType, "audio/mpeg")
+		// Создаем новый файл на диске
+		out, err := os.Create("a.mp3")
+		if err != nil {
+			return err
+		}
+		defer out.Close()
 
-		// Отправляем файл клиенту
-		_, err = io.Copy(ctx.Response().Writer, file)
+		// Копируем содержимое файла в созданный файл на диске
+		_, err = io.Copy(out, file)
 		if err != nil {
 			return err
 		}
 
 		return ctx.NoContent(http.StatusOK)
-
-		//var samples []Sample
-		//
-		//err := conn.SelectTyped(
-		//	"samples",
-		//	"primary",
-		//	0, 2,
-		//	tarantool.IterEq,
-		//	tarantool.StringKey{"a2802d62-b006-4949-8fa0-07328bd26719"},
-		//	&samples,
-		//)
-		//if err != nil {
-		//	return err
-		//}
-
-		//return ctx.JSON(http.StatusOK, []Sample{
-		//	{
-		//		ID:                uuid.MustParse("a2802d62-b006-4949-8fa0-07328bd26719"),
-		//		AuthorID:          uuid.MustParse("a2802d62-b006-4949-8fa0-07328bd26719"),
-		//		AudioURL:          "Ссылка на аудио",
-		//		IconURL:           "Ссылка на иконку",
-		//		Title:             "Название сэмпла",
-		//		Duration:          "Длительность",
-		//		MusicalInstrument: "Kick",
-		//		Genre:             "Hip Hop",
-		//		IsFavourite:       false,
-		//	},
-		//})
 	})
+
+	//e.POST("/api/v1/samples/generate", func(ctx echo.Context) error {
+	//	//file, err := os.Open("/tmp/sample.mp3")
+	//	//if err != nil {
+	//	//	return err
+	//	//}
+	//	//defer file.Close()
+	//	//
+	//	//ctx.Response().Header().Set(echo.HeaderContentType, "audio/mpeg")
+	//	//
+	//	//// Отправляем файл клиенту
+	//	//_, err = io.Copy(ctx.Response().Writer, file)
+	//	//if err != nil {
+	//	//	return err
+	//	//}
+	//	//
+	//	//return ctx.NoContent(http.StatusOK)
+	//
+	//	//var samples []Sample
+	//	//
+	//	//err := conn.SelectTyped(
+	//	//	"samples",
+	//	//	"primary",
+	//	//	0, 2,
+	//	//	tarantool.IterEq,
+	//	//	tarantool.StringKey{"a2802d62-b006-4949-8fa0-07328bd26719"},
+	//	//	&samples,
+	//	//)
+	//	//if err != nil {
+	//	//	return err
+	//	//}
+	//
+	//	//return ctx.JSON(http.StatusOK, []Sample{
+	//	//	{
+	//	//		ID:                uuid.MustParse("a2802d62-b006-4949-8fa0-07328bd26719"),
+	//	//		AuthorID:          uuid.MustParse("a2802d62-b006-4949-8fa0-07328bd26719"),
+	//	//		AudioURL:          "Ссылка на аудио",
+	//	//		IconURL:           "Ссылка на иконку",
+	//	//		Title:             "Название сэмпла",
+	//	//		Duration:          "Длительность",
+	//	//		MusicalInstrument: "Kick",
+	//	//		Genre:             "Hip Hop",
+	//	//		IsFavourite:       false,
+	//	//	},
+	//	//})
+	//})
 	//return samples, nil
 
 	//fmt.Println(resp)
