@@ -2,6 +2,7 @@ package tarantool
 
 import (
 	"context"
+	"fmt"
 	"github.com/marcussss1/simplevault/internal/model"
 	"github.com/tarantool/go-tarantool"
 )
@@ -20,7 +21,7 @@ func (r Repository) GetAllSamples(ctx context.Context, userID string) ([]model.S
 		&samples,
 	)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("get all samples from tarantool storage: %w", err)
 	}
 
 	return samples, nil
