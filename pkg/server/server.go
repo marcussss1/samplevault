@@ -4,6 +4,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	samplescontrollerv1 "github.com/marcussss1/simplevault/internal/controller/http/samplesv1"
+	middleware2 "github.com/marcussss1/simplevault/pkg/middleware"
 	"github.com/marcussss1/simplevault/pkg/router"
 	"strings"
 )
@@ -28,6 +29,7 @@ func NewServer(samplesControllerV1 *samplescontrollerv1.Controller) *Server {
 			return false
 		},
 	}))
+	e.Use(middleware2.Auth)
 	e = router.Route(e, samplesControllerV1)
 
 	return &Server{

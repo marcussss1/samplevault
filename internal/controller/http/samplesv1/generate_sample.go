@@ -7,11 +7,11 @@ import (
 )
 
 func (c Controller) GenerateSample(ctx echo.Context) error {
-	objectReader, err := c.samplesService.GenerateSample(ctx.Request().Context())
+	sampleFile, err := c.samplesService.GenerateSample(ctx.Request().Context())
 	if err != nil {
 		return err
 	}
-	defer objectReader.Close()
+	defer sampleFile.Close()
 
-	return ctx.Stream(http.StatusOK, "audio/mpeg", objectReader)
+	return ctx.Stream(http.StatusOK, "audio/mpeg", sampleFile)
 }

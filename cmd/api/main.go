@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/marcussss1/simplevault/internal/app"
+	"github.com/marcussss1/simplevault/pkg/app"
 	"log"
 )
 

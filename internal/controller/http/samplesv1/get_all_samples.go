@@ -1,13 +1,18 @@
 package samplesv1
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
 
 func (c Controller) GetAllSamples(ctx echo.Context) error {
-	samples, err := c.samplesService.GetAllSamples(ctx.Request().Context(), "a2802d62-b006-4949-8fa0-07328bd26719")
+	sessionID := ctx.Get("session_id").(string)
+
+	fmt.Println(sessionID)
+
+	samples, err := c.samplesService.GetAllSamples(ctx.Request().Context(), sessionID)
 	if err != nil {
 		return err
 	}

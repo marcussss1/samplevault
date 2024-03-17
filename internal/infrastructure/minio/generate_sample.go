@@ -7,9 +7,10 @@ import (
 )
 
 func (r *Repository) GenerateSample(ctx context.Context) (*minio.Object, error) {
-	objectReader, err := r.conn.GetObject(ctx, "samples", "sample"+r.extension, minio.GetObjectOptions{})
+	sampleFile, err := r.conn.GetObject(ctx, "samples", "sample"+r.extension, minio.GetObjectOptions{})
 	if err != nil {
 		return nil, err
 	}
-	return objectReader, nil
+
+	return sampleFile, nil
 }

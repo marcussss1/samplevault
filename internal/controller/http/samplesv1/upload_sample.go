@@ -12,12 +12,12 @@ func (c Controller) UploadSample(ctx echo.Context) error {
 		return err
 	}
 
-	file, header, err := ctx.Request().FormFile("audio")
+	sampleFile, header, err := ctx.Request().FormFile("audio")
 	if err != nil {
 		return err
 	}
 
-	err = c.samplesService.UploadSample(ctx.Request().Context(), file, header)
+	err = c.samplesService.UploadSample(ctx.Request().Context(), sampleFile, header)
 	if err != nil {
 		return err
 	}
