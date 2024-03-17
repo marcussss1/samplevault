@@ -2,6 +2,7 @@ package samples
 
 import (
 	"context"
+
 	"github.com/minio/minio-go/v7"
 )
 

@@ -2,9 +2,10 @@ package minio
 
 import (
 	"context"
-	"github.com/minio/minio-go/v7"
 	"mime/multipart"
 	"path/filepath"
+
+	"github.com/minio/minio-go/v7"
 )
 
 func (r *Repository) UploadSample(ctx context.Context, file multipart.File, header *multipart.FileHeader) error {

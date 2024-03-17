@@ -2,6 +2,7 @@ package samples
 
 import (
 	"context"
+
 	"github.com/marcussss1/simplevault/internal/model"
 )
 

@@ -10,3 +10,7 @@ up_all:
 
 delete_all:
 	minikube delete --all=true --purge=true
+
+lint:
+	smartimports .
+	golangci-lint run -v --color=always --timeout 4m

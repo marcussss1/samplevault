@@ -2,9 +2,10 @@ package samples
 
 import (
 	"context"
+	"mime/multipart"
+
 	"github.com/marcussss1/simplevault/internal/model"
 	"github.com/minio/minio-go/v7"
-	"mime/multipart"
 )
 
 type tarantoolRepository interface {

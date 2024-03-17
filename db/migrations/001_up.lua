@@ -1,22 +1,30 @@
---
---box.schema.space.create('bands', { engine = 'vinyl' })
---
---box.space.bands:format({
---    { name = 'id', type = 'unsigned' },
---    { name = 'band_name', type = 'string' },
---    { name = 'year', type = 'unsigned' }
---})
---
---box.space.bands:create_index('primary', { type = "tree", parts = { 'id' } })
---
---box.space.bands:insert { 1, 'Roxette', 1986 }
---box.space.bands:insert { 2, 'Scorpions', 1965 }
---box.space.bands:insert { 3, 'Ace of Base', 1987 }
---
---box.space.bands:select { 3 }
+box.schema.space.create('samples', { engine = 'vinyl', if_not_exists = true })
+box.space.samples:format({
+    {name = 'id', type = 'string'},
+    {name = 'author_id', type = 'string'},
+    {name = 'audio_url', type = 'string'},
+    {name = 'icon_url', type = 'string'},
+    {name = 'title', type = 'string'},
+    {name = 'duration', type = 'string'},
+    {name = 'musical_instrument', type = 'string'},
+    {name = 'genre', type = 'string'},
+    {name = 'is_favourite', type = 'boolean'}
+})
 
---kubectl delete statefulset --all
---kubectl delete cm --all
+box.space.samples:create_index('primary', {
+    type = 'tree',
+    parts = {'id'},
+    if_not_exists = true
+})
 
---kubectl create cm --from-file app.lua app
---kubectl apply -f tar-set.yml
+box.space.samples:insert{
+    'a2802d62-b006-4949-8fa0-07328bd26719',
+    'a2802d62-b006-4949-8fa0-07328bd26719',
+    'audio_url',
+    'icon_url',
+    'Название сэмпла',
+    'Длительность сэмпла',
+    'Музыкальный инструмент сэмпла',
+    'Жанр сэмпла',
+    true,
+}
