@@ -16,4 +16,5 @@ type minioRepository interface {
 	DownloadSample(ctx context.Context) (*minio.Object, error)
 	GenerateSample(ctx context.Context) (*minio.Object, error)
 	UploadSample(ctx context.Context, file multipart.File, header *multipart.FileHeader) error
+	GetUrl() (string, error)
 }

@@ -1,5 +1,6 @@
 package model
 
+// TODO ссылка с s3 на трек
 type Sample struct {
 	ID                string `json:"id"`
 	AuthorID          string `json:"author_id"`
