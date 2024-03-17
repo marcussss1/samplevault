@@ -14,3 +14,6 @@ delete_all:
 lint:
 	smartimports .
 	golangci-lint run -v --color=always --timeout 4m
+
+clean_cache:
+	docker builder prune
