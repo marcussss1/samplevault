@@ -17,6 +17,8 @@ func (r *Repository) GetUrl() (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("get object from minio storage: %w", err)
 	}
+	url.Scheme = "https"
+	url.Host = "samplevault.ru"
 
 	return url.String(), nil
 }
