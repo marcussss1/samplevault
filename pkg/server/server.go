@@ -15,6 +15,7 @@ type Server struct {
 
 func NewServer(samplesControllerV1 *samplescontrollerv1.Controller) *Server {
 	e := echo.New()
+	e.Use(middleware.Recover())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET", "POST"},

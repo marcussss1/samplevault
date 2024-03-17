@@ -1,6 +1,7 @@
 package minio
 
 import (
+	"fmt"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 )
@@ -11,7 +12,7 @@ func NewClient(cfg Config) (*minio.Client, error) {
 		Secure: false,
 	})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("create minio instance: %w", err)
 	}
 
 	return minioClient, nil
