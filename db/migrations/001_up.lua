@@ -15,7 +15,7 @@ box.space.samples:format({
 
 box.space.samples:create_index('primary', {
     type = 'tree',
-    parts = {'id'},
+    parts = {'author_id'},
     if_not_exists = true
 })
 
