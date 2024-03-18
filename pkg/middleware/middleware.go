@@ -7,7 +7,8 @@ import (
 )
 
 // TODO разумеется временно
-var users map[string]string
+// в тарантуле добавить хранилку сессий
+var users = make(map[string]string)
 
 func hash(input string) string {
 	hash := sha256.New()
