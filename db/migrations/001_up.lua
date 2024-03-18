@@ -4,11 +4,13 @@ box.space.samples:format({
     {name = 'author_id', type = 'string'},
     {name = 'audio_url', type = 'string'},
     {name = 'icon_url', type = 'string'},
+    {name = 'file_name', type = 'string'},
     {name = 'title', type = 'string'},
     {name = 'duration', type = 'string'},
     {name = 'musical_instrument', type = 'string'},
     {name = 'genre', type = 'string'},
-    {name = 'is_favourite', type = 'boolean'}
+    {name = 'is_favourite', type = 'boolean'},
+    {name = 'created_at', type = 'string'}
 })
 
 box.space.samples:create_index('primary', {
@@ -17,14 +19,14 @@ box.space.samples:create_index('primary', {
     if_not_exists = true
 })
 
-box.space.samples:insert{
-    'a2802d62-b006-4949-8fa0-07328bd26719',
-    'a2802d62-b006-4949-8fa0-07328bd26719',
-    'audio_url',
-    'icon_url',
-    'Название сэмпла',
-    'Длительность сэмпла',
-    'Музыкальный инструмент сэмпла',
-    'Жанр сэмпла',
-    true,
-}
+--box.space.samples:insert{
+--    'a2802d62-b006-4949-8fa0-07328bd26719',
+--    'a2802d62-b006-4949-8fa0-07328bd26719',
+--    'audio_url',
+--    'icon_url',
+--    'Название сэмпла',
+--    'Длительность сэмпла',
+--    'Музыкальный инструмент сэмпла',
+--    'Жанр сэмпла',
+--    true,
+--}

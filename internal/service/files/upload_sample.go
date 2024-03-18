@@ -45,6 +45,6 @@ func newSample(url *url.URL, userID, filename string) model.Sample {
 		MusicalInstrument: "default musical instruments",
 		Genre:             "default genre",
 		IsFavourite:       false,
-		CreatedAt:         time.Now(),
+		CreatedAt:         time.Now().String(),
 	}
 }
