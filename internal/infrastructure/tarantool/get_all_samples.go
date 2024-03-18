@@ -11,17 +11,11 @@ import (
 func (r Repository) GetAllSamples(ctx context.Context, userID string) ([]model.Sample, error) {
 	var samples []model.Sample
 
-	err := r.conn.SelectTyped(
-		"samples",
-		"primary",
-		0,
-		10,
-		tarantool.IterEq,
-		tarantool.StringKey{userID},
-		&samples,
+	err := r.conn.SelectTyped("samples", "primary", 0, 10,
+		tarantool.IterEq, tarantool.StringKey{userID}, &samples,
 	)
 	if err != nil {
-		return nil, fmt.Errorf("get all samples from tarantool storage: %w", err)
+		return nil, fmt.Errorf("select samples from tarantool storage: %w", err)
 	}
 
 	return samples, nil

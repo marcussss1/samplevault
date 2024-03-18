@@ -7,8 +7,7 @@ import (
 )
 
 type Repository struct {
-	conn      *minio.Client
-	extension string
+	conn *minio.Client
 }
 
 func NewRepository(conn *minio.Client) (*Repository, error) {

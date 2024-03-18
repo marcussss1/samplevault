@@ -12,8 +12,10 @@ import (
 
 type samplesService interface {
 	GetAllSamples(ctx context.Context, userID string) ([]model.Sample, error)
-	DownloadSample(ctx context.Context) (*minio.Object, error)
+}
+
+type filesService interface {
+	DownloadSample(ctx context.Context, filename string) (*minio.Object, error)
 	GenerateSample(ctx context.Context) (*minio.Object, error)
-	UploadSample(ctx context.Context, file multipart.File, header *multipart.FileHeader) error
-	GetUrl() (string, error)
+	UploadSample(ctx context.Context, file multipart.File, header *multipart.FileHeader, userID string) (model.Sample, error)
 }

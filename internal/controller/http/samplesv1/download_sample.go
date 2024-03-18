@@ -8,7 +8,10 @@ import (
 )
 
 func (c Controller) DownloadSample(ctx echo.Context) error {
-	sampleFile, err := c.samplesService.DownloadSample(ctx.Request().Context())
+	req := ctx.Request()
+	filename := ctx.Param("filename")
+
+	sampleFile, err := c.filesService.DownloadSample(req.Context(), filename)
 	if err != nil {
 		return fmt.Errorf("download sample from samples service: %w", err)
 	}

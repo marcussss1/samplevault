@@ -6,6 +6,7 @@ import (
 	samplescontrollerv1 "github.com/marcussss1/simplevault/internal/controller/http/samplesv1"
 	miniorepository "github.com/marcussss1/simplevault/internal/infrastructure/minio"
 	tarantoolrepository "github.com/marcussss1/simplevault/internal/infrastructure/tarantool"
+	filesservice "github.com/marcussss1/simplevault/internal/service/files"
 	samplesservice "github.com/marcussss1/simplevault/internal/service/samples"
 	"github.com/marcussss1/simplevault/pkg/minio"
 	"github.com/marcussss1/simplevault/pkg/server"
@@ -44,12 +45,17 @@ func Run() error {
 		return fmt.Errorf("%w", err)
 	}
 
-	samplesService, err := samplesservice.NewService(tarantoolRepository, minioRepository)
+	samplesService, err := samplesservice.NewService(tarantoolRepository)
 	if err != nil {
 		return fmt.Errorf("%w", err)
 	}
 
-	samplesControllerV1, err := samplescontrollerv1.NewController(samplesService)
+	filesService, err := filesservice.NewService(minioRepository, tarantoolRepository)
+	if err != nil {
+		return fmt.Errorf("%w", err)
+	}
+
+	samplesControllerV1, err := samplescontrollerv1.NewController(samplesService, filesService)
 	if err != nil {
 		return fmt.Errorf("%w", err)
 	}

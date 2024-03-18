@@ -8,7 +8,7 @@ import (
 )
 
 func (c Controller) GenerateSample(ctx echo.Context) error {
-	sampleFile, err := c.samplesService.GenerateSample(ctx.Request().Context())
+	sampleFile, err := c.filesService.GenerateSample(ctx.Request().Context())
 	if err != nil {
 		return fmt.Errorf("generate sample from samples service: %w", err)
 	}

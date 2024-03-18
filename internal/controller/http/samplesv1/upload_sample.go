@@ -8,20 +8,24 @@ import (
 )
 
 func (c Controller) UploadSample(ctx echo.Context) error {
-	err := ctx.Request().ParseMultipartForm(5 * 1024 * 1024)
+	req := ctx.Request()
+	// TODO Временно, когда появится авторизация нужно поменять логику
+	userID := ctx.Get("session_id").(string)
+
+	err := req.ParseMultipartForm(5 * 1024 * 1024)
 	if err != nil {
 		return fmt.Errorf("parse multipart form: %w", err)
 	}
 
-	sampleFile, header, err := ctx.Request().FormFile("audio")
+	sampleFile, header, err := req.FormFile("audio")
 	if err != nil {
 		return fmt.Errorf("form file: %w", err)
 	}
 
-	err = c.samplesService.UploadSample(ctx.Request().Context(), sampleFile, header)
+	sample, err := c.filesService.UploadSample(req.Context(), sampleFile, header, userID)
 	if err != nil {
 		return fmt.Errorf("upload sample from samples service: %w", err)
 	}
 
-	return ctx.NoContent(http.StatusOK)
+	return ctx.JSON(http.StatusOK, sample)
 }
