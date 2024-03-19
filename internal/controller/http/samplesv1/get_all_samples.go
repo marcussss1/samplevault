@@ -16,6 +16,6 @@ func (c Controller) GetAllSamples(ctx echo.Context) error {
 	if err != nil {
 		return fmt.Errorf("get all samples from samples service: %w", err)
 	}
-
+	fmt.Println("СЭМПЛЫ: ", samples)
 	return ctx.JSON(http.StatusOK, samples)
 }

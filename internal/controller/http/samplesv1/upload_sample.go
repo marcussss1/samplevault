@@ -26,6 +26,6 @@ func (c Controller) UploadSample(ctx echo.Context) error {
 	if err != nil {
 		return fmt.Errorf("upload sample from samples service: %w", err)
 	}
-
+	fmt.Println("ФАЙЛ ЗАГРУЖЕН")
 	return ctx.JSON(http.StatusOK, sample)
 }
