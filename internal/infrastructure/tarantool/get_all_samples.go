@@ -11,7 +11,7 @@ import (
 func (r Repository) GetAllSamples(ctx context.Context, userID string) ([]model.Sample, error) {
 	var samples []model.Sample
 
-	err := r.conn.SelectTyped("samples", "primary", 0, 10,
+	err := r.conn.SelectTyped("samples", "author_id", 0, 10,
 		tarantool.IterEq, tarantool.StringKey{userID}, &samples,
 	)
 	if err != nil {

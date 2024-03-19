@@ -1,4 +1,8 @@
-box.schema.space.create('samples', { engine = 'vinyl', if_not_exists = true })
+box.schema.space.create('samples', {
+    engine = 'vinyl',
+    if_not_exists = true
+})
+
 box.space.samples:format({
     {name = 'id', type = 'string'},
     {name = 'author_id', type = 'string'},
@@ -15,9 +19,44 @@ box.space.samples:format({
 
 box.space.samples:create_index('primary', {
     type = 'tree',
-    parts = {'author_id'},
+    parts = {'id'},
     if_not_exists = true
 })
+
+
+box.space.samples:create_index('author_id',
+{ parts = { { 'author_id' } },
+  unique = false,
+  if_not_exists = true
+})
+
+
+--box.space.samples:create_index('author_id', {
+--    type = 'tree',
+--    parts = {'author_id'},
+--    unique = false,
+--    if_not_exists = true
+--})
+
+--box.schema.space.create('kits', {
+--    engine = 'vinyl',
+--    if_not_exists = true
+--})
+--
+--box.space.kits:format({
+--    {name = 'id', type = 'string'},
+--    {name = 'icon_url', type = 'string'},
+--    {name = 'title', type = 'string'},
+--    {name = 'description', type = 'string'},
+--    {name = 'created_at', type = 'string'},
+--    {name = 'sample_ids', type = 'array'}
+--})
+
+--box.space.kits:create_index('primary', {
+--    type = 'tree',
+--    parts = {'id'},
+--    if_not_exists = true
+--})
 
 --box.space.samples:insert{
 --    'a2802d62-b006-4949-8fa0-07328bd26719',
