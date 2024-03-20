@@ -8,7 +8,7 @@ box.space.sounds:format({
     {name = 'author_id', type = 'string'},
     {name = 'audio_url', type = 'string'},
     {name = 'icon_url', type = 'string'},
-    {name = 'file_name', type = 'file_name'},
+    {name = 'file_name', type = 'string'},
     {name = 'created_at', type = 'string'},
     {name = 'title', type = 'string'},
     {name = 'musical_instrument', type = 'string'},
@@ -27,11 +27,15 @@ box.space.sounds:create_index('primary', {
 
 
 box.space.sounds:create_index('author_id', {
-  type = 'tree',
   parts = { { 'author_id' } },
   unique = false,
   if_not_exists = true
 })
+
+
+
+
+
 
 box.schema.space.create('playlists', {
     engine = 'vinyl',
