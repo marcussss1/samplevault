@@ -1,10 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minio
+  name: sounds
 spec:
   rules:
-    - host: minio
+    - host: sounds
       http:
         paths:
           - pathType: Prefix

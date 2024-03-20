@@ -5,8 +5,10 @@ import (
 	"github.com/caarlos0/env/v6"
 	samplescontrollerv1 "github.com/marcussss1/simplevault/internal/controller/http/samplesv1"
 	miniorepository "github.com/marcussss1/simplevault/internal/infrastructure/minio/sounds"
+	tarantoolrepository2 "github.com/marcussss1/simplevault/internal/infrastructure/tarantool/playlists"
 	tarantoolrepository "github.com/marcussss1/simplevault/internal/infrastructure/tarantool/sounds"
 	filesservice "github.com/marcussss1/simplevault/internal/service/audio"
+	playlistsservice "github.com/marcussss1/simplevault/internal/service/playlists"
 	samplesservice "github.com/marcussss1/simplevault/internal/service/sounds"
 	"github.com/marcussss1/simplevault/pkg/minio"
 	"github.com/marcussss1/simplevault/pkg/server"
@@ -45,6 +47,11 @@ func Run() error {
 		return fmt.Errorf("%w", err)
 	}
 
+	tarantoolRepository2, err := tarantoolrepository2.NewRepository(tarantoolClient)
+	if err != nil {
+		return fmt.Errorf("%w", err)
+	}
+
 	samplesService, err := samplesservice.NewService(tarantoolRepository)
 	if err != nil {
 		return fmt.Errorf("%w", err)
@@ -55,7 +62,12 @@ func Run() error {
 		return fmt.Errorf("%w", err)
 	}
 
-	samplesControllerV1, err := samplescontrollerv1.NewController(samplesService, filesService)
+	playlistsService, err := playlistsservice.NewService(tarantoolRepository2)
+	if err != nil {
+		return fmt.Errorf("%w", err)
+	}
+
+	samplesControllerV1, err := samplescontrollerv1.NewController(samplesService, filesService, playlistsService)
 	if err != nil {
 		return fmt.Errorf("%w", err)
 	}

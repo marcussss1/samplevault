@@ -14,6 +14,10 @@ type soundsService interface {
 	GetUserSounds(ctx context.Context, userID string) ([]model.Sound, error)
 }
 
+type playlistsService interface {
+	GetAllPlaylists(ctx context.Context, userID string) ([]model.Playlist, error)
+}
+
 type filesService interface {
 	DownloadSound(ctx context.Context, filename string) (*minio.Object, error)
 	GenerateSound(ctx context.Context) (*minio.Object, error)
