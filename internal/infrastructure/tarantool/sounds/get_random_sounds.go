@@ -11,7 +11,7 @@ func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) 
 	var sounds []model.Sound
 
 	err := r.conn.SelectTyped("sounds", "primary", 0, 5,
-		tarantool.IterAll, nil, &sounds,
+		tarantool.IterAll, tarantool.StringKey{""}, &sounds,
 	)
 	if err != nil {
 		return nil, fmt.Errorf("select sounds from tarantool storage: %w", err)
