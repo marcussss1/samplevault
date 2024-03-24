@@ -1,4 +1,4 @@
-box.space.sounds.index.file_name:update({'Nice_Strum_F.wav'},
+box.space.sounds.index.file_name:update({'JC_Guitar95A-01.wav'},
         {
             {'=', 7, 'JC_BeatB95-05'},
             {'=', 8, 'drums'},
