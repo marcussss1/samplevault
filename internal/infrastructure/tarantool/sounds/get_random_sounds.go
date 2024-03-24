@@ -31,7 +31,37 @@ func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) 
 		return nil, fmt.Errorf("select random sounds from Tarantool storage: %w", err)
 	}
 
-	fmt.Println(resp.Data)
+	fmt.Println(resp.String())
+	//// разбить input на массивы строк
+	//items := strings.Split(resp.String(), " ")
+	//
+	//// пройти по каждому элементу и создать структуру Sound
+	//for _, item := range items {
+	//	parts := strings.Split(item, " ") // предполагаем, что элементы разделены пробелами
+	//	if len(parts) != 13 {
+	//		return nil, errors.New("неправильный формат элемента")
+	//	}
+	//
+	//	sound := Sound{
+	//		ID:                parts[0],
+	//		AuthorID:          parts[1],
+	//		AudioURL:          parts[2],
+	//		IconURL:           parts[3],
+	//		FileName:          parts[4],
+	//		CreatedAt:         parts[5],
+	//		Title:             parts[6],
+	//		MusicalInstrument: parts[7],
+	//		Genre:             parts[8],
+	//		Mood:              parts[9],
+	//		Tonality:          parts[10],
+	//		Tempo:             parts[11],
+	//		Style:             parts[12],
+	//	}
+	//
+	//	sounds = append(sounds, sound)
+	//}
+
+	//fmt.Println(resp.Data)
 
 	//for _, item := range resp.Data {
 	//	soundData, ok := item.([]interface{})
