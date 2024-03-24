@@ -7,8 +7,6 @@ import (
 )
 
 func (r Repository) StoreSound(ctx context.Context, sound model.Sound) error {
-	fmt.Println(sound.AudioURL)
-
 	_, err := r.conn.Insert("sounds", []interface{}{
 		sound.ID,
 		sound.AuthorID,
