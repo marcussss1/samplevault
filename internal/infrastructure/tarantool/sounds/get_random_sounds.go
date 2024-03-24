@@ -2,6 +2,7 @@ package sounds
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/marcussss1/simplevault/internal/model"
 )
@@ -31,7 +32,41 @@ func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) 
 		return nil, fmt.Errorf("select random sounds from Tarantool storage: %w", err)
 	}
 
-	fmt.Println(resp.Data)
+	for _, item := range resp.Data {
+		soundData, ok := item.([]interface{})
+		if !ok || len(soundData) < 2 {
+			return nil, errors.New("invalid sound data format")
+		}
+
+		sound := model.Sound{
+			ID:                soundData[0].(string),
+			AuthorID:          soundData[1].(string),
+			AudioURL:          soundData[2].(string),
+			IconURL:           soundData[3].(string),
+			FileName:          soundData[4].(string),
+			CreatedAt:         soundData[5].(string),
+			Title:             soundData[6].(string),
+			MusicalInstrument: soundData[7].(string),
+			Genre:             soundData[8].(string),
+			Mood:              soundData[9].(string),
+			Tonality:          soundData[10].(string),
+			Tempo:             soundData[11].(string),
+			Style:             soundData[12].(string),
+		}
+
+		sounds = append(sounds, sound)
+	}
+
+	//data, ok := resp.Data()
+	//if !ok {
+	//	return nil, errors.New("response is not a byte slice")
+	//}
+
+	// Распарсивание JSON в структуру model.Sound
+	//err = json.Unmarshal(data, &sounds)
+	//if err != nil {
+	//	return nil, fmt.Errorf("failed to unmarshal response: %w", err)
+	//}
 
 	return sounds, nil
 }
