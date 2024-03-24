@@ -7,29 +7,44 @@ import (
 )
 
 func (r Repository) StoreSound(ctx context.Context, sound model.Sound) error {
-	_, err := r.conn.Eval(`
-    function escapeString(str)
-        return str:gsub('[%-%.%+%[%]%(%)%*%?%^%$%%]', '%%%1')
-    end
+	//	r.conn.Call()
+	//	_, err := r.conn.Eval(`
+	//    function escapeString(str)
+	//        return str:gsub('[%-%.%+%[%]%(%)%*%?%^%$%%]', '%%%1')
+	//    end
+	//
+	//    function insertSound(sound)
+	//        local escapedData = {}
+	//        for key, value in pairs(sound) do
+	//            if type(value) == "string" then
+	//                escapedData[key] = escapeString(value)
+	//            else
+	//                escapedData[key] = value
+	//            end
+	//        end
+	//
+	//        box.space.sounds:insert(escapedData)
+	//    end
+	//`, nil)
+	//	if err != nil {
+	//		return fmt.Errorf("error defining Lua functions: %w", err)
+	//	}
 
-    function insertSound(sound)
-        local escapedData = {}
-        for key, value in pairs(sound) do
-            if type(value) == "string" then
-                escapedData[key] = escapeString(value)
-            else
-                escapedData[key] = value
-            end
-        end
-        
-        box.space.sounds:insert(escapedData)
-    end
-`, nil)
-	if err != nil {
-		return fmt.Errorf("error defining Lua functions: %w", err)
-	}
-
-	_, err = r.conn.Call("insertSound", sound)
+	_, err := r.conn.Call("insertSound", []interface{}{
+		sound.ID,
+		sound.AuthorID,
+		sound.AudioURL,
+		sound.IconURL,
+		sound.FileName,
+		sound.CreatedAt,
+		sound.Title,
+		sound.MusicalInstrument,
+		sound.Genre,
+		sound.Mood,
+		sound.Tonality,
+		sound.Tempo,
+		sound.Style,
+	})
 	if err != nil {
 		return fmt.Errorf("insert sound from tarantool storage: %w", err)
 	}
