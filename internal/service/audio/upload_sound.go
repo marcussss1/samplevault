@@ -7,20 +7,19 @@ import (
 	"github.com/marcussss1/simplevault/internal/model"
 	"mime/multipart"
 	"net/url"
-	"path/filepath"
 	"time"
 )
 
 func (s Service) UploadSound(ctx context.Context, file multipart.File, header *multipart.FileHeader, userID string) (model.Sound, error) {
-	extension := filepath.Ext(header.Filename)
-	filename := uuid.NewString() + extension
+	//extension := filepath.Ext(header.Filename)
+	//filename := uuid.NewString() + extension
 
-	url, err := s.minioRepository.UploadSound(ctx, file, filename, header.Size)
+	url, err := s.minioRepository.UploadSound(ctx, file, header.Filename, header.Size)
 	if err != nil {
 		return model.Sound{}, fmt.Errorf("upload sound from minio repository: %w", err)
 	}
 
-	sample := newSample(url, userID, filename)
+	sample := newSample(url, userID, header.Filename)
 
 	err = s.tarantoolRepository.StoreSound(ctx, sample)
 	if err != nil {
