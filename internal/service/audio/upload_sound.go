@@ -29,12 +29,12 @@ func (s Service) UploadSound(ctx context.Context, file multipart.File, header *m
 func newSample(audioURL *url.URL, userID, filename string) model.Sound {
 	audioURL.Scheme = "https"
 	audioURL.Host = "samplevault.ru"
-	audioURLString := url.QueryEscape(audioURL.String())
+	fmt.Println(audioURL.String())
 
 	return model.Sound{
 		ID:                uuid.NewString(),
 		AuthorID:          userID,
-		AudioURL:          audioURLString,
+		AudioURL:          audioURL.String(),
 		IconURL:           "https://img.freepik.com/free-photo/the-adorable-illustration-of-kittens-playing-in-the-forest-generative-ai_260559-483.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1710892800&semt=ais",
 		FileName:          filename,
 		CreatedAt:         time.Now().String(),
