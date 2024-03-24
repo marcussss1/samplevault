@@ -29,7 +29,6 @@ func (s Service) UploadSound(ctx context.Context, file multipart.File, header *m
 func newSample(audioURL *url.URL, userID, filename string) model.Sound {
 	audioURL.Scheme = "https"
 	audioURL.Host = "samplevault.ru"
-	fmt.Println(audioURL.String())
 
 	return model.Sound{
 		ID:                uuid.NewString(),

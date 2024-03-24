@@ -12,6 +12,7 @@ import (
 
 type soundsService interface {
 	GetUserSounds(ctx context.Context, userID string) ([]model.Sound, error)
+	GetRandomSounds(ctx context.Context) ([]model.Sound, error)
 }
 
 type playlistsService interface {
