@@ -25,11 +25,16 @@ box.space.sounds:create_index('primary', {
     if_not_exists = true
 })
 
-
 box.space.sounds:create_index('author_id', {
   parts = { { 'author_id' } },
   unique = false,
   if_not_exists = true
+})
+
+box.space.sounds:create_index('file_name', {
+    parts = { { 'file_name' } },
+    unique = true,
+    if_not_exists = true
 })
 
 ----------------------------------------------------------------------------------------------------
