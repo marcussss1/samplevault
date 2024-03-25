@@ -16,7 +16,8 @@ box.space.sounds:format({
     {name = 'mood', type = 'string'},
     {name = 'tonality', type = 'string'},
     {name = 'tempo', type = 'string'},
-    {name = 'style', type = 'string'}
+    {name = 'style', type = 'string'},
+    {name = 'is_generated', type = 'boolean', is_nullable = true }
 })
 
 box.space.sounds:create_index('primary', {
@@ -36,6 +37,7 @@ box.space.sounds:create_index('file_name', {
     unique = true,
     if_not_exists = true
 })
+
 
 ----------------------------------------------------------------------------------------------------
 

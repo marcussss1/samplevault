@@ -44,5 +44,6 @@ func newSample(audioURL *url.URL, userID, filename string) model.Sound {
 		Tonality:          "tonality",
 		Tempo:             "tempo",
 		Style:             "style",
+		IsGenerated:       false,
 	}
 }

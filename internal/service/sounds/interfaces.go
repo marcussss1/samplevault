@@ -6,6 +6,7 @@ import (
 )
 
 type tarantoolRepository interface {
-	GetUserSounds(ctx context.Context, userID string) ([]model.Sound, error)
+	GetAllSounds(ctx context.Context) ([]model.Sound, error)
 	GetRandomSounds(ctx context.Context) ([]model.Sound, error)
+	GetLastGeneratedUserSounds(ctx context.Context, userID string) ([]model.Sound, error)
 }

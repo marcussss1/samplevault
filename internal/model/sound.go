@@ -14,4 +14,5 @@ type Sound struct {
 	Tonality          string `json:"tonality"`
 	Tempo             string `json:"tempo"`
 	Style             string `json:"style"`
+	IsGenerated       bool   `json:"is_generated"`
 }

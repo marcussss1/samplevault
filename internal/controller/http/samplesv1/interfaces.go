@@ -11,8 +11,9 @@ import (
 //go:generate mockgen -source=interfaces.go -destination=./mock/interfaces.go -package=mock
 
 type soundsService interface {
-	GetUserSounds(ctx context.Context, userID string) ([]model.Sound, error)
+	GetAllSounds(ctx context.Context) ([]model.Sound, error)
 	GetRandomSounds(ctx context.Context) ([]model.Sound, error)
+	GetLastGeneratedUserSounds(ctx context.Context, userID string) ([]model.Sound, error)
 }
 
 type playlistsService interface {
