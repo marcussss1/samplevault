@@ -21,6 +21,7 @@ func (r Repository) StoreSound(ctx context.Context, sound model.Sound) error {
 		sound.Tonality,
 		sound.Tempo,
 		sound.Style,
+		sound.IsGenerated,
 	})
 	if err != nil {
 		return fmt.Errorf("insert sound from tarantool storage: %w", err)

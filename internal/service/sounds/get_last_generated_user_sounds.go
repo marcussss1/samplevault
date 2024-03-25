@@ -9,19 +9,19 @@ import (
 )
 
 func (s Service) GetLastGeneratedUserSounds(ctx context.Context, userID string) ([]model.Sound, error) {
-	sounds, err := s.tarantoolRepository.GetLastGeneratedUserSounds(ctx, userID)
+	sounds, err := s.tarantoolRepository.GetAllSounds(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("get last generated sounds from tarantool repository: %w", err)
+		return nil, fmt.Errorf("get all sounds from tarantool repository: %w", err)
 	}
 
-	return filterSounds(sounds), nil
+	return filterLastGeneratedUserSounds(sounds, userID), nil
 }
 
-func filterSounds(sounds []model.Sound) []model.Sound {
+func filterLastGeneratedUserSounds(sounds []model.Sound, userID string) []model.Sound {
 	var filteredSounds []model.Sound
 
 	for _, sound := range sounds {
-		if sound.IsGenerated == true {
+		if sound.IsGenerated == true && sound.AuthorID == userID {
 			filteredSounds = append(filteredSounds, sound)
 		}
 	}

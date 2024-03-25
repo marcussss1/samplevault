@@ -8,14 +8,18 @@ import (
 )
 
 func (s Service) GetRandomSounds(ctx context.Context) ([]model.Sound, error) {
-	sounds, err := s.tarantoolRepository.GetRandomSounds(ctx)
+	sounds, err := s.tarantoolRepository.GetAllSounds(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("get random sounds from tarantool repository: %w", err)
+		return nil, fmt.Errorf("get all sounds from tarantool repository: %w", err)
 	}
 
+	return filterRandomSounds(sounds), nil
+}
+
+func filterRandomSounds(sounds []model.Sound) []model.Sound {
 	rand.Shuffle(len(sounds), func(i, j int) {
 		sounds[i], sounds[j] = sounds[j], sounds[i]
 	})
 
-	return sounds, nil
+	return sounds[:min(len(sounds), 5)]
 }
