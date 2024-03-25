@@ -27,9 +27,6 @@ func filterLastGeneratedUserSounds(sounds []model.Sound, userID string) []model.
 		}
 	}
 
-	fmt.Println()
-	fmt.Println()
-
 	sort.Slice(filteredSounds, func(i, j int) bool {
 		return filteredSounds[i].CreatedAt < filteredSounds[j].CreatedAt
 	})
