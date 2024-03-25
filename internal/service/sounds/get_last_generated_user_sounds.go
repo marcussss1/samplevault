@@ -21,10 +21,14 @@ func filterLastGeneratedUserSounds(sounds []model.Sound, userID string) []model.
 	var filteredSounds []model.Sound
 
 	for _, sound := range sounds {
+		fmt.Println(sound.IsGenerated, "  :  ", sound.AuthorID)
 		if sound.IsGenerated == true && sound.AuthorID == userID {
 			filteredSounds = append(filteredSounds, sound)
 		}
 	}
+
+	fmt.Println()
+	fmt.Println()
 
 	sort.Slice(filteredSounds, func(i, j int) bool {
 		return filteredSounds[i].CreatedAt < filteredSounds[j].CreatedAt

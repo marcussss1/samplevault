@@ -129,3 +129,150 @@ box.space.sounds.index.file_name:update({'Rocker.wav'},
             {'=', 13, 'sample'}
         }
 )
+
+
+------------------------------------------------------------------------------------------------------------------
+
+box.space.sounds.index.file_name:update({'BassFing130A-10.wav'},
+        {
+            {'=', 7, 'BassFing130A-10'},
+            {'=', 8, 'bass'},
+            {'=', 9, 'instrumental'},
+            {'=', 10, 'classy'},
+            {'=', 11, 'G major'},
+            {'=', 12, '130'},
+            {'=', 13, 'loop'}
+        }
+)
+
+box.space.sounds.index.file_name:update({'BassFing130C-01.wav'},
+        {
+            {'=', 7, 'BassFing130C-01'},
+            {'=', 8, 'bass'},
+            {'=', 9, 'instrumental'},
+            {'=', 10, 'sneaky'},
+            {'=', 11, 'F major'},
+            {'=', 12, '130'},
+            {'=', 13, 'loop'}
+        }
+)
+
+box.space.sounds.index.file_name:update({'Gentle_Riff_A.wav'},
+        {
+            {'=', 7, 'Gentle_Riff_A'},
+            {'=', 8, 'guitar'},
+            {'=', 9, 'instrumental'},
+            {'=', 10, 'gentle'},
+            {'=', 11, 'A minor'},
+            {'=', 12, '74'},
+            {'=', 13, 'sample'}
+        }
+)
+
+box.space.sounds.index.file_name:update({'Gentle_Riff_B.wav'},
+        {
+            {'=', 7, 'Gentle_Riff_B'},
+            {'=', 8, 'guitar'},
+            {'=', 9, 'instrumental'},
+            {'=', 10, 'gentle'},
+            {'=', 11, 'C major'},
+            {'=', 12, '69'},
+            {'=', 13, 'sample'}
+        }
+)
+
+box.space.sounds.index.file_name:update({'Gentle_Riff_C.wav'},
+        {
+            {'=', 7, 'Gentle_Riff_C'},
+            {'=', 8, 'guitar'},
+            {'=', 9, 'instrumental'},
+            {'=', 10, 'gentle'},
+            {'=', 11, 'D minor'},
+            {'=', 12, '109'},
+            {'=', 13, 'loop'}
+        }
+)
+
+box.space.sounds.index.file_name:update({'Nice_Strum_A.wav'},
+        {
+            {'=', 7, 'Nice_Strum_A'},
+            {'=', 8, 'guitar'},
+            {'=', 9, 'instrumental'},
+            {'=', 10, 'nice'},
+            {'=', 11, 'G major'},
+            {'=', 12, '73'},
+            {'=', 13, 'loop'}
+        }
+)
+
+box.space.sounds.index.file_name:update({'Nice_Strum_B.wav'},
+        {
+            {'=', 7, 'Nice_Strum_B'},
+            {'=', 8, 'guitar'},
+            {'=', 9, 'instrumental'},
+            {'=', 10, 'nice'},
+            {'=', 11, 'G minor'},
+            {'=', 12, '107'},
+            {'=', 13, 'loop'}
+        }
+)
+
+box.space.sounds.index.file_name:update({'Nice_Strum_C.wav'},
+        {
+            {'=', 7, 'Nice_Strum_C'},
+            {'=', 8, 'guitar'},
+            {'=', 9, 'instrumental'},
+            {'=', 10, 'nice'},
+            {'=', 11, 'D minor'},
+            {'=', 12, '109'},
+            {'=', 13, 'loop'}
+        }
+)
+
+box.space.sounds.index.file_name:update({'Nice_Strum_D.wav'},
+        {
+            {'=', 7, 'Nice_Strum_D'},
+            {'=', 8, 'guitar'},
+            {'=', 9, 'instrumental'},
+            {'=', 10, 'nice'},
+            {'=', 11, 'F major'},
+            {'=', 12, '75'},
+            {'=', 13, 'sample'}
+        }
+)
+
+box.space.sounds.index.file_name:update({'Nice_Strum_E.wav'},
+        {
+            {'=', 7, 'Nice_Strum_E'},
+            {'=', 8, 'guitar'},
+            {'=', 9, 'instrumental'},
+            {'=', 10, 'nice'},
+            {'=', 11, 'D minor'},
+            {'=', 12, '115'},
+            {'=', 13, 'sample'}
+        }
+)
+
+box.space.sounds.index.file_name:update({'Nice_Strum_F.wav'},
+        {
+            {'=', 7, 'Nice_Strum_E'},
+            {'=', 8, 'guitar'},
+            {'=', 9, 'instrumental'},
+            {'=', 10, 'nice'},
+            {'=', 11, 'F major'},
+            {'=', 12, '130'},
+            {'=', 13, 'sample'}
+        }
+)
+
+box.space.sounds.index.file_name:update({'Nice_Strum_F.wav'},
+        {
+            {'=', 7, 'Nice_Strum_E'},
+            {'=', 8, 'guitar'},
+            {'=', 9, 'instrumental'},
+            {'=', 10, 'nice'},
+            {'=', 11, 'F major'},
+            {'=', 12, '130'},
+            {'=', 13, 'sample'}
+        }
+)
