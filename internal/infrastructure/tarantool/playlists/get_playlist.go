@@ -8,14 +8,18 @@ import (
 )
 
 func (r Repository) GetPlaylist(ctx context.Context, id string) (model.Playlist, error) {
-	var playlist model.Playlist
+	var playlists []model.Playlist
 
 	err := r.conn.SelectTyped("playlists", "primary", 0, 1,
-		tarantool.IterEq, tarantool.StringKey{id}, &playlist,
+		tarantool.IterEq, tarantool.StringKey{id}, &playlists,
 	)
 	if err != nil {
 		return model.Playlist{}, fmt.Errorf("select playlist from tarantool storage: %w", err)
 	}
 
-	return playlist, nil
+	if len(playlists) == 0 {
+		return model.Playlist{}, nil
+	}
+
+	return playlists[0], nil
 }
