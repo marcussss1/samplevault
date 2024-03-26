@@ -21,7 +21,6 @@ func filterLastGeneratedUserSounds(sounds []model.Sound, userID string) []model.
 	var filteredSounds []model.Sound
 
 	for _, sound := range sounds {
-		fmt.Println(sound.IsGenerated, "  :  ", sound.AuthorID)
 		if sound.IsGenerated == true && sound.AuthorID == userID {
 			filteredSounds = append(filteredSounds, sound)
 		}

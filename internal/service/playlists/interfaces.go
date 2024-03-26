@@ -6,5 +6,5 @@ import (
 )
 
 type tarantoolRepository interface {
-	GetAllPlaylists(ctx context.Context, userID string) ([]model.Playlist, error)
+	GetAllPlaylists(ctx context.Context) ([]model.Playlist, error)
 }

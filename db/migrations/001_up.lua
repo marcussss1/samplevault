@@ -62,13 +62,6 @@ box.space.playlists:create_index('primary', {
     if_not_exists = true
 })
 
-box.space.playlists:create_index('author_id', {
-    type = 'tree',
-    parts = { { 'author_id' } },
-    unique = false,
-    if_not_exists = true
-})
-
 
 box.space.playlists:update('playlist_id_123', {{'=', 7, {'ef383bf8-eee3-4923-801c-b3daf4397676','ddc4c240-145b-4a5c-b324-c61abc1465aa'}}})
 

@@ -17,7 +17,7 @@ type soundsService interface {
 }
 
 type playlistsService interface {
-	GetAllPlaylists(ctx context.Context, userID string) ([]model.Playlist, error)
+	GetRandomPlaylists(ctx context.Context) ([]model.RandomPlaylist, error)
 }
 
 type filesService interface {
