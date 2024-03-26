@@ -130,9 +130,6 @@ box.space.sounds.index.file_name:update({'Rocker.wav'},
         }
 )
 
-
-------------------------------------------------------------------------------------------------------------------
-
 box.space.sounds.index.file_name:update({'BassFing130A-10.wav'},
         {
             {'=', 7, 'BassFing130A-10'},

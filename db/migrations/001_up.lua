@@ -63,19 +63,6 @@ box.space.playlists:create_index('primary', {
 })
 
 
-box.space.playlists:update('playlist_id_123', {{'=', 7, {'ef383bf8-eee3-4923-801c-b3daf4397676','ddc4c240-145b-4a5c-b324-c61abc1465aa'}}})
-
-box.space.playlists:insert{
-    'playlist_id_456',         -- id
-    '0332a44c2d178be5927cb2615a915ecb2fd062d0ca17aade7a5bd09d3badc80a',           -- author_id
-    'https://example.com/icon.jpg',  -- icon_url
-    '2022-01-01 12:00:00',     -- created_at
-    'My Playlist 2',             -- title
-    'Description of the playlist 2',  -- description
-    {'ef383bf8-eee3-4923-801c-b3daf4397676'}                  -- sound_ids (array)
-}
-
-
 --box.space.samples:create_index('author_id', {
 --    type = 'tree',
 --    parts = {'author_id'},

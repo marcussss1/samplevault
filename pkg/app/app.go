@@ -62,7 +62,7 @@ func Run() error {
 		return fmt.Errorf("%w", err)
 	}
 
-	playlistsService, err := playlistsservice.NewService(tarantoolRepository2)
+	playlistsService, err := playlistsservice.NewService(tarantoolRepository2, tarantoolRepository)
 	if err != nil {
 		return fmt.Errorf("%w", err)
 	}
