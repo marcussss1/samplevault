@@ -7,30 +7,33 @@ import (
 )
 
 func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) {
+	var sounds []model.Sound
 
-	resp, err := r.conn.Eval("return 42", []interface{}{})
+	resp, err := r.conn.Eval("return box.space.sounds:select()", []interface{}{})
 	if err != nil {
 		return nil, fmt.Errorf("select all sounds from tarantool storage: %w", err)
 	}
 
-	// Создаем переменную для распакованных данных
-	//var unpackedData map[string]interface{}
-	//
-	//err = msgpack.Unmarshal([]byte(resp.String()), &unpackedData)
-	//if err != nil {
-	//	return nil, err
-	//}
-
-	fmt.Println(resp.Tuples())
-
 	for _, tuple := range resp.Tuples() {
-		fmt.Println()
-		a := fmt.Sprint(tuple[0])
-		fmt.Println(a)
-		fmt.Println()
+		sounds = append(sounds, model.Sound{
+			ID:                fmt.Sprint(tuple[0]),
+			AuthorID:          fmt.Sprint(tuple[1]),
+			AudioURL:          fmt.Sprint(tuple[2]),
+			IconURL:           fmt.Sprint(tuple[3]),
+			FileName:          fmt.Sprint(tuple[4]),
+			CreatedAt:         fmt.Sprint(tuple[5]),
+			Title:             fmt.Sprint(tuple[6]),
+			MusicalInstrument: fmt.Sprint(tuple[7]),
+			Genre:             fmt.Sprint(tuple[8]),
+			Mood:              fmt.Sprint(tuple[9]),
+			Tonality:          fmt.Sprint(tuple[10]),
+			Tempo:             fmt.Sprint(tuple[11]),
+			Style:             fmt.Sprint(tuple[12]),
+			IsGenerated:       false,
+		})
 	}
 
-	return nil, nil
+	return sounds, nil
 	//var sounds []model.Sound
 	//
 	//r.conn.Eval("", interface{}{})
