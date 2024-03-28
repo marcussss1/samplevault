@@ -24,8 +24,9 @@ func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) 
 	fmt.Println(resp.Tuples())
 
 	for _, tuple := range resp.Tuples() {
+		a := tuple[0].(int)
 		fmt.Println()
-		fmt.Println(tuple)
+		fmt.Println(a)
 		fmt.Println()
 	}
 
