@@ -37,6 +37,11 @@ box.space.sounds:create_index('file_name', {
     if_not_exists = true
 })
 
+box.space.sounds:create_index('is_generated', {
+    parts = { { 'is_generated' } },
+    unique = false,
+    if_not_exists = false
+})
 
 ----------------------------------------------------------------------------------------------------
 

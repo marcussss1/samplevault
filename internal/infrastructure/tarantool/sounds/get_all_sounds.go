@@ -11,7 +11,7 @@ import (
 func (r Repository) GetAllSounds(ctx context.Context) ([]model.Sound, error) {
 	var sounds []model.Sound
 
-	err := r.conn.SelectTyped("sounds", "primary", 0, 50,
+	err := r.conn.SelectTyped("sounds", "primary", 0, 20,
 		tarantool.IterAll, tarantool.StringKey{""}, &sounds,
 	)
 	if err != nil {
