@@ -4,16 +4,25 @@ import (
 	"context"
 	"fmt"
 	"github.com/marcussss1/simplevault/internal/model"
+	"github.com/vmihailenco/msgpack/v5"
 )
 
 func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) {
 
-	resp, err := r.conn.Call("ararara", []interface{}{})
+	resp, err := r.conn.Eval("return 42", []interface{}{})
 	if err != nil {
 		return nil, fmt.Errorf("select all sounds from tarantool storage: %w", err)
 	}
 
-	fmt.Println(resp.Data[0].([]interface{})[0].(uint64))
+	// Создаем переменную для распакованных данных
+	var unpackedData map[string]interface{}
+
+	err = msgpack.Unmarshal([]byte(resp.String()), &unpackedData)
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println(unpackedData)
 
 	return nil, nil
 	//var sounds []model.Sound
