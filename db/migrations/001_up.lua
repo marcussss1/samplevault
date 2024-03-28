@@ -1,5 +1,4 @@
 box.schema.space.create('sounds', {
-    engine = 'vinyl',
     if_not_exists = true
 })
 
@@ -42,7 +41,6 @@ box.space.sounds:create_index('file_name', {
 ----------------------------------------------------------------------------------------------------
 
 box.schema.space.create('playlists', {
-    engine = 'vinyl',
     if_not_exists = true
 })
 

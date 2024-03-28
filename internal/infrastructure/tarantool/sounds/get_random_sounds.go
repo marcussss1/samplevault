@@ -10,16 +10,11 @@ func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) 
 	var sounds []model.Sound
 
 	resp, err := r.conn.Eval(`
-		local count = 0
 		local random_sounds = {}
-		
-		for _, tuple in box.space.sounds.index.primary:pairs() do
-			if count < 5 then
-				table.insert(random_sounds, tuple)
-				count = count + 1
-			else
-				break
-			end
+
+		for i = 0, 4 do
+			local random_sound = box.space.sounds.index.primary:random(math.random(0, 1000000))
+			table.insert(random_sounds, random_sound)
 		end
 		
 		return random_sounds
