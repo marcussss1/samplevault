@@ -8,7 +8,7 @@ import (
 
 func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) {
 
-	resp, err := r.conn.Eval("return 42", []interface{}{})
+	resp, err := r.conn.Call("ararara", []interface{}{})
 	if err != nil {
 		return nil, fmt.Errorf("select all sounds from tarantool storage: %w", err)
 	}
