@@ -22,12 +22,19 @@ func (r Repository) GetLastGeneratedUserSounds(ctx context.Context, userID strin
 
 		local generated_sounds = box.space.sounds.index.is_generated:select(true,{})
 	
-		table.sort(generated_sounds, compare)
+		local generated_user_sounds = {}
+		for _, sound in ipairs(generated_sounds) do
+	    	if sound.author_id == userID then
+				table.insert(generated_user_sounds, sound)
+	  		end
+		end
 
-		return firstFive(generated_sounds)
+		table.sort(generated_user_sounds, compare)
+
+		return firstFive(generated_user_sounds)
 	`
 
-	resp, err := r.conn.Eval(query, []interface{}{})
+	resp, err := r.conn.Eval(query, []interface{}{userID})
 	if err != nil {
 		return nil, fmt.Errorf("select random sounds from tarantool storage: %w", err)
 	}

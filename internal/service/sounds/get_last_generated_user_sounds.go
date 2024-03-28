@@ -14,5 +14,3 @@ func (s Service) GetLastGeneratedUserSounds(ctx context.Context, userID string) 
 
 	return sounds, nil
 }
-
-//return box.space.sounds.index.primary:select({}, {limit = 5, iterator = 'ALL', order = 'desc'})
