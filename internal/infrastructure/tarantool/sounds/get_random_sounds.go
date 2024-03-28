@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/marcussss1/simplevault/internal/model"
-	"github.com/vmihailenco/msgpack/v5"
 )
 
 func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) {
@@ -15,14 +14,20 @@ func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) 
 	}
 
 	// Создаем переменную для распакованных данных
-	var unpackedData map[string]interface{}
+	//var unpackedData map[string]interface{}
+	//
+	//err = msgpack.Unmarshal([]byte(resp.String()), &unpackedData)
+	//if err != nil {
+	//	return nil, err
+	//}
 
-	err = msgpack.Unmarshal([]byte(resp.String()), &unpackedData)
-	if err != nil {
-		return nil, err
+	fmt.Println(resp.Tuples())
+
+	for _, tuple := range resp.Tuples() {
+		fmt.Println()
+		fmt.Println(tuple)
+		fmt.Println()
 	}
-
-	fmt.Println(unpackedData)
 
 	return nil, nil
 	//var sounds []model.Sound
