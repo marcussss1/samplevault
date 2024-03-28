@@ -8,7 +8,7 @@ import (
 )
 
 func (s Service) GetRandomSounds(ctx context.Context) ([]model.Sound, error) {
-	sounds, err := s.tarantoolRepository.GetAllSounds(ctx)
+	sounds, err := s.tarantoolRepository.GetRandomSounds(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("get all sounds from tarantool repository: %w", err)
 	}

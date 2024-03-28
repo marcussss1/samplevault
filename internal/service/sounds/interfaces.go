@@ -7,4 +7,5 @@ import (
 
 type tarantoolRepository interface {
 	GetAllSounds(ctx context.Context) ([]model.Sound, error)
+	GetRandomSounds(ctx context.Context) ([]model.Sound, error)
 }

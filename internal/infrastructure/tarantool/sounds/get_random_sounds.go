@@ -14,6 +14,8 @@ func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) 
 	}
 
 	fmt.Println(resp.Data[0].([]interface{})[0].(uint64))
+
+	return nil, nil
 	//var sounds []model.Sound
 	//
 	//r.conn.Eval("", interface{}{})
