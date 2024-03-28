@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/marcussss1/simplevault/internal/model"
-	"reflect"
 )
 
 func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) {
@@ -26,7 +25,7 @@ func (r Repository) GetRandomSounds(ctx context.Context) ([]model.Sound, error) 
 
 	for _, tuple := range resp.Tuples() {
 		fmt.Println()
-		a := reflect.ValueOf(tuple[0]).Int()
+		a := fmt.Sprint(tuple[0])
 		fmt.Println(a)
 		fmt.Println()
 	}
