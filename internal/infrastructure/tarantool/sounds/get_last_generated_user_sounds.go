@@ -20,7 +20,7 @@ func (r Repository) GetLastGeneratedUserSounds(ctx context.Context, userID strin
 			return result
 		end
 
-		local generated_sounds = box.space.sounds.index.is_generated:select(true,{})
+		local generated_sounds = box.space.sounds.index.is_generated:select(true, {})
 		local generated_user_sounds = {}
 		local arg = {...} 
 		local userID = arg[1]

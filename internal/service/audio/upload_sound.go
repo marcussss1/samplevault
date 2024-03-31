@@ -6,18 +6,20 @@ import (
 	"github.com/google/uuid"
 	"github.com/marcussss1/simplevault/internal/model"
 	"mime/multipart"
-	"net/url"
+	"path/filepath"
 	"time"
 )
 
 func (s Service) UploadSound(ctx context.Context, file multipart.File, header *multipart.FileHeader, userID string) (model.Sound, error) {
-	audioURL, err := s.minioRepository.UploadSound(ctx, file, header.Filename, header.Size)
+	extension := filepath.Ext(header.Filename)
+	filename := uuid.NewString() + extension
+
+	err := s.minioRepository.UploadSound(ctx, file, filename, header.Size)
 	if err != nil {
 		return model.Sound{}, fmt.Errorf("upload sound from minio repository: %w", err)
 	}
 
-	sample := newSample(audioURL, userID, header.Filename)
-
+	sample := newSample(userID, filename)
 	err = s.tarantoolRepository.StoreSound(ctx, sample)
 	if err != nil {
 		return model.Sound{}, fmt.Errorf("store sound from tarantool repository: %w", err)
@@ -26,14 +28,11 @@ func (s Service) UploadSound(ctx context.Context, file multipart.File, header *m
 	return sample, nil
 }
 
-func newSample(audioURL *url.URL, userID, filename string) model.Sound {
-	audioURL.Scheme = "https"
-	audioURL.Host = "samplevault.ru"
-
+func newSample(userID, filename string) model.Sound {
 	return model.Sound{
 		ID:                uuid.NewString(),
 		AuthorID:          userID,
-		AudioURL:          audioURL.String(),
+		AudioURL:          "https://samplevault.ru/sounds/" + filename,
 		IconURL:           "https://img.freepik.com/free-photo/the-adorable-illustration-of-kittens-playing-in-the-forest-generative-ai_260559-483.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1710892800&semt=ais",
 		FileName:          filename,
 		CreatedAt:         time.Now().String(),

@@ -16,7 +16,7 @@ box.space.sounds:format({
     {name = 'tonality', type = 'string'},
     {name = 'tempo', type = 'string'},
     {name = 'style', type = 'string'},
-    {name = 'is_generated', type = 'boolean', is_nullable = true }
+    {name = 'is_generated', type = 'boolean'}
 })
 
 box.space.sounds:create_index('primary', {
@@ -29,12 +29,6 @@ box.space.sounds:create_index('author_id', {
   parts = { { 'author_id' } },
   unique = false,
   if_not_exists = true
-})
-
-box.space.sounds:create_index('file_name', {
-    parts = { { 'file_name' } },
-    unique = true,
-    if_not_exists = true
 })
 
 box.space.sounds:create_index('is_generated', {
@@ -64,43 +58,3 @@ box.space.playlists:create_index('primary', {
     parts = {'id'},
     if_not_exists = true
 })
-
-
---box.space.samples:create_index('author_id', {
---    type = 'tree',
---    parts = {'author_id'},
---    unique = false,
---    if_not_exists = true
---})
-
---box.schema.space.create('kits', {
---    engine = 'vinyl',
---    if_not_exists = true
---})
---
---box.space.kits:format({
---    {name = 'id', type = 'string'},
---    {name = 'icon_url', type = 'string'},
---    {name = 'title', type = 'string'},
---    {name = 'description', type = 'string'},
---    {name = 'created_at', type = 'string'},
---    {name = 'sample_ids', type = 'array'}
---})
---
---box.space.kits:create_index('primary', {
---    type = 'tree',
---    parts = {'id'},
---    if_not_exists = true
---})
-
---box.space.samples:insert{
---    'a2802d62-b006-4949-8fa0-07328bd26719',
---    'a2802d62-b006-4949-8fa0-07328bd26719',
---    'audio_url',
---    'icon_url',
---    'Название сэмпла',
---    'Длительность сэмпла',
---    'Музыкальный инструмент сэмпла',
---    'Жанр сэмпла',
---    true,
---}
