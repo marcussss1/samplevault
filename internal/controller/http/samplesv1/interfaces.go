@@ -26,3 +26,7 @@ type filesService interface {
 	GenerateSound(ctx context.Context) (*minio.Object, error)
 	UploadSound(ctx context.Context, file multipart.File, header *multipart.FileHeader, userID string) (model.Sound, error)
 }
+
+type authService interface {
+	Signup(ctx context.Context, signupUser model.SignupUser) (model.User, error)
+}
