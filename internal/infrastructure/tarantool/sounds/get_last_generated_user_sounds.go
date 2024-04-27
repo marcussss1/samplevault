@@ -36,7 +36,9 @@ func (r Repository) GetLastGeneratedUserSounds(ctx context.Context, userID strin
 		return firstFive(generated_user_sounds)
 	`
 
-	resp, err := r.conn.Eval(query, []interface{}{userID})
+	resp, err := r.conn.Eval(query, []interface{}{
+		userID,
+	})
 	if err != nil {
 		return nil, fmt.Errorf("select random sounds from tarantool storage: %w", err)
 	}

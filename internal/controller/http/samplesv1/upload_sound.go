@@ -27,6 +27,7 @@ func (c Controller) UploadSound(ctx echo.Context) error {
 	if err != nil {
 		return fmt.Errorf("upload sounds from files service: %w", err)
 	}
+
 	fmt.Println("sound: ", sound)
 	return ctx.JSON(http.StatusOK, sound)
 }

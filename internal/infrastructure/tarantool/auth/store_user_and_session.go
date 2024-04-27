@@ -6,7 +6,7 @@ import (
 	"github.com/marcussss1/simplevault/internal/model"
 )
 
-func (r Repository) StoreUser(ctx context.Context, user model.FullUser) error {
+func (r Repository) StoreUserAndSession(ctx context.Context, user model.FullUser) error {
 	// todo транзакция
 
 	_, err := r.conn.Insert("users", []interface{}{
@@ -15,13 +15,16 @@ func (r Repository) StoreUser(ctx context.Context, user model.FullUser) error {
 		user.Password,
 	})
 	if err != nil {
-		return fmt.Errorf("insert sound from tarantool storage: %w", err)
+		return fmt.Errorf("insert user from tarantool storage: %w", err)
 	}
 
 	_, err = r.conn.Insert("sessions", []interface{}{
 		user.ID,
 		user.SessionID,
 	})
+	if err != nil {
+		return fmt.Errorf("insert session from tarantool storage: %w", err)
+	}
 
 	return nil
 }
