@@ -24,7 +24,7 @@ type playlistsService interface {
 type filesService interface {
 	DownloadSound(ctx context.Context, filename string) (*minio.Object, error)
 	GenerateSound(ctx context.Context) (*minio.Object, error)
-	UploadSound(ctx context.Context, file multipart.File, header *multipart.FileHeader, userID string) (model.Sound, error)
+	UploadSound(ctx context.Context, file multipart.File, header *multipart.FileHeader, userID string, uploadSound model.UploadSound) (model.Sound, error)
 }
 
 type authService interface {
