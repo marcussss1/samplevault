@@ -1,7 +1,6 @@
 package samplesv1
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/marcussss1/simplevault/internal/model"
 	"net/http"
@@ -25,15 +24,14 @@ func (c Controller) UploadSound(ctx echo.Context) error {
 	}
 	defer audioFile.Close()
 
-	bytes := req.FormValue("json_data")
-	fmt.Println(bytes)
-	var uploadSound model.UploadSound
-	err = json.Unmarshal([]byte(bytes), &uploadSound)
-	if err != nil {
-		return fmt.Errorf("error while binding body: %w", err)
-	}
-
-	sound, err := c.filesService.UploadSound(req.Context(), audioFile, header, userID, uploadSound)
+	sound, err := c.filesService.UploadSound(req.Context(), audioFile, header, userID, model.UploadSound{
+		Title:             req.FormValue("title"),
+		MusicalInstrument: req.FormValue("musical_instrument"),
+		Genre:             req.FormValue("genre"),
+		Mood:              req.FormValue("mood"),
+		Tonality:          req.FormValue("tonality"),
+		Tempo:             req.FormValue("tempo"),
+	})
 	if err != nil {
 		return fmt.Errorf("upload sounds from files service: %w", err)
 	}
