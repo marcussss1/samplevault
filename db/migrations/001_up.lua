@@ -58,3 +58,50 @@ box.space.playlists:create_index('primary', {
     parts = {'id'},
     if_not_exists = true
 })
+
+----------------------------------------------------------------------------------------------------
+
+box.schema.space.create('sessions', {
+    if_not_exists = true
+})
+
+box.space.sessions:format({
+    {name = 'id', type = 'string'},
+    {name = 'user_id', type = 'string'}
+})
+
+box.space.sessions:create_index('id', {
+    type = 'tree',
+    parts = {'id'},
+    if_not_exists = true
+})
+
+box.space.sessions:create_index('user_id', {
+    type = 'tree',
+    parts = {'user_id'},
+    if_not_exists = true
+})
+
+----------------------------------------------------------------------------------------------------
+
+box.schema.space.create('users', {
+    if_not_exists = true
+})
+
+box.space.users:format({
+    {name = 'id', type = 'string'},
+    {name = 'username', type = 'string'},
+    {name = 'password', type = 'string'}
+})
+
+box.space.users:create_index('id', {
+    type = 'tree',
+    parts = {'id'},
+    if_not_exists = true
+})
+
+box.space.users:create_index('username', {
+    type = 'tree',
+    parts = {'username'},
+    if_not_exists = true
+})

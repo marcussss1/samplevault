@@ -8,11 +8,12 @@ import (
 )
 
 func (c Controller) GetAllSounds(ctx echo.Context) error {
-	req := ctx.Request()
-	sounds, err := c.soundsService.GetAllSounds(req.Context())
+	sounds, err := c.soundsService.GetAllSounds(ctx.Request().Context())
 	if err != nil {
 		return fmt.Errorf("get all sounds from sounds service: %w", err)
 	}
+
 	fmt.Println("sounds: ", sounds)
+
 	return ctx.JSON(http.StatusOK, sounds)
 }

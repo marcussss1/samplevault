@@ -8,10 +8,7 @@ import (
 )
 
 func (c Controller) GetPlaylist(ctx echo.Context) error {
-	req := ctx.Request()
-	id := ctx.Param("playlist_id")
-
-	playlist, err := c.playlistsService.GetPlaylist(req.Context(), id)
+	playlist, err := c.playlistsService.GetPlaylist(ctx.Request().Context(), ctx.Param("playlist_id"))
 	if err != nil {
 		return fmt.Errorf("get playlist from playlists service: %w", err)
 	}

@@ -84,7 +84,7 @@ func Run() error {
 		return fmt.Errorf("%w", err)
 	}
 
-	server := server.NewServer(samplesControllerV1)
+	server := server.NewServer(samplesControllerV1, authService)
 
 	err = server.Serve()
 	if err != nil {

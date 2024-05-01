@@ -18,7 +18,6 @@ type FullUser struct {
 }
 
 type User struct {
-	ID        string `json:"id"`
-	SessionID string `json:"session_id"`
-	Username  string `json:"username"`
+	ID       string `json:"id"`
+	Username string `json:"username"`
 }
