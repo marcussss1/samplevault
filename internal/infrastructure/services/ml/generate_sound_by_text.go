@@ -12,6 +12,7 @@ import (
 )
 
 func (c Client) GenerateSoundByText(ctx context.Context, text string) (*os.File, error) {
+	// todo вынести в общую
 	req, err := http.NewRequestWithContext(ctx, "GET", c.Host+"generate_by_text", nil)
 	if err != nil {
 		return nil, fmt.Errorf("create request 1: %w", err)
@@ -38,12 +39,12 @@ func (c Client) GenerateSoundByText(ctx context.Context, text string) (*os.File,
 	type ml1Response struct {
 		AudioURL string `json:"audio_url"`
 	}
-	var audioURL ml1Response
-	if err = json.NewDecoder(resp1.Body).Decode(&audioURL); err != nil {
+	var mlResp ml1Response
+	if err = json.NewDecoder(resp1.Body).Decode(&mlResp); err != nil {
 		return nil, fmt.Errorf("decode response 1: %w", err)
 	}
 
-	req, err = http.NewRequestWithContext(ctx, "GET", audioURL.AudioURL, nil)
+	req, err = http.NewRequestWithContext(ctx, "GET", mlResp.AudioURL, nil)
 	if err != nil {
 		return nil, fmt.Errorf("create request 2: %w", err)
 	}
