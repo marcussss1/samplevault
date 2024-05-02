@@ -2,6 +2,7 @@ package ml
 
 import (
 	"context"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"github.com/google/uuid"
@@ -20,7 +21,15 @@ func (c Client) GenerateSoundByText(ctx context.Context, text string) (*os.File,
 	q.Add("input_text", text)
 	req.URL.RawQuery = q.Encode()
 
-	resp1, err := http.DefaultClient.Do(req)
+	client := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
+	}
+
+	resp1, err := client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("do request 1: %w", err)
 	}
@@ -39,7 +48,7 @@ func (c Client) GenerateSoundByText(ctx context.Context, text string) (*os.File,
 		return nil, fmt.Errorf("create request 2: %w", err)
 	}
 
-	resp2, err := http.DefaultClient.Do(req)
+	resp2, err := client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("do request 2: %w", err)
 	}
