@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/marcussss1/simplevault/internal/model"
+	"os"
 	"time"
 )
 
@@ -14,10 +15,16 @@ func (s Service) GenerateSoundByText(ctx context.Context, text string) (model.So
 		return model.Sound{}, fmt.Errorf("genereate sound by text from ml client: %w", err)
 	}
 
+	audioFile, err = os.Open(audioFile.Name())
+	if err != nil {
+		return model.Sound{}, fmt.Errorf("open audio file: %w", err)
+	}
+
 	audioFileInfo, err := audioFile.Stat()
 	if err != nil {
 		return model.Sound{}, fmt.Errorf("get audio file info: %w", err)
 	}
+	defer audioFile.Close()
 
 	err = s.minioRepository.UploadSound(ctx, audioFile, audioFile.Name(), audioFileInfo.Size())
 	if err != nil {
