@@ -13,7 +13,7 @@ import (
 
 func (c Client) GenerateSoundByImageURL(ctx context.Context, imageURL string) (*os.File, error) {
 	// todo вынести в общую
-	req, err := http.NewRequestWithContext(ctx, "GET", c.Host+"generate_by_image", nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", c.Host+"generate_by_img", nil)
 	if err != nil {
 		return nil, fmt.Errorf("create request 1: %w", err)
 	}
