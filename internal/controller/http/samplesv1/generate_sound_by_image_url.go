@@ -22,5 +22,5 @@ func (c Controller) GenerateSoundByImageURL(ctx echo.Context) error {
 		return fmt.Errorf("generate sound by image url from sounds service: %w", err)
 	}
 
-	return ctx.JSON(http.StatusOK, sound)
+	return ctx.JSON(http.StatusCreated, sound)
 }
