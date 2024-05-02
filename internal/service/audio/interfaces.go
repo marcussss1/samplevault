@@ -9,7 +9,6 @@ import (
 
 type minioRepository interface {
 	DownloadSound(ctx context.Context, filename string) (*minio.Object, error)
-	GenerateSound(ctx context.Context) (*minio.Object, error)
 	UploadSound(ctx context.Context, file multipart.File, filename string, size int64) error
 }
 

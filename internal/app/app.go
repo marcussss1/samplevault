@@ -5,6 +5,7 @@ import (
 	"github.com/caarlos0/env/v6"
 	samplescontrollerv1 "github.com/marcussss1/simplevault/internal/controller/http/samplesv1"
 	miniorepository "github.com/marcussss1/simplevault/internal/infrastructure/minio/sounds"
+	"github.com/marcussss1/simplevault/internal/infrastructure/services/ml"
 	tarantoolrepository3 "github.com/marcussss1/simplevault/internal/infrastructure/tarantool/auth"
 	tarantoolrepository2 "github.com/marcussss1/simplevault/internal/infrastructure/tarantool/playlists"
 	tarantoolrepository "github.com/marcussss1/simplevault/internal/infrastructure/tarantool/sounds"
@@ -48,7 +49,9 @@ func Run() error {
 	if err != nil {
 		return fmt.Errorf("%w", err)
 	}
-
+	if err != nil {
+		return fmt.Errorf("%w", err)
+	}
 	tarantoolRepository2, err := tarantoolrepository2.NewRepository(tarantoolClient)
 	if err != nil {
 		return fmt.Errorf("%w", err)
@@ -59,7 +62,12 @@ func Run() error {
 		return fmt.Errorf("%w", err)
 	}
 
-	samplesService, err := samplesservice.NewService(tarantoolRepository)
+	mlClient, err := ml.NewClient("https://66b9-2607-740-61-1000-5980-4612-4322-8a42.ngrok-free.app/")
+	if err != nil {
+		return fmt.Errorf("%w", err)
+	}
+
+	samplesService, err := samplesservice.NewService(tarantoolRepository, mlClient, minioRepository)
 	if err != nil {
 		return fmt.Errorf("%w", err)
 	}
