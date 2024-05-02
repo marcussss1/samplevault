@@ -9,6 +9,8 @@ import (
 func Route(e *echo.Echo, ctrl *samplescontrollerv1.Controller) *echo.Echo {
 	e.GET("/api/v1/sounds", ctrl.GetAllSounds)
 	e.POST("/api/v1/sounds/generate_by_text", ctrl.GenerateSoundByText)
+	e.POST("/api/v1/sounds/generate_by_audio_url", ctrl.GenerateSoundByAudioURL)
+	e.POST("/api/v1/sounds/generate_by_image_url", ctrl.GenerateSoundByImageURL)
 	e.GET("/api/v1/sounds/download/:filename", ctrl.DownloadSound)
 	e.POST("/api/v1/sounds/upload", ctrl.UploadSound)
 	e.GET("/api/v1/sounds/random", ctrl.GetRandomSounds)
