@@ -6,7 +6,7 @@ import (
 	"github.com/marcussss1/simplevault/internal/model"
 )
 
-func (r Repository) CheckUserPassword(ctx context.Context, loginUser model.LoginUser) (model.User, error) {
+func (r Repository) CheckUserPassword(ctx context.Context, loginUser model.LoginUserRequest) (model.LoginUserResponse, error) {
 	query := `
 		local arg = {...} 
 		local username = arg[1]
@@ -31,15 +31,15 @@ func (r Repository) CheckUserPassword(ctx context.Context, loginUser model.Login
 		loginUser.Password,
 	})
 	if err != nil {
-		return model.User{}, fmt.Errorf("select user from tarantool storage: %w", err)
+		return model.LoginUserResponse{}, fmt.Errorf("select user from tarantool storage: %w", err)
 	}
 
 	id := toID(resp)
 	if id == "" {
-		return model.User{}, model.ErrNotFound
+		return model.LoginUserResponse{}, model.ErrNotFound
 	}
 
-	return model.User{
+	return model.LoginUserResponse{
 		ID:       id,
 		Username: loginUser.Username,
 	}, nil

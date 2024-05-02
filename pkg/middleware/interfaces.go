@@ -6,5 +6,5 @@ import (
 )
 
 type authService interface {
-	GetUserBySessionID(ctx context.Context, sessionID string) (model.User, error)
+	GetUserBySessionID(ctx context.Context, sessionID string) (model.GetUserBySessionID, error)
 }

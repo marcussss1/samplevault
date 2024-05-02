@@ -1,13 +1,25 @@
 package model
 
-type SignupUser struct {
+type SignupUserRequest struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
-type LoginUser struct {
+type SignupUserResponse struct {
+	ID        string `json:"id"`
+	SessionID string `json:"session_id"`
+	Username  string `json:"username"`
+}
+
+type LoginUserRequest struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
+}
+
+type LoginUserResponse struct {
+	ID        string `json:"id"`
+	SessionID string `json:"session_id"`
+	Username  string `json:"username"`
 }
 
 type FullUser struct {
@@ -17,7 +29,7 @@ type FullUser struct {
 	Password  string `json:"password"`
 }
 
-type User struct {
+type GetUserBySessionID struct {
 	ID       string `json:"id"`
 	Username string `json:"username"`
 }

@@ -10,7 +10,7 @@ import (
 
 func (c Controller) UploadSound(ctx echo.Context) error {
 	// TODO Временно, когда появится авторизация нужно поменять логику
-	user := ctx.Get("user").(model.User)
+	user := ctx.Get("user").(model.GetUserBySessionID)
 
 	fmt.Println("user: ", user)
 

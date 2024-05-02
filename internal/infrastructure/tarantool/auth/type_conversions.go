@@ -22,12 +22,12 @@ func toID(resp *tarantool.Response) string {
 	return ids[0]
 }
 
-func toUser(resp *tarantool.Response) model.User {
-	var users []model.User
+func toGetUserBySessionID(resp *tarantool.Response) model.GetUserBySessionID {
+	var users []model.GetUserBySessionID
 	for _, tuples := range resp.Tuples() {
 		for _, tuple := range tuples {
 			user := tuple.([]interface{})
-			users = append(users, model.User{
+			users = append(users, model.GetUserBySessionID{
 				ID:       fmt.Sprint(user[0]),
 				Username: fmt.Sprint(user[1]),
 			})
@@ -35,7 +35,7 @@ func toUser(resp *tarantool.Response) model.User {
 	}
 
 	if len(users) == 0 {
-		return model.User{}
+		return model.GetUserBySessionID{}
 	}
 
 	return users[0]

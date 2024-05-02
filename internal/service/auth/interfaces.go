@@ -8,6 +8,6 @@ import (
 type tarantoolRepository interface {
 	StoreUserAndSession(ctx context.Context, user model.FullUser) error
 	StoreSession(ctx context.Context, session model.Session) error
-	CheckUserPassword(ctx context.Context, loginUser model.LoginUser) (model.User, error)
-	GetUserBySessionID(ctx context.Context, sessionID string) (model.User, error)
+	CheckUserPassword(ctx context.Context, loginUser model.LoginUserRequest) (model.LoginUserResponse, error)
+	GetUserBySessionID(ctx context.Context, sessionID string) (model.GetUserBySessionID, error)
 }

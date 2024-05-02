@@ -28,7 +28,7 @@ type filesService interface {
 }
 
 type authService interface {
-	Signup(ctx context.Context, signupUser model.SignupUser) (model.User, error)
-	Login(ctx context.Context, loginUser model.LoginUser) (model.User, error)
-	GetUserBySessionID(ctx context.Context, sessionID string) (model.User, error)
+	Signup(ctx context.Context, signupUserRequest model.SignupUserRequest) (model.SignupUserResponse, error)
+	Login(ctx context.Context, loginUserRequest model.LoginUserRequest) (model.LoginUserResponse, error)
+	GetUserBySessionID(ctx context.Context, sessionID string) (model.GetUserBySessionID, error)
 }
