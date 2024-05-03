@@ -20,6 +20,8 @@ func (r Repository) CheckExistUsername(ctx context.Context, username string) err
 		return fmt.Errorf("select user from tarantool storage: %w", err)
 	}
 
+	fmt.Println(len(resp.Tuples()))
+
 	if len(resp.Tuples()) != 0 {
 		return model.ErrAlreadyExist
 	}
