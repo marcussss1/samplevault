@@ -20,6 +20,8 @@ func Route(e *echo.Echo, ctrl *samplescontrollerv1.Controller) *echo.Echo {
 	e.GET("/api/v1/playlists/:playlist_id", ctrl.GetPlaylist)
 
 	e.GET("api/v1/auth", ctrl.Auth)
+	e.POST("api/v1/auth/signup", ctrl.Signup)
+	e.POST("api/v1/auth/login", ctrl.Login)
 
 	e.GET("/api/v1/health", func(ctx echo.Context) error {
 		return ctx.NoContent(http.StatusOK)

@@ -39,7 +39,7 @@ func (c Controller) Login(ctx echo.Context) error {
 		ID       string `json:"id"`
 		Username string `json:"username"`
 	}
-	return ctx.JSON(http.StatusOK, responseStruct{
+	return ctx.JSON(http.StatusCreated, responseStruct{
 		ID:       loginUserResponse.ID,
 		Username: loginUserResponse.Username,
 	})
