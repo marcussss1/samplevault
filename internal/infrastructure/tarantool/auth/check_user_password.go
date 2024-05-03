@@ -18,7 +18,7 @@ func (r Repository) CheckUserPassword(ctx context.Context, loginUser model.Login
 				return {}
 			else
          		return {
-					user.ID
+					user.id
 				}
 			end
     	else
