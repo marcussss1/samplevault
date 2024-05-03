@@ -11,12 +11,7 @@ func (r Repository) CheckExistUsername(ctx context.Context, username string) err
 		local arg = {...} 
 		local username = arg[1]
 		
-		users = box.space.users.index.username:select(username)
-		if #users == 1 then
-			return users
-		else
-			return {}
-		end
+		return box.space.users.index.username:select(username)
 	`
 
 	resp, err := r.conn.Eval(query, []interface{}{
@@ -26,9 +21,8 @@ func (r Repository) CheckExistUsername(ctx context.Context, username string) err
 		return fmt.Errorf("select user from tarantool storage: %w", err)
 	}
 
-	fmt.Println(len(resp.Tuples()))
-
-	if len(resp.Tuples()) != 0 {
+	id := toID(resp)
+	if id != "" {
 		return model.ErrAlreadyExist
 	}
 
