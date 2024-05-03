@@ -10,7 +10,13 @@ func (r Repository) CheckExistUsername(ctx context.Context, username string) err
 	query := `
 		local arg = {...} 
 		local username = arg[1]
-		return box.space.users.index.username:select(username)
+		
+		users = box.space.users.index.username:select(username)
+		if #users == 1 then
+			return users
+		else
+			return {}
+		end
 	`
 
 	resp, err := r.conn.Eval(query, []interface{}{
