@@ -8,8 +8,8 @@ import (
 
 func (r Repository) StoreSession(ctx context.Context, session model.Session) error {
 	_, err := r.conn.Insert("sessions", []interface{}{
-		session.UserID,
 		session.ID,
+		session.UserID,
 	})
 	if err != nil {
 		return fmt.Errorf("insert session from tarantool storage: %w", err)
