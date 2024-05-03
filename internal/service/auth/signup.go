@@ -9,14 +9,18 @@ import (
 
 func (s Service) Signup(ctx context.Context, signupUser model.SignupUserRequest) (model.SignupUserResponse, error) {
 	// todo валидация
-	// todo проверка на существование юзера по юзернейму
+	err := s.tarantoolRepository.CheckExistUsername(ctx, signupUser.Username)
+	if err != nil {
+		return model.SignupUserResponse{}, fmt.Errorf("check exist username from tarantool repository: %w", err)
+	}
+
 	user := model.FullUser{
 		ID:        uuid.NewString(),
 		SessionID: uuid.NewString(),
 		Username:  signupUser.Username,
 		Password:  signupUser.Password,
 	}
-	err := s.tarantoolRepository.StoreUserAndSession(ctx, user)
+	err = s.tarantoolRepository.StoreUserAndSession(ctx, user)
 	if err != nil {
 		return model.SignupUserResponse{}, fmt.Errorf("store user from tarantool repository: %w", err)
 	}

@@ -1,6 +1,7 @@
 package samplesv1
 
 import (
+	"errors"
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/marcussss1/simplevault/internal/model"
@@ -19,7 +20,10 @@ func (c Controller) Signup(ctx echo.Context) error {
 
 	signupUserResponse, err := c.authService.Signup(ctx.Request().Context(), signupUserRequest)
 	if err != nil {
-		// todo if user exist
+		if errors.Is(err, model.ErrAlreadyExist) {
+			return echo.NewHTTPError(http.StatusConflict, err)
+		}
+
 		return fmt.Errorf("signup from auth service: %w", err)
 	}
 
