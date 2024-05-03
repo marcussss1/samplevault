@@ -12,10 +12,10 @@ func (r Repository) CheckUserPassword(ctx context.Context, loginUser model.Login
 		local username = arg[1]
 		local password = arg[2]
 
-		user = box.space.users.index.username:select(username)
-        if user then
-			if user.password == password then
-         		return user
+		users = box.space.users.index.username:select(username)
+        if users then
+			if users[1][3] == password then
+         		return users[1][3]
 			else
 				return {}
 			end
