@@ -10,9 +10,9 @@ import (
 
 func (c Controller) UploadSound(ctx echo.Context) error {
 	// TODO Временно, когда появится авторизация нужно поменять логику
-	user := ctx.Get("user").(model.GetUserBySessionID)
+	userID := ctx.Get("user_id").(string)
 
-	fmt.Println("user: ", user)
+	fmt.Println("userID: ", userID)
 
 	err := ctx.Request().ParseMultipartForm(5 * 1024 * 1024)
 	if err != nil {
@@ -25,7 +25,7 @@ func (c Controller) UploadSound(ctx echo.Context) error {
 	}
 	defer audioFile.Close()
 
-	sound, err := c.filesService.UploadSound(ctx.Request().Context(), audioFile, header, user.ID, model.UploadSound{
+	sound, err := c.filesService.UploadSound(ctx.Request().Context(), audioFile, header, userID, model.UploadSound{
 		Title:             ctx.Request().FormValue("title"),
 		MusicalInstrument: ctx.Request().FormValue("musical_instrument"),
 		Genre:             ctx.Request().FormValue("genre"),

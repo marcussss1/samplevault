@@ -28,7 +28,7 @@ func (r Repository) GetUserBySessionID(ctx context.Context, sessionID string) (m
 		sessionID,
 	})
 	if err != nil {
-		return model.GetUserBySessionID{}, fmt.Errorf("select user by sessiond id from tarantool storage: %w", err)
+		return model.GetUserBySessionID{}, fmt.Errorf("select user by session id from tarantool storage: %w", err)
 	}
 
 	user := toGetUserBySessionID(resp)

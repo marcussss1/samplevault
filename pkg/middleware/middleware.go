@@ -31,7 +31,9 @@ func Auth(authService authService) echo.MiddlewareFunc {
 				return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 			}
 
-			ctx.Set("user", user)
+			ctx.Set("user_id", user.ID)
+			ctx.Set("session_id", sessionID)
+
 			return next(ctx)
 		}
 	}
