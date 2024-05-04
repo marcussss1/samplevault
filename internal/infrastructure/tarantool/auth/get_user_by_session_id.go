@@ -13,7 +13,7 @@ func (r Repository) GetUserBySessionID(ctx context.Context, sessionID string) (m
 
 		sessions = box.space.sessions.index.id:select(sessionID)
         if #sessions == 1 then
-			users = box.space.users.index.id:select(session.user_id)
+			users = box.space.users.index.id:select(sessions[1][2])
 			if #users == 1 then
 				return users
 			else
