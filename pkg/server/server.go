@@ -31,7 +31,7 @@ func NewServer(samplesControllerV1 *samplescontrollerv1.Controller, authService 
 			return false
 		},
 	}))
-	e.Use(httpmiddleware.Auth)
+	e.Use(httpmiddleware.Auth(authService))
 	e = router.Route(e, samplesControllerV1)
 
 	return &Server{
