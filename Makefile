@@ -1,3 +1,9 @@
+#            kubectl create secret generic tarantool-secrets \
+#            --from-literal=TARANTOOL_USER=${{ secrets.TARANTOOL_USER }} \
+#            --from-literal=TARANTOOL_PASSWORD=${{ secrets.TARANTOOL_PASSWORD }} \
+#            --from-literal=TARANTOOL_DSN=${{ secrets.TARANTOOL_DSN }} \
+#            --from-literal=TARANTOOL_DATABASE=${{ secrets.TARANTOOL_DATABASE }}
+
 up_all:
 	minikube start --memory=2048 --cpus=2 --disk-size=2g
 	minikube addons enable ingress
