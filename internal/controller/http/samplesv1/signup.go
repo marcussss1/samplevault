@@ -34,7 +34,7 @@ func (c Controller) Signup(ctx echo.Context) error {
 		Path:     "/",
 		Expires:  time.Now().Add(24 * time.Hour * 30),
 		SameSite: http.SameSiteNoneMode,
-		Secure:   false,
+		Secure:   true,
 	})
 	// todo
 
