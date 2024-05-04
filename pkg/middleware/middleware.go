@@ -13,8 +13,8 @@ func Auth(authService authService) echo.MiddlewareFunc {
 			url := ctx.Request().URL.String()
 			if url != "/api/v1/sounds/generate_by_text" &&
 				url != "/api/v1/sounds/generate_by_audio_url" &&
-				url != "/api/v1/sounds/generate_by_image_url" &&
-				url != "/api/v1/sounds/upload" {
+				url != "/api/v1/sounds/generate_by_image_url" {
+				// todo url != "/api/v1/sounds/upload"
 				return next(ctx)
 			}
 
