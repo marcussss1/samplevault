@@ -34,6 +34,9 @@ func toGetUserBySessionID(resp *tarantool.Response) model.GetUserBySessionID {
 		}
 	}
 
+	fmt.Println("tuples: ", resp.Tuples())
+	fmt.Println("users: ", users)
+
 	if len(users) == 0 {
 		return model.GetUserBySessionID{}
 	}
