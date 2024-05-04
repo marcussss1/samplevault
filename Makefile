@@ -4,9 +4,9 @@ up_all:
 	kubectl apply -f deployment.yml
 	kubectl apply -f service.yml
 	kubectl apply -f ingress.yml
-	kubectl create cm --from-file init.lua app
-	kubectl apply -f tarantool-statefulset.yml
-	kubectl apply -f tarantool-service.yml
+	kubectl create cm --from-file init.lua tarantool-secrets
+	kubectl apply -f statefulset.yml
+	kubectl apply -f service.yml
 
 delete_all:
 	minikube delete --all=true --purge=true
