@@ -24,9 +24,9 @@ func Auth(authService authService) echo.MiddlewareFunc {
 				return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 			}
 
-			fmt.Println("cookie: ", sessionID.String())
+			fmt.Println("cookie: ", sessionID.Value)
 
-			user, err := authService.GetUserBySessionID(ctx.Request().Context(), sessionID.String())
+			user, err := authService.GetUserBySessionID(ctx.Request().Context(), sessionID.Value)
 			if err != nil {
 				if errors.Is(err, model.ErrNotFound) {
 					return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
@@ -38,7 +38,7 @@ func Auth(authService authService) echo.MiddlewareFunc {
 			fmt.Println("auth user: ", user)
 
 			ctx.Set("user_id", user.ID)
-			ctx.Set("session_id", sessionID)
+			ctx.Set("session_id", sessionID.Value)
 
 			return next(ctx)
 		}
