@@ -1,7 +1,6 @@
 package app
 
 import (
-	"context"
 	"fmt"
 	"github.com/caarlos0/env/v6"
 	samplescontrollerv1 "github.com/marcussss1/simplevault/internal/controller/http/samplesv1"
@@ -17,8 +16,6 @@ import (
 	"github.com/marcussss1/simplevault/pkg/minio"
 	"github.com/marcussss1/simplevault/pkg/server"
 	"github.com/marcussss1/simplevault/pkg/tarantool"
-	minio2 "github.com/minio/minio-go/v7"
-	"log"
 )
 
 type Config struct {
@@ -93,17 +90,6 @@ func Run() error {
 	samplesControllerV1, err := samplescontrollerv1.NewController(samplesService, filesService, playlistsService, authService)
 	if err != nil {
 		return fmt.Errorf("%w", err)
-	}
-
-	err = minioClient.MakeBucket(context.Background(), "sounds", minio2.MakeBucketOptions{})
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	policy := `{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":"*","Action":["s3:GetObject"],"Resource":["arn:aws:s3::: + sounds + /*"]}]}`
-	err = minioClient.SetBucketPolicy(context.Background(), "sounds", policy)
-	if err != nil {
-		log.Fatalln(err)
 	}
 
 	server := server.NewServer(samplesControllerV1, authService)
