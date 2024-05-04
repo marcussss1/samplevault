@@ -19,8 +19,8 @@ func (r Repository) StoreUserAndSession(ctx context.Context, user model.FullUser
 	}
 
 	_, err = r.conn.Insert("sessions", []interface{}{
-		user.ID,
 		user.SessionID,
+		user.ID,
 	})
 	if err != nil {
 		return fmt.Errorf("insert session from tarantool storage: %w", err)

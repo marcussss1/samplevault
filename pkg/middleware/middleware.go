@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"errors"
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/marcussss1/simplevault/internal/model"
 	"net/http"
@@ -31,6 +32,8 @@ func Auth(authService authService) echo.MiddlewareFunc {
 
 				return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 			}
+
+			fmt.Println("auth user: ", user)
 
 			ctx.Set("user_id", user.ID)
 			ctx.Set("session_id", sessionID)
