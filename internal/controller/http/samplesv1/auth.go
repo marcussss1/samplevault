@@ -14,10 +14,12 @@ func (c Controller) Auth(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusUnauthorized, "cookie is empty")
 	}
 
+	fmt.Println("cookie: ", sessionID.String())
+
 	user, err := c.authService.GetUserBySessionID(ctx.Request().Context(), sessionID.String())
 	if err != nil {
 		if errors.Is(err, model.ErrNotFound) {
-			return echo.NewHTTPError(http.StatusUnauthorized, "user not found")
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		}
 
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())

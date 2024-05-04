@@ -24,6 +24,8 @@ func Auth(authService authService) echo.MiddlewareFunc {
 				return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 			}
 
+			fmt.Println("cookie: ", sessionID.String())
+
 			user, err := authService.GetUserBySessionID(ctx.Request().Context(), sessionID.String())
 			if err != nil {
 				if errors.Is(err, model.ErrNotFound) {
