@@ -34,8 +34,9 @@ func (c Controller) Login(ctx echo.Context) error {
 		Path:     "/",
 		Expires:  time.Now().Add(24 * time.Hour * 30),
 		SameSite: http.SameSiteNoneMode,
-		Secure:   true,
+		Secure:   false,
 	})
+	// todo
 
 	type responseStruct struct {
 		ID       string `json:"id"`
