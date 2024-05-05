@@ -20,8 +20,9 @@ func (r Repository) DeleteSessionByID(ctx context.Context, sessionID string) err
 		return fmt.Errorf("delete session by id from tarantool storage: %w", err)
 	}
 
-	id := toID(resp)
-	if id == "" {
+	fmt.Println("len: ", len(resp.Tuples()))
+
+	if len(resp.Tuples()) == 0 {
 		return model.ErrNotFound
 	}
 
