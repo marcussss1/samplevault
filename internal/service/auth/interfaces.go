@@ -11,4 +11,5 @@ type tarantoolRepository interface {
 	CheckUserPassword(ctx context.Context, loginUser model.LoginUserRequest) (model.LoginUserResponse, error)
 	CheckExistUsername(ctx context.Context, username string) error
 	GetUserBySessionID(ctx context.Context, sessionID string) (model.GetUserBySessionID, error)
+	DeleteSessionByID(ctx context.Context, sessionID string) error
 }
