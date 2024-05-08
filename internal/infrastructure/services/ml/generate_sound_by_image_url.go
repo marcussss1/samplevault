@@ -36,6 +36,13 @@ func (c Client) GenerateSoundByImageURL(ctx context.Context, imageURL string) (*
 	}
 	defer resp1.Body.Close()
 
+	body, err := io.ReadAll(resp1.Body)
+	if err != nil {
+		return nil, fmt.Errorf("read all resp 1: %w", err)
+	}
+
+	fmt.Println(string(body)) // Выводим тело ответа в формате JSON
+
 	type ml1Response struct {
 		AudioURL string `json:"audio_url"`
 	}
