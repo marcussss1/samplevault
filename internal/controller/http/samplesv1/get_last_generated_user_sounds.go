@@ -2,7 +2,6 @@ package samplesv1
 
 import (
 	"fmt"
-	"github.com/marcussss1/simplevault/internal/model"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -10,11 +9,13 @@ import (
 
 func (c Controller) GetLastGeneratedUserSounds(ctx echo.Context) error {
 	// TODO Временно, когда появится авторизация нужно поменять логику
-	user := ctx.Get("user").(model.GetUserBySessionID)
+	userID := fmt.Sprint(ctx.Get("user_id"))
 
-	fmt.Println("user: ", user)
+	//ctx.Set("user_id", user.ID)
+	//ctx.Set("session_id", sessionID.Value)
+	fmt.Println("user_id: ", userID)
 
-	sounds, err := c.soundsService.GetLastGeneratedUserSounds(ctx.Request().Context(), user.ID)
+	sounds, err := c.soundsService.GetLastGeneratedUserSounds(ctx.Request().Context(), userID)
 	if err != nil {
 		return fmt.Errorf("get last generated user sounds from sounds service: %w", err)
 	}
