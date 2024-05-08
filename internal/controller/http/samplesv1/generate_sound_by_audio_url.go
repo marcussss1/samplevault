@@ -8,6 +8,10 @@ import (
 )
 
 func (c Controller) GenerateSoundByAudioURL(ctx echo.Context) error {
+	userID := fmt.Sprint(ctx.Get("user_id"))
+
+	fmt.Println("user_id: ", userID)
+
 	type requestStruct struct {
 		AudioURL string `json:"audio_url"`
 	}
@@ -17,7 +21,7 @@ func (c Controller) GenerateSoundByAudioURL(ctx echo.Context) error {
 		return fmt.Errorf("error while binding body: %w", err)
 	}
 
-	sound, err := c.soundsService.GenerateSoundByAudioURL(ctx.Request().Context(), req.AudioURL)
+	sound, err := c.soundsService.GenerateSoundByAudioURL(ctx.Request().Context(), req.AudioURL, userID)
 	if err != nil {
 		return fmt.Errorf("generate sound by audio url from sounds service: %w", err)
 	}

@@ -8,11 +8,8 @@ import (
 )
 
 func (c Controller) GetLastGeneratedUserSounds(ctx echo.Context) error {
-	// TODO Временно, когда появится авторизация нужно поменять логику
 	userID := fmt.Sprint(ctx.Get("user_id"))
 
-	//ctx.Set("user_id", user.ID)
-	//ctx.Set("session_id", sessionID.Value)
 	fmt.Println("user_id: ", userID)
 
 	sounds, err := c.soundsService.GetLastGeneratedUserSounds(ctx.Request().Context(), userID)

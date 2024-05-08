@@ -14,9 +14,9 @@ type soundsService interface {
 	GetAllSounds(ctx context.Context) ([]model.Sound, error)
 	GetRandomSounds(ctx context.Context) ([]model.Sound, error)
 	GetLastGeneratedUserSounds(ctx context.Context, userID string) ([]model.Sound, error)
-	GenerateSoundByText(ctx context.Context, text string) (model.Sound, error)
-	GenerateSoundByImageURL(ctx context.Context, imageURL string) (model.Sound, error)
-	GenerateSoundByAudioURL(ctx context.Context, audioURL string) (model.Sound, error)
+	GenerateSoundByText(ctx context.Context, text string, userID string) (model.Sound, error)
+	GenerateSoundByImageURL(ctx context.Context, imageURL string, userID string) (model.Sound, error)
+	GenerateSoundByAudioURL(ctx context.Context, audioURL string, userID string) (model.Sound, error)
 }
 
 type playlistsService interface {

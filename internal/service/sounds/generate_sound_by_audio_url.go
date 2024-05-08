@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func (s Service) GenerateSoundByAudioURL(ctx context.Context, audioURL string) (model.Sound, error) {
+func (s Service) GenerateSoundByAudioURL(ctx context.Context, audioURL, userID string) (model.Sound, error) {
 	// todo вынести в общую
 	audioFile, err := s.mlClient.GenerateSoundByAudioURL(ctx, audioURL)
 	if err != nil {
@@ -30,7 +30,7 @@ func (s Service) GenerateSoundByAudioURL(ctx context.Context, audioURL string) (
 		return model.Sound{}, fmt.Errorf("upload sound from minio repository: %w", err)
 	}
 
-	sample := newSample("generated_user_id", audioFile.Name())
+	sample := newSample(userID, audioFile.Name())
 	err = s.tarantoolRepository.StoreSound(ctx, sample)
 	if err != nil {
 		return model.Sound{}, fmt.Errorf("store sound from tarantool repository: %w", err)

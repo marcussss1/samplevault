@@ -8,6 +8,10 @@ import (
 )
 
 func (c Controller) GenerateSoundByImageURL(ctx echo.Context) error {
+	userID := fmt.Sprint(ctx.Get("user_id"))
+
+	fmt.Println("user_id: ", userID)
+
 	type requestStruct struct {
 		ImageURL string `json:"image_url"`
 	}
@@ -17,7 +21,7 @@ func (c Controller) GenerateSoundByImageURL(ctx echo.Context) error {
 		return fmt.Errorf("error while binding body: %w", err)
 	}
 
-	sound, err := c.soundsService.GenerateSoundByImageURL(ctx.Request().Context(), req.ImageURL)
+	sound, err := c.soundsService.GenerateSoundByImageURL(ctx.Request().Context(), req.ImageURL, userID)
 	if err != nil {
 		return fmt.Errorf("generate sound by image url from sounds service: %w", err)
 	}
