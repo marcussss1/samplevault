@@ -9,11 +9,9 @@ import (
 )
 
 func (c Controller) UploadSound(ctx echo.Context) error {
-	// TODO Временно, когда появится авторизация нужно поменять логику
-	//userID := ctx.Get("user_id").(string)
-	userID := "aaaaaaaaaaaaaaa"
+	userID := fmt.Sprint(ctx.Get("user_id"))
 
-	fmt.Println("userID: ", userID)
+	fmt.Println("user_id: ", userID)
 
 	err := ctx.Request().ParseMultipartForm(50 * 1024 * 1024)
 	if err != nil {
