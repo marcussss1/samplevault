@@ -6,6 +6,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/marcussss1/simplevault/internal/model"
 	"net/http"
+	"strings"
 )
 
 func Auth(authService authService) echo.MiddlewareFunc {
@@ -15,7 +16,8 @@ func Auth(authService authService) echo.MiddlewareFunc {
 			if url != "/api/v1/sounds/generate_by_text" &&
 				url != "/api/v1/sounds/generate_by_audio_url" &&
 				url != "/api/v1/sounds/generate_by_image_url" &&
-				url != "/api/v1/sounds/upload" {
+				url != "/api/v1/sounds/upload" &&
+				!strings.Contains(url, "/api/v1/sounds/download/") {
 				return next(ctx)
 			}
 
