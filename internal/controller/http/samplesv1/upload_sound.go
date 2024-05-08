@@ -15,7 +15,7 @@ func (c Controller) UploadSound(ctx echo.Context) error {
 
 	fmt.Println("userID: ", userID)
 
-	err := ctx.Request().ParseMultipartForm(5 * 1024 * 1024)
+	err := ctx.Request().ParseMultipartForm(50 * 1024 * 1024)
 	if err != nil {
 		return fmt.Errorf("parse multipart form: %w", err)
 	}

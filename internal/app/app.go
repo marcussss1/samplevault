@@ -49,9 +49,7 @@ func Run() error {
 	if err != nil {
 		return fmt.Errorf("%w", err)
 	}
-	if err != nil {
-		return fmt.Errorf("%w", err)
-	}
+
 	tarantoolRepository2, err := tarantoolrepository2.NewRepository(tarantoolClient)
 	if err != nil {
 		return fmt.Errorf("%w", err)
@@ -62,7 +60,7 @@ func Run() error {
 		return fmt.Errorf("%w", err)
 	}
 
-	mlClient, err := ml.NewClient("https://66b9-2607-740-61-1000-5980-4612-4322-8a42.ngrok-free.app/")
+	mlClient, err := ml.NewClient("https://fceb-2607-740-61-2000-bdfd-b6ad-16ab-58e.ngrok-free.app/")
 	if err != nil {
 		return fmt.Errorf("%w", err)
 	}
