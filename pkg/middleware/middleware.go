@@ -17,6 +17,7 @@ func Auth(authService authService) echo.MiddlewareFunc {
 				url != "/api/v1/sounds/generate_by_audio_url" &&
 				url != "/api/v1/sounds/generate_by_image_url" &&
 				url != "/api/v1/sounds/upload" &&
+				url != "/api/v1/sounds/last_generated" &&
 				!strings.Contains(url, "/api/v1/sounds/download/") {
 				return next(ctx)
 			}
