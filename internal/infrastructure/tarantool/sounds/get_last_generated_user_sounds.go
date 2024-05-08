@@ -20,13 +20,13 @@ func (r Repository) GetLastGeneratedUserSounds(ctx context.Context, userID strin
 			return result
 		end
 
-		local generated_sounds = box.space.sounds.index.is_generated:select(true, {})
+		local generated_sounds = box.space.sounds.index.is_generated:select(true)
 		local generated_user_sounds = {}
 		local arg = {...} 
 		local userID = arg[1]
 
 		for _, sound in ipairs(generated_sounds) do
-	    	if sound.author_id == userID then
+	    	if sound[2] == userID then
 				table.insert(generated_user_sounds, sound)
 	  		end
 		end
