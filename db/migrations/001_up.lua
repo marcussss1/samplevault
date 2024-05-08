@@ -76,12 +76,6 @@ box.space.sessions:create_index('id', {
     if_not_exists = true
 })
 
-box.space.sessions:create_index('user_id', {
-    type = 'tree',
-    parts = {'user_id'},
-    if_not_exists = true
-})
-
 ----------------------------------------------------------------------------------------------------
 
 box.schema.space.create('users', {

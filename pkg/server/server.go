@@ -18,7 +18,14 @@ func NewServer(samplesControllerV1 *samplescontrollerv1.Controller, authService 
 	e := echo.New()
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://localhost:3000", "http://localhost:80", "http://localhost:8000", "http://localhost:8080"},
+		AllowOrigins: []string{
+			"http://localhost:3000",
+			"http://localhost:80",
+			"http://localhost:8000",
+			"http://localhost:8080",
+			"http://192.168.49.1",
+			"http://192.168.49.1:3000",
+		},
 		AllowMethods:     []string{"GET", "POST"},
 		AllowCredentials: true,
 	}))
