@@ -41,13 +41,16 @@ func (c Client) GenerateSoundByAudioURL(ctx context.Context, audioURL string) (*
 		return nil, fmt.Errorf("read all resp 1: %w", err)
 	}
 
+	fmt.Println()
 	fmt.Println(string(body)) // Выводим тело ответа в формате JSON
+	fmt.Println()
 
 	type ml1Response struct {
 		AudioURL string `json:"audio_url"`
 	}
 	var mlResp ml1Response
-	if err = json.NewDecoder(resp1.Body).Decode(&mlResp); err != nil {
+	err = json.Unmarshal(body, &mlResp)
+	if err != nil {
 		return nil, fmt.Errorf("decode response 1: %w", err)
 	}
 
