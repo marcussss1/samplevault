@@ -14,6 +14,10 @@ func (s Service) UploadSound(ctx context.Context, file multipart.File, header *m
 	extension := filepath.Ext(header.Filename)
 	filename := uuid.NewString() + extension
 
+	fmt.Println()
+	fmt.Println(uploadSound)
+	fmt.Println()
+
 	err := s.minioRepository.UploadSound(ctx, file, filename, header.Size)
 	if err != nil {
 		return model.Sound{}, fmt.Errorf("upload sound from minio repository: %w", err)

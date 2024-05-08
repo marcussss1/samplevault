@@ -4,6 +4,7 @@ metadata:
   name: samplevault
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /api/$1
+    nginx.ingress.kubernetes.io/proxy-body-size: 10m
 spec:
   rules:
     - host: backend-service
