@@ -17,6 +17,8 @@ type soundsService interface {
 	GenerateSoundByText(ctx context.Context, text string, userID string) (model.Sound, error)
 	GenerateSoundByImageURL(ctx context.Context, imageURL string, userID string) (model.Sound, error)
 	GenerateSoundByAudioURL(ctx context.Context, audioURL string, userID string) (model.Sound, error)
+	DeleteSoundByID(ctx context.Context, soundID string) error
+	EditSoundByID(ctx context.Context, sound model.EditSound) error
 }
 
 type playlistsService interface {

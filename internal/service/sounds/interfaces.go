@@ -12,6 +12,8 @@ type tarantoolRepository interface {
 	GetRandomSounds(ctx context.Context) ([]model.Sound, error)
 	GetLastGeneratedUserSounds(ctx context.Context, userID string) ([]model.Sound, error)
 	StoreSound(ctx context.Context, sound model.Sound) error
+	DeleteSoundByID(ctx context.Context, soundID string) error
+	EditSoundByID(ctx context.Context, sound model.EditSound) error
 }
 
 type mlClient interface {

@@ -9,6 +9,16 @@ type UploadSound struct {
 	Tempo             string `json:"tempo"`
 }
 
+type EditSound struct {
+	ID                string `json:"id"`
+	Title             string `json:"title"`
+	MusicalInstrument string `json:"musical_instrument"`
+	Genre             string `json:"genre"`
+	Mood              string `json:"mood"`
+	Tonality          string `json:"tonality"`
+	Tempo             string `json:"tempo"`
+}
+
 type Sound struct {
 	ID                string `json:"id"`
 	AuthorID          string `json:"author_id"`
