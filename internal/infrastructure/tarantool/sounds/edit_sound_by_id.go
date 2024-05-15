@@ -12,7 +12,7 @@ func (r Repository) EditSoundByID(ctx context.Context, sound model.EditSound) er
 		local arg = {...} 
 		local id = arg[1]
 		local title = arg[2]
-		local musical_instrument = arg[3]
+		local musicalInstrument = arg[3]
 		local genre = arg[4]
 		local mood = arg[5]
 		local tonality = arg[6]
@@ -20,7 +20,7 @@ func (r Repository) EditSoundByID(ctx context.Context, sound model.EditSound) er
 		
 		return box.space.sounds:update(id, {
     		{'=', 'title', title},
-    		{'=', 'musical_instrument', musical_instrument},
+    		{'=', 'musical_instrument', musicalInstrument},
     		{'=', 'genre', genre},
     		{'=', 'mood', mood},
     		{'=', 'tonality', tonality},
