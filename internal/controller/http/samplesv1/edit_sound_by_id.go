@@ -14,6 +14,8 @@ func (c Controller) EditSoundByID(ctx echo.Context) error {
 		return fmt.Errorf("error while binding body: %w", err)
 	}
 
+	fmt.Println("edit sound: %v", sound)
+
 	err = c.soundsService.EditSoundByID(ctx.Request().Context(), sound)
 	if err != nil {
 		return fmt.Errorf("edit sound by id from sounds service: %w", err)

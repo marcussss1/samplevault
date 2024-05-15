@@ -24,7 +24,7 @@ func (r Repository) EditSoundByID(ctx context.Context, sound model.EditSound) er
     		{'=', 'genre', genre},
     		{'=', 'mood', mood},
     		{'=', 'tonality', tonality},
-    		{'=', 'tempo', tempo}
+    		{'=', 'tempo', tempo},
 		})
 	`
 

@@ -16,7 +16,7 @@ func Route(e *echo.Echo, ctrl *samplescontrollerv1.Controller) *echo.Echo {
 	e.GET("/api/v1/sounds/random", ctrl.GetRandomSounds)
 	e.GET("/api/v1/sounds/last_generated", ctrl.GetLastGeneratedUserSounds)
 	e.DELETE("/api/v1/sounds/:id", ctrl.DeleteSoundByID)
-	e.PATCH("/api/v1/sounds", ctrl.EditSoundByID)
+	e.PUT("/api/v1/sounds", ctrl.EditSoundByID)
 
 	e.GET("/api/v1/playlists/random", ctrl.GetRandomPlaylists)
 	e.GET("/api/v1/playlists/:playlist_id", ctrl.GetPlaylist)
