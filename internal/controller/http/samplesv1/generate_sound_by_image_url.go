@@ -12,18 +12,20 @@ func (c Controller) GenerateSoundByImageURL(ctx echo.Context) error {
 
 	fmt.Println("user_id: ", userID)
 
-	type requestStruct struct {
-		ImageURL string `json:"image_url"`
-	}
-	var req requestStruct
-	err := ctx.Bind(&req)
-	if err != nil {
-		return fmt.Errorf("error while binding body: %w", err)
-	}
+	//imageFile, header, err := ctx.Request().FormFile("audio")
+	//if err != nil {
+	//	return fmt.Errorf("form file: %w", err)
+	//}
+	//defer imageFile.Close()
+	//
+	//sound, err := c.soundsService.GenerateSoundByImageURL(ctx.Request().Context(), imageFile, header, userID)
+	//if err != nil {
+	//	return fmt.Errorf("generate sound by image url from sounds service: %w", err)
+	//}
 
-	sound, err := c.soundsService.GenerateSoundByImageURL(ctx.Request().Context(), req.ImageURL, userID)
+	sound, err := c.soundsService.GenerateSoundByText(ctx.Request().Context(), "nice ocean, great blue beer amazing nice great nice girls mountains song sign", userID)
 	if err != nil {
-		return fmt.Errorf("generate sound by image url from sounds service: %w", err)
+		return fmt.Errorf("generate sound by text from sounds service: %w", err)
 	}
 
 	return ctx.JSON(http.StatusCreated, sound)
