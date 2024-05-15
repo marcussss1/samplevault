@@ -8,7 +8,27 @@ import (
 
 //nolint:gomnd
 func (r Repository) EditSoundByID(ctx context.Context, sound model.EditSound) error {
-	_, err := r.conn.Replace("sounds", []interface{}{
+	query := `
+		local arg = {...} 
+		local id = arg[1]
+		local title = arg[2]
+		local musical_instrument = arg[3]
+		local genre = arg[4]
+		local mood = arg[5]
+		local tonality = arg[6]
+		local tempo = arg[7]
+		
+		return box.space.sounds:update(id, {
+    		{'=', 'title', title},
+    		{'=', 'musical_instrument', musical_instrument},
+    		{'=', 'genre', genre},
+    		{'=', 'mood', mood},
+    		{'=', 'tonality', tonality},
+    		{'=', 'tempo', tempo}
+		})
+	`
+
+	_, err := r.conn.Eval(query, []interface{}{
 		sound.ID,
 		sound.Title,
 		sound.MusicalInstrument,
@@ -18,7 +38,7 @@ func (r Repository) EditSoundByID(ctx context.Context, sound model.EditSound) er
 		sound.Tempo,
 	})
 	if err != nil {
-		return fmt.Errorf("edit sound by id: %w", err)
+		return fmt.Errorf("replace sound from tarantool storage: %w", err)
 	}
 
 	return nil
