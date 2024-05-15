@@ -23,7 +23,7 @@ func (c Controller) GenerateSoundByImageURL(ctx echo.Context) error {
 	//	return fmt.Errorf("generate sound by image url from sounds service: %w", err)
 	//}
 
-	sound, err := c.soundsService.GenerateSoundByText(ctx.Request().Context(), "nice ocean, great blue beer amazing nice great nice girls mountains song sign", userID)
+	sound, err := c.soundsService.GenerateSoundByText(ctx.Request().Context(), "sounds of the sea with smooth waves as a rhythmic and the sounds of the surf as a melodic accent. Soft guitar chords with lightness of the sea wind. Endless harmony with nature and tranquility", userID)
 	if err != nil {
 		return fmt.Errorf("generate sound by text from sounds service: %w", err)
 	}

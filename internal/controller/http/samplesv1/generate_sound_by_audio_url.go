@@ -32,7 +32,7 @@ func (c Controller) GenerateSoundByAudioURL(ctx echo.Context) error {
 	//	return fmt.Errorf("generate sound by audio url from sounds service: %w", err)
 	//}
 
-	sound, err := c.soundsService.GenerateSoundByText(ctx.Request().Context(), "nice ocean, great blue beer amazing nice great nice girls mountains song sign", userID)
+	sound, err := c.soundsService.GenerateSoundByText(ctx.Request().Context(), "generate a sad sequence of notes played on the piano, the mood is dark and sad", userID)
 	if err != nil {
 		return fmt.Errorf("generate sound by text from sounds service: %w", err)
 	}
