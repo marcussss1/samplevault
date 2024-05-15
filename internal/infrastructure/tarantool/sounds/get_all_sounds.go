@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/marcussss1/simplevault/internal/model"
+	"github.com/tarantool/go-tarantool"
 )
 
 //nolint:gomnd
