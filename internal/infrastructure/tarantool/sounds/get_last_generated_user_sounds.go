@@ -14,7 +14,7 @@ func (r Repository) GetLastGeneratedUserSounds(ctx context.Context, userID strin
 
 		local function firstFive(generated_sounds)
 			local result = {}
-			for i = 0, 4 do
+			for i = 0, 400 do
 				table.insert(result, generated_sounds[i])
 			end
 			return result
