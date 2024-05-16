@@ -7,7 +7,7 @@ import (
 
 func (r Repository) LikeSoundByID(ctx context.Context, authorID, soundID string) error {
 	// todo транзакция
-	_, err := r.conn.Insert("likes", []interface{}{
+	_, err := r.conn.Replace("likes", []interface{}{
 		authorID,
 		soundID,
 	})
