@@ -14,6 +14,8 @@ func toSounds(resp *tarantool.Response) []model.Sound {
 		for _, tuple := range tuples {
 			sound := tuple.([]interface{})
 
+			fmt.Printf("\n\n %v \n\n", sound)
+
 			isGenerated, err := strconv.ParseBool(fmt.Sprint(sound[13]))
 			if err != nil {
 				panic(err)
