@@ -11,11 +11,10 @@ func (r Repository) GetLikedSounds(ctx context.Context, userID string) ([]model.
 		local resp = {}
 		local arg = {...} 
 		local authorID = arg[1]
-		
+
 		likes = box.space.likes.index.author_id:select(authorID)
 		for _, like in ipairs(likes) do
-	    	local sound = box.space.sounds.index.primary:select(like[3])
-			table.insert(resp, sound)
+			table.insert(resp, box.space.sounds.index.primary:select(like[3]))
 		end
 	
 		return resp`
@@ -27,5 +26,5 @@ func (r Repository) GetLikedSounds(ctx context.Context, userID string) ([]model.
 		return nil, fmt.Errorf("select liked sounds from tarantool storage: %w", err)
 	}
 
-	return toSounds(resp), nil
+	return toSounds2(resp), nil
 }
