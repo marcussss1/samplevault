@@ -15,6 +15,7 @@ type tarantoolRepository interface {
 	DeleteSoundByID(ctx context.Context, soundID string) error
 	EditSoundByID(ctx context.Context, sound model.EditSound) error
 	LikeSoundByID(ctx context.Context, authorID, soundID string) error
+	GetLikedSounds(ctx context.Context, userID string) ([]model.Sound, error)
 }
 
 type mlClient interface {
