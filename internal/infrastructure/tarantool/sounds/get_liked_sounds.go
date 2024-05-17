@@ -14,7 +14,7 @@ func (r Repository) GetLikedSounds(ctx context.Context, userID string) ([]model.
 		
 		likes = box.space.likes.index.author_id:select(authorID)
 		for _, like in ipairs(likes) do
-	    	local sound = box.space.sounds.index.primary:select(likes[3])
+	    	local sound = box.space.sounds.index.primary:select(like[3])
 			table.insert(resp, sound)
 		end
 	
