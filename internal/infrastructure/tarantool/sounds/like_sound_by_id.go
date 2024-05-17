@@ -3,11 +3,13 @@ package sounds
 import (
 	"context"
 	"fmt"
+	"github.com/google/uuid"
 )
 
 func (r Repository) LikeSoundByID(ctx context.Context, authorID, soundID string) error {
 	// todo транзакция
 	_, err := r.conn.Replace("likes", []interface{}{
+		uuid.NewString(),
 		authorID,
 		soundID,
 	})

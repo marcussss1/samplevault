@@ -33,18 +33,27 @@ box.schema.space.create('likes', {
 })
 
 box.space.likes:format({
+    {name = 'id', type = 'string'},
     {name = 'author_id', type = 'string'},
     {name = 'sound_id', type = 'string'},
 })
 
-box.space.likes:create_index('author_id', {
-    type = 'tree',
-    parts = {'author_id'},
+box.space.likes:create_index('primary', {
+    --type = 'tree',
+    parts = {'id'},
     if_not_exists = true
 })
 
+box.space.likes:create_index('author_id', {
+    --type = 'tree',
+    parts = {'author_id'},
+    if_not_exists = true,
+    unique = false
+})
+
 box.space.likes:create_index('sound_id', {
-    type = 'tree',
+    --type = 'tree',
     parts = {'sound_id'},
-    if_not_exists = true
+    if_not_exists = true,
+    unique = false
 })
