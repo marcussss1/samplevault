@@ -22,5 +22,6 @@ func newSample(userID, filename string) model.Sound {
 		Tempo:             "AI generated",
 		Style:             "AI generated",
 		IsGenerated:       true,
+		Likes:             0,
 	}
 }

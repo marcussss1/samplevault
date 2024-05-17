@@ -34,4 +34,5 @@ type Sound struct {
 	Tempo             string `json:"tempo"`
 	Style             string `json:"style"`
 	IsGenerated       bool   `json:"is_generated"`
+	Likes             int    `json:"likes"`
 }

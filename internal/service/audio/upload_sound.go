@@ -48,5 +48,6 @@ func newSample(userID, filename string, uploadSound model.UploadSound) model.Sou
 		Tempo:             uploadSound.Tempo,
 		Style:             "style",
 		IsGenerated:       false,
+		Likes:             0,
 	}
 }

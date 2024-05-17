@@ -19,6 +19,11 @@ func toSounds(resp *tarantool.Response) []model.Sound {
 				panic(err)
 			}
 
+			likes, err := strconv.ParseInt(fmt.Sprint(sound[14]), 10, 32)
+			if err != nil {
+				panic(err)
+			}
+
 			sounds = append(sounds, model.Sound{
 				ID:                fmt.Sprint(sound[0]),
 				AuthorID:          fmt.Sprint(sound[1]),
@@ -34,6 +39,7 @@ func toSounds(resp *tarantool.Response) []model.Sound {
 				Tempo:             fmt.Sprint(sound[11]),
 				Style:             fmt.Sprint(sound[12]),
 				IsGenerated:       isGenerated,
+				Likes:             int(likes),
 			})
 		}
 	}
