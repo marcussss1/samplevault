@@ -9,7 +9,7 @@ import (
 
 func (s Service) GenerateSoundByText(ctx context.Context, text, userID string) (model.Sound, error) {
 	// todo вынести в общую
-	audioFile, err := s.mlClient.GenerateSoundByText(ctx, text)
+	audioFile, err := s.mlClient.GenerateSoundByText(ctx, text, "8")
 	if err != nil {
 		return model.Sound{}, fmt.Errorf("genereate sound by text from ml client: %w", err)
 	}

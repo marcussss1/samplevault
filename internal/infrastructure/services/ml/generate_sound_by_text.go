@@ -11,7 +11,7 @@ import (
 	"os"
 )
 
-func (c Client) GenerateSoundByText(ctx context.Context, text string) (*os.File, error) {
+func (c Client) GenerateSoundByText(ctx context.Context, text, duration string) (*os.File, error) {
 	// todo вынести в общую
 	req, err := http.NewRequestWithContext(ctx, "GET", c.Host+"generate_by_text", nil)
 	if err != nil {
@@ -20,6 +20,7 @@ func (c Client) GenerateSoundByText(ctx context.Context, text string) (*os.File,
 
 	q := req.URL.Query()
 	q.Add("input_text", text)
+	q.Add("duration", duration)
 	req.URL.RawQuery = q.Encode()
 
 	client := &http.Client{
