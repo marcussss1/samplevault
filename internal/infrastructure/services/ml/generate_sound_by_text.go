@@ -9,6 +9,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"time"
 )
 
 func (c Client) GenerateSoundByText(ctx context.Context, text, duration string) (*os.File, error) {
@@ -29,6 +30,7 @@ func (c Client) GenerateSoundByText(ctx context.Context, text, duration string) 
 				InsecureSkipVerify: true,
 			},
 		},
+		Timeout: 10 * time.Minute,
 	}
 
 	resp1, err := client.Do(req)
