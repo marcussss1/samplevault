@@ -8,6 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "600s"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600s"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600s"
+    nginx.ingress.kubernetes.io/send-timeout: "600s"
 spec:
   rules:
     - host: backend-service

@@ -8,6 +8,7 @@ import (
 	httpmiddleware "github.com/marcussss1/simplevault/pkg/middleware"
 	"github.com/marcussss1/simplevault/pkg/router"
 	"strings"
+	"time"
 )
 
 type Server struct {
@@ -16,6 +17,11 @@ type Server struct {
 
 func NewServer(samplesControllerV1 *samplescontrollerv1.Controller, authService *authservice.Service) *Server {
 	e := echo.New()
+	e.Use(middleware.TimeoutWithConfig(middleware.TimeoutConfig{
+		Skipper:      middleware.DefaultSkipper,
+		ErrorMessage: "custom timeout error message returns to client",
+		Timeout:      600 * time.Second,
+	}))
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{
