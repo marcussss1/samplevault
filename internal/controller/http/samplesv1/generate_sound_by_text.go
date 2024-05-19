@@ -13,7 +13,8 @@ func (c Controller) GenerateSoundByText(ctx echo.Context) error {
 	fmt.Println("user_id: ", userID)
 
 	type requestStruct struct {
-		Text string `json:"text"`
+		Text     string `json:"text"`
+		Duration string `json:"duration"`
 	}
 	var req requestStruct
 	err := ctx.Bind(&req)
@@ -21,7 +22,7 @@ func (c Controller) GenerateSoundByText(ctx echo.Context) error {
 		return fmt.Errorf("error while binding body: %w", err)
 	}
 
-	sound, err := c.soundsService.GenerateSoundByText(ctx.Request().Context(), req.Text, userID)
+	sound, err := c.soundsService.GenerateSoundByText(ctx.Request().Context(), req.Text, req.Duration, userID)
 	if err != nil {
 		return fmt.Errorf("generate sound by text from sounds service: %w", err)
 	}

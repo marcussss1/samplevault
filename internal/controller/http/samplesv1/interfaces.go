@@ -14,7 +14,7 @@ type soundsService interface {
 	GetAllSounds(ctx context.Context) ([]model.Sound, error)
 	GetRandomSounds(ctx context.Context) ([]model.Sound, error)
 	GetLastGeneratedUserSounds(ctx context.Context, userID string) ([]model.Sound, error)
-	GenerateSoundByText(ctx context.Context, text string, userID string) (model.Sound, error)
+	GenerateSoundByText(ctx context.Context, text, duration, userID string) (model.Sound, error)
 	GenerateSoundByImageURL(ctx context.Context, imageURL string, userID string) (model.Sound, error)
 	GenerateSoundByAudioURL(ctx context.Context, audioURL string, userID string) (model.Sound, error)
 	DeleteSoundByID(ctx context.Context, soundID string) error
