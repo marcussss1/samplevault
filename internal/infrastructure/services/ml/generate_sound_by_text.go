@@ -14,7 +14,7 @@ import (
 
 func (c Client) GenerateSoundByText(ctx context.Context, text, duration string) (*os.File, error) {
 	// todo вынести в общую
-	req, err := http.NewRequestWithContext(ctx, "GET", c.Host+"generate_by_text", nil)
+	req, err := http.NewRequestWithContext(context.Background(), "GET", c.Host+"generate_by_text", nil)
 	if err != nil {
 		return nil, fmt.Errorf("create request 1: %w", err)
 	}
@@ -57,7 +57,7 @@ func (c Client) GenerateSoundByText(ctx context.Context, text, duration string) 
 		return nil, fmt.Errorf("decode response 1: %w", err)
 	}
 
-	req, err = http.NewRequestWithContext(ctx, "GET", mlResp.AudioURL, nil)
+	req, err = http.NewRequestWithContext(context.Background(), "GET", mlResp.AudioURL, nil)
 	if err != nil {
 		return nil, fmt.Errorf("create request 2: %w", err)
 	}
