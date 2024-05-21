@@ -19,7 +19,7 @@ type tarantoolRepository interface {
 }
 
 type mlClient interface {
-	GenerateSoundByText(ctx context.Context, text, duration string) (*os.File, error)
+	GenerateSoundByText(ctx context.Context, text, duration, userID string) (*os.File, error)
 	GenerateSoundByImageURL(ctx context.Context, imageURL string) (*os.File, error)
 	GenerateSoundByAudioURL(ctx context.Context, audioURL string) (*os.File, error)
 }

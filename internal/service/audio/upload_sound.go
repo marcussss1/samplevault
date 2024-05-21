@@ -33,7 +33,7 @@ func (s Service) UploadSound(ctx context.Context, file multipart.File, header *m
 }
 
 func newSample(userID, filename string, uploadSound model.UploadSound) model.Sound {
-	return model.Sound{
+	sound := model.Sound{
 		ID:                uuid.NewString(),
 		AuthorID:          userID,
 		AudioURL:          "https://samplevault.ru/sounds/" + filename,
@@ -50,4 +50,8 @@ func newSample(userID, filename string, uploadSound model.UploadSound) model.Sou
 		IsGenerated:       false,
 		Likes:             0,
 	}
+	if uploadSound.IsGenerated == "true" {
+		sound.IsGenerated = true
+	}
+	return sound
 }

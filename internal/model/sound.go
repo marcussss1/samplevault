@@ -1,12 +1,14 @@
 package model
 
 type UploadSound struct {
+	AuthorID          string `json:"author_id"`
 	Title             string `json:"title"`
 	MusicalInstrument string `json:"musical_instrument"`
 	Genre             string `json:"genre"`
 	Mood              string `json:"mood"`
 	Tonality          string `json:"tonality"`
 	Tempo             string `json:"tempo"`
+	IsGenerated       string `json:"is_generated"`
 }
 
 type EditSound struct {

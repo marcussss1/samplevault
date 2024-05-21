@@ -9,7 +9,10 @@ import (
 )
 
 func (c Controller) UploadSound(ctx echo.Context) error {
-	userID := fmt.Sprint(ctx.Get("user_id"))
+	userID := ctx.Request().FormValue("user_id")
+	if userID == "" {
+		userID = fmt.Sprint(ctx.Get("user_id"))
+	}
 
 	fmt.Println("user_id: ", userID)
 
@@ -25,12 +28,14 @@ func (c Controller) UploadSound(ctx echo.Context) error {
 	defer audioFile.Close()
 
 	sound, err := c.filesService.UploadSound(ctx.Request().Context(), audioFile, header, userID, model.UploadSound{
+		AuthorID:          userID,
 		Title:             ctx.Request().FormValue("title"),
 		MusicalInstrument: ctx.Request().FormValue("musical_instrument"),
 		Genre:             ctx.Request().FormValue("genre"),
 		Mood:              ctx.Request().FormValue("mood"),
 		Tonality:          ctx.Request().FormValue("tonality"),
 		Tempo:             ctx.Request().FormValue("tempo"),
+		IsGenerated:       ctx.Request().FormValue("is_generated"),
 	})
 	if err != nil {
 		return fmt.Errorf("upload sounds from files service: %w", err)
