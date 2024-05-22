@@ -21,11 +21,12 @@ func (c Controller) UploadSound(ctx echo.Context) error {
 		return fmt.Errorf("parse multipart form: %w", err)
 	}
 
-	audioFile, header, err := ctx.Request().FormFile("audio")
-	if err != nil {
-		return fmt.Errorf("form file: %w", err)
-	}
-	defer audioFile.Close()
+	audioFile, header, _ := ctx.Request().FormFile("audio")
+	//if header
+	//if err != nil {
+	//	return fmt.Errorf("form file: %w", err)
+	//}
+	//defer audioFile.Close()
 
 	sound, err := c.filesService.UploadSound(ctx.Request().Context(), audioFile, header, userID, model.UploadSound{
 		AuthorID:          userID,

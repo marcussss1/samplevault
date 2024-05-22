@@ -11,8 +11,14 @@ import (
 )
 
 func (s Service) UploadSound(ctx context.Context, file multipart.File, header *multipart.FileHeader, userID string, uploadSound model.UploadSound) (model.Sound, error) {
-	extension := filepath.Ext(header.Filename)
-	filename := uuid.NewString() + extension
+	var (
+		extension string
+		filename  string
+	)
+	if uploadSound.AudioURL == "" {
+		extension = filepath.Ext(header.Filename)
+		filename = uuid.NewString() + extension
+	}
 
 	fmt.Println()
 	fmt.Println(uploadSound)
