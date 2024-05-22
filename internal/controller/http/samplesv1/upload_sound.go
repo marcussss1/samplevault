@@ -9,12 +9,12 @@ import (
 )
 
 func (c Controller) UploadSound(ctx echo.Context) error {
-	userID := ctx.Request().FormValue("user_id")
-	if userID == "" {
-		userID = fmt.Sprint(ctx.Get("user_id"))
-	}
-
-	fmt.Println("user_id: ", userID)
+	//userID := ctx.Request().FormValue("user_id")
+	//if userID == "" {
+	//	userID = fmt.Sprint(ctx.Get("user_id"))
+	//}
+	//
+	//fmt.Println("user_id: ", userID)
 
 	//_ = ctx.Request().ParseMultipartForm(50 * 1024 * 1024)
 	////if err != nil {
@@ -28,17 +28,13 @@ func (c Controller) UploadSound(ctx echo.Context) error {
 	////}
 	////defer audioFile.Close()
 
-	sound, err := c.filesService.UploadSound(ctx.Request().Context(), nil, nil, userID, model.UploadSound{
-		AuthorID:          userID,
-		AudioURL:          ctx.Request().FormValue("audio_url"),
-		Title:             ctx.Request().FormValue("title"),
-		MusicalInstrument: ctx.Request().FormValue("musical_instrument"),
-		Genre:             ctx.Request().FormValue("genre"),
-		Mood:              ctx.Request().FormValue("mood"),
-		Tonality:          ctx.Request().FormValue("tonality"),
-		Tempo:             ctx.Request().FormValue("tempo"),
-		IsGenerated:       ctx.Request().FormValue("is_generated"),
-	})
+	var req model.UploadSound
+	err := ctx.Bind(&req)
+	if err != nil {
+		return fmt.Errorf("error while binding body: %w", err)
+	}
+
+	sound, err := c.filesService.UploadSound(ctx.Request().Context(), nil, nil, req.AuthorID, req)
 	if err != nil {
 		return fmt.Errorf("upload sounds from files service: %w", err)
 	}
