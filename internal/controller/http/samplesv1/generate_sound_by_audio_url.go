@@ -9,8 +9,10 @@ import (
 
 func (c Controller) GenerateSoundByAudioURL(ctx echo.Context) error {
 	userID := fmt.Sprint(ctx.Get("user_id"))
+	sessionID := fmt.Sprint(ctx.Get("session_id"))
 
 	fmt.Println("user_id: ", userID)
+	fmt.Println("session_id: ", userID)
 
 	//type requestStruct struct {
 	//	AudioURL string `json:"audio_url"`
@@ -32,7 +34,7 @@ func (c Controller) GenerateSoundByAudioURL(ctx echo.Context) error {
 	//	return fmt.Errorf("generate sound by audio url from sounds service: %w", err)
 	//}
 
-	sound, err := c.soundsService.GenerateSoundByText(ctx.Request().Context(), "generate a sad sequence of notes played on the piano, the mood is dark and sad", "8", userID)
+	sound, err := c.soundsService.GenerateSoundByText(ctx.Request().Context(), "generate a sad sequence of notes played on the piano, the mood is dark and sad", "8", userID, sessionID)
 	if err != nil {
 		return fmt.Errorf("generate sound by text from sounds service: %w", err)
 	}
