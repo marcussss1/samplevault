@@ -32,7 +32,7 @@ func NewServer(samplesControllerV1 *samplescontrollerv1.Controller, authService 
 			"http://192.168.49.1",
 			"http://192.168.49.1:3000",
 		},
-		AllowMethods:     []string{"GET", "POST"},
+		AllowMethods:     []string{"GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"},
 		AllowCredentials: true,
 	}))
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
