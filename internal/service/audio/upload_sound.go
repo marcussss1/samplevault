@@ -18,13 +18,15 @@ func (s Service) UploadSound(ctx context.Context, file multipart.File, header *m
 	fmt.Println(uploadSound)
 	fmt.Println()
 
-	err := s.minioRepository.UploadSound(ctx, file, filename, header.Size)
-	if err != nil {
-		return model.Sound{}, fmt.Errorf("upload sound from minio repository: %w", err)
+	if uploadSound.AudioURL == "" {
+		err := s.minioRepository.UploadSound(ctx, file, filename, header.Size)
+		if err != nil {
+			return model.Sound{}, fmt.Errorf("upload sound from minio repository: %w", err)
+		}
 	}
 
 	sample := newSample(userID, filename, uploadSound)
-	err = s.tarantoolRepository.StoreSound(ctx, sample)
+	err := s.tarantoolRepository.StoreSound(ctx, sample)
 	if err != nil {
 		return model.Sound{}, fmt.Errorf("store sound from tarantool repository: %w", err)
 	}
@@ -52,6 +54,9 @@ func newSample(userID, filename string, uploadSound model.UploadSound) model.Sou
 	}
 	if uploadSound.IsGenerated == "true" {
 		sound.IsGenerated = true
+	}
+	if uploadSound.AudioURL != "" {
+		sound.AudioURL = uploadSound.AudioURL
 	}
 	return sound
 }

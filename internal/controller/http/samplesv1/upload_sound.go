@@ -29,6 +29,7 @@ func (c Controller) UploadSound(ctx echo.Context) error {
 
 	sound, err := c.filesService.UploadSound(ctx.Request().Context(), audioFile, header, userID, model.UploadSound{
 		AuthorID:          userID,
+		AudioURL:          ctx.Request().FormValue("audio_url"),
 		Title:             ctx.Request().FormValue("title"),
 		MusicalInstrument: ctx.Request().FormValue("musical_instrument"),
 		Genre:             ctx.Request().FormValue("genre"),
