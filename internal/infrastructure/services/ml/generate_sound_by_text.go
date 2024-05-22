@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-func (c Client) GenerateSoundByText(ctx context.Context, text, duration, userID string) (*os.File, error) {
+func (c Client) GenerateSoundByText(ctx context.Context, text, duration, sessionID string) (*os.File, error) {
 	// todo вынести в общую
 	req, err := http.NewRequestWithContext(context.Background(), "GET", c.Host+"generate_by_text", nil)
 	if err != nil {
@@ -22,7 +22,7 @@ func (c Client) GenerateSoundByText(ctx context.Context, text, duration, userID 
 	q := req.URL.Query()
 	q.Add("input_text", text)
 	q.Add("duration", duration)
-	q.Add("user_id", userID)
+	q.Add("session_id", sessionID)
 	req.URL.RawQuery = q.Encode()
 
 	client := &http.Client{

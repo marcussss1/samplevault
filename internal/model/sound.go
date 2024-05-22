@@ -1,7 +1,6 @@
 package model
 
 type UploadSound struct {
-	AuthorID          string `json:"author_id"`
 	AudioURL          string `json:"audio_url"`
 	Title             string `json:"title"`
 	MusicalInstrument string `json:"musical_instrument"`

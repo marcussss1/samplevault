@@ -9,9 +9,9 @@ import (
 )
 
 func (c Controller) UploadSound(ctx echo.Context) error {
+	userID := fmt.Sprint(ctx.Get("user_id"))
 	//userID := ctx.Request().FormValue("user_id")
 	//if userID == "" {
-	//	userID = fmt.Sprint(ctx.Get("user_id"))
 	//}
 	//
 	//fmt.Println("user_id: ", userID)
@@ -34,7 +34,11 @@ func (c Controller) UploadSound(ctx echo.Context) error {
 		return fmt.Errorf("error while binding body: %w", err)
 	}
 
-	sound, err := c.filesService.UploadSound(ctx.Request().Context(), nil, nil, req.AuthorID, req)
+	fmt.Println()
+	fmt.Println(req)
+	fmt.Println()
+
+	sound, err := c.filesService.UploadSound(ctx.Request().Context(), nil, nil, userID, req)
 	if err != nil {
 		return fmt.Errorf("upload sounds from files service: %w", err)
 	}
