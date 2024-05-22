@@ -16,19 +16,19 @@ func (c Controller) UploadSound(ctx echo.Context) error {
 
 	fmt.Println("user_id: ", userID)
 
-	_ = ctx.Request().ParseMultipartForm(50 * 1024 * 1024)
-	//if err != nil {
-	//	return fmt.Errorf("parse multipart form: %w", err)
-	//}
+	//_ = ctx.Request().ParseMultipartForm(50 * 1024 * 1024)
+	////if err != nil {
+	////	return fmt.Errorf("parse multipart form: %w", err)
+	////}
+	//
+	//audioFile, header, _ := ctx.Request().FormFile("audio")
+	////if header
+	////if err != nil {
+	////	return fmt.Errorf("form file: %w", err)
+	////}
+	////defer audioFile.Close()
 
-	audioFile, header, _ := ctx.Request().FormFile("audio")
-	//if header
-	//if err != nil {
-	//	return fmt.Errorf("form file: %w", err)
-	//}
-	//defer audioFile.Close()
-
-	sound, err := c.filesService.UploadSound(ctx.Request().Context(), audioFile, header, userID, model.UploadSound{
+	sound, err := c.filesService.UploadSound(ctx.Request().Context(), nil, nil, userID, model.UploadSound{
 		AuthorID:          userID,
 		AudioURL:          ctx.Request().FormValue("audio_url"),
 		Title:             ctx.Request().FormValue("title"),
