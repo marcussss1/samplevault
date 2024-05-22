@@ -16,10 +16,10 @@ func (c Controller) UploadSound(ctx echo.Context) error {
 
 	fmt.Println("user_id: ", userID)
 
-	err := ctx.Request().ParseMultipartForm(50 * 1024 * 1024)
-	if err != nil {
-		return fmt.Errorf("parse multipart form: %w", err)
-	}
+	_ = ctx.Request().ParseMultipartForm(50 * 1024 * 1024)
+	//if err != nil {
+	//	return fmt.Errorf("parse multipart form: %w", err)
+	//}
 
 	audioFile, header, _ := ctx.Request().FormFile("audio")
 	//if header
