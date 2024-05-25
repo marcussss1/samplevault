@@ -13,7 +13,5 @@ func (c Controller) GetAllSounds(ctx echo.Context) error {
 		return fmt.Errorf("get all sounds from sounds service: %w", err)
 	}
 
-	fmt.Println("sounds: ", sounds)
-
 	return ctx.JSON(http.StatusOK, sounds)
 }

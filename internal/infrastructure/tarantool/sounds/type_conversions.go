@@ -13,7 +13,6 @@ func toSounds(resp *tarantool.Response) []model.Sound {
 	for _, tuples := range resp.Tuples() {
 		for _, tuple := range tuples {
 			sound := tuple.([]interface{})
-			fmt.Printf("1   \n\n %v \n\n   1", sound)
 
 			isGenerated, err := strconv.ParseBool(fmt.Sprint(sound[13]))
 			if err != nil {

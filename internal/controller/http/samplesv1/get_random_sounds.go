@@ -13,7 +13,5 @@ func (c Controller) GetRandomSounds(ctx echo.Context) error {
 		return fmt.Errorf("get random sounds from sounds service: %w", err)
 	}
 
-	fmt.Println("sounds: ", sounds)
-
 	return ctx.JSON(http.StatusOK, sounds)
 }

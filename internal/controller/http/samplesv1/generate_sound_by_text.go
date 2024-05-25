@@ -11,9 +11,6 @@ func (c Controller) GenerateSoundByText(ctx echo.Context) error {
 	userID := fmt.Sprint(ctx.Get("user_id"))
 	sessionID := fmt.Sprint(ctx.Get("session_id"))
 
-	fmt.Println("user_id: ", userID)
-	fmt.Println("session_id: ", userID)
-
 	type requestStruct struct {
 		Text     string `json:"text"`
 		Duration string `json:"duration"`

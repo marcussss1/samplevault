@@ -16,8 +16,6 @@ func (c Controller) Login(ctx echo.Context) error {
 		return fmt.Errorf("error while binding body: %w", err)
 	}
 
-	fmt.Printf("%+v\n", loginUserRequest)
-
 	loginUserResponse, err := c.authService.Login(ctx.Request().Context(), loginUserRequest)
 	if err != nil {
 		if errors.Is(err, model.ErrNotFound) {

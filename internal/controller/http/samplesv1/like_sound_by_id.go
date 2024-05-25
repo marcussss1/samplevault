@@ -11,9 +11,6 @@ func (c Controller) LikeSoundByID(ctx echo.Context) error {
 	userID := fmt.Sprint(ctx.Get("user_id"))
 	soundID := ctx.Param("id")
 
-	fmt.Println("user_id: ", userID)
-	fmt.Println("sound_id: ", soundID)
-
 	err := c.soundsService.LikeSoundByID(ctx.Request().Context(), userID, soundID)
 	if err != nil {
 		return fmt.Errorf("like sound by id from sounds service: %w", err)

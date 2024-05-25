@@ -12,7 +12,5 @@ func (c Controller) GetRandomPlaylists(ctx echo.Context) error {
 		return fmt.Errorf("get random playlists from playlists service: %w", err)
 	}
 
-	fmt.Println("playlists: ", playlists)
-
 	return ctx.JSON(http.StatusOK, playlists)
 }

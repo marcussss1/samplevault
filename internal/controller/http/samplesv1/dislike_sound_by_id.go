@@ -11,9 +11,6 @@ func (c Controller) DislikeSoundByID(ctx echo.Context) error {
 	userID := fmt.Sprint(ctx.Get("user_id"))
 	soundID := ctx.Param("id")
 
-	fmt.Println("user_id: ", userID)
-	fmt.Println("sound_id: ", soundID)
-
 	err := c.soundsService.DislikeSoundByID(ctx.Request().Context(), userID, soundID)
 	if err != nil {
 		return fmt.Errorf("dislike sound by id from sounds service: %w", err)

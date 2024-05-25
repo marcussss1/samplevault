@@ -16,8 +16,6 @@ func (c Controller) Signup(ctx echo.Context) error {
 		return fmt.Errorf("error while binding body: %w", err)
 	}
 
-	fmt.Printf("%+v\n", signupUserRequest)
-
 	signupUserResponse, err := c.authService.Signup(ctx.Request().Context(), signupUserRequest)
 	if err != nil {
 		if errors.Is(err, model.ErrAlreadyExist) {

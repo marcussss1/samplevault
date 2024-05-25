@@ -2,7 +2,6 @@ package samplesv1
 
 import (
 	"errors"
-	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/marcussss1/simplevault/internal/model"
 	"net/http"
@@ -22,8 +21,6 @@ func (c Controller) Auth(ctx echo.Context) error {
 
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-
-	fmt.Println(user)
 
 	return ctx.JSON(http.StatusOK, user)
 }

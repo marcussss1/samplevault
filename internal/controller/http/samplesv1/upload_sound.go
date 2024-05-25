@@ -34,16 +34,10 @@ func (c Controller) UploadSound(ctx echo.Context) error {
 		return fmt.Errorf("error while binding body: %w", err)
 	}
 
-	fmt.Println()
-	fmt.Println(req)
-	fmt.Println()
-
 	sound, err := c.filesService.UploadSound(ctx.Request().Context(), nil, nil, userID, req)
 	if err != nil {
 		return fmt.Errorf("upload sounds from files service: %w", err)
 	}
-
-	fmt.Println("sound: ", sound)
 
 	return ctx.JSON(http.StatusOK, sound)
 }
