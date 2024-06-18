@@ -60,7 +60,7 @@ func Run() error {
 		return fmt.Errorf("%w", err)
 	}
 
-	mlClient, err := ml.NewClient("https://a0ad-178-208-76-164.ngrok-free.app/")
+	mlClient, err := ml.NewClient("https://7703-178-208-76-164.ngrok-free.app/")
 	if err != nil {
 		return fmt.Errorf("%w", err)
 	}
